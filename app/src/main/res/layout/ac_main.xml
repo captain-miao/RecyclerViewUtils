@@ -1,0 +1,17 @@
+<com.dahuo.learn.swiperefreshandload.view.SwipeRefreshAndLoadLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:dividerHeight="1px"
+        android:overScrollFooter="@null" />
+
+</com.dahuo.learn.swiperefreshandload.view.SwipeRefreshAndLoadLayout>

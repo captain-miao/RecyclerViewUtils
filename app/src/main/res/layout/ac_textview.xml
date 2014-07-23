@@ -1,0 +1,19 @@
+<com.dahuo.learn.swiperefreshandload.view.SwipeRefreshAndLoadLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
+    </ScrollView>
+</com.dahuo.learn.swiperefreshandload.view.SwipeRefreshAndLoadLayout>

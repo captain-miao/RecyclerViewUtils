@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+
+def AAVersion = '3.0.1'
+
+apt {
+    arguments {
+        androidManifestFile variant.processResources.manifestFile
+//        resourcePackageName 'com.dahuo.android.demo'
+
+        // If you're using Android NBS flavors you should use the following line instead of hard-coded packageName
+        resourcePackageName android.defaultConfig.packageName
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
+
+configurations {
+    apt
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "com.dahuo.learn.swiperefreshandload"
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+
+    compile 'com.android.support:appcompat-v7:19.+'
+
+
+}
