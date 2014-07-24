@@ -24,7 +24,7 @@ import android.widget.AbsListView;
  */
 public class SwipeRefreshAndLoadLayout  extends ViewGroup {
     private static final String TAG = "SwipeRefreshAndLoadLayout";
-    private static final long RETURN_TO_ORIGINAL_POSITION_TIMEOUT = 100;
+    private static final long RETURN_TO_ORIGINAL_POSITION_TIMEOUT = 300;
     private static final float ACCELERATE_INTERPOLATION_FACTOR = 1.5f;
     private static final float DECELERATE_INTERPOLATION_FACTOR = 2f;
     private static final float PROGRESS_BAR_HEIGHT = 4;
