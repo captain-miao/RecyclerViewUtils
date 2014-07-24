@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -343,23 +342,21 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
 
 
     /**
-         * 检查是否可以上拉,对于版本14以下的暂不支持
-         * @return
-         */
-        public boolean canChildScrollDown() {
+     * @return Whether it is possible for the child view of this layout to
+     * scroll down. Override this if the child view is a custom view.
+     */
+    public boolean canChildScrollDown() {
             if (android.os.Build.VERSION.SDK_INT < 14) {
-                if (mTarget instanceof AbsListView) {
-                    final AbsListView absListView = (AbsListView) mTarget;
-                    Log.d(TAG, absListView.getFirstVisiblePosition() + "  :   "
-                            + absListView.getChildAt(absListView.getChildCount() - 1).getBottom()
-                            + "  :   " + absListView.getPaddingBottom());
-                    return absListView.getChildCount() > 0
-                            && (absListView.getLastVisiblePosition() == absListView.getAdapter().getCount() - 1
-                            || absListView.getChildAt(absListView.getLastVisiblePosition() - 1)
-                                    .getBottom() < absListView.getPaddingBottom());
-                } else {
-                    return mTarget.getScrollY() < 0;
-                }
+                return true;//don't support < 14
+//                if (mTarget instanceof AbsListView) {
+//                    final AbsListView absListView = (AbsListView) mTarget;
+//                    return absListView.getChildCount() > 0
+//                            && (absListView.getLastVisiblePosition() == absListView.getAdapter().getCount() - 1
+//                            || absListView.getChildAt(absListView.getLastVisiblePosition() - 1)
+//                                    .getBottom() < absListView.getPaddingBottom());
+//                } else {
+//                    return mTarget.getScrollY() < 0;
+//                }
             } else {
                 return ViewCompat.canScrollVertically(mTarget, 1);
             }
@@ -406,9 +403,6 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
                     } else {
                         yDiff = 0;
                     }
-//                    else {
-//                        yDiff = -eventY + mDownEvent.getY();
-//                    }
 
                     if (yDiff > mTouchSlop) {
                         // User velocity passed min velocity; trigger a refresh
@@ -440,7 +434,7 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
                                 // cancelling the gesture as the user can restart from the top.
                                 removeCallbacks(mCancel);
                             } else {
-                                updatePositionTimeout();
+                               updatePositionTimeout();
                             }
                             mPrevY = event.getY();
 //                            handled = false;
