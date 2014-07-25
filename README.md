@@ -1,5 +1,10 @@
 SwipeRefreshAndLoadMore for API > 14(Android 4.0)
 
+usage(Chinese):http://nobugs.sinaapp.com/?p=1286
+
+QQ  Group:124884323
+
+
 ## License
 
     Copyright 2014, 2015 captain_miao
