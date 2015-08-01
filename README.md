@@ -1,4 +1,4 @@
-SwipeRefreshAndLoadMore for API > 14(Android 4.0)
+DEPRECATED SwipeRefreshAndLoadMore for API > 14(Android 4.0)
 
 usage(Chinese):http://nobugs.sinaapp.com/?p=1286
 
