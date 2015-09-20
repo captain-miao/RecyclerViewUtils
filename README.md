@@ -1,10 +1,10 @@
 DEPRECATED SwipeRefreshAndLoadMore for API > 14(Android 4.0)
 
-usage(Chinese):http://nobugs.sinaapp.com/?p=1286
+usage(Chinese):https://yanlu.me/recyclerview_pull_up_load_more/
 
-QQ  Group:124884323
+QQ  Group:436275452
 
-
+![load_more_screenshot](/screenshot/load_more_screenshot.jpg?raw=true "load_more_screenshot")
 ## License
 
     Copyright 2014, 2015 captain_miao
