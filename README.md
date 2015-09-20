@@ -1,4 +1,4 @@
-DEPRECATED SwipeRefreshAndLoadMore for API > 14(Android 4.0)
+SwipeRefreshAndLoadMore of (Android 5.0)
 
 usage(Chinese):https://yanlu.me/recyclerview_pull_up_load_more/
 
