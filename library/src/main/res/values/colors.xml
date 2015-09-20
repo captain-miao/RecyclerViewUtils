@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="colorPrimaryDark">#012B55</color>
+    <color name="colorPrimary">#032F5C</color>
+    <color name="colorPrimaryLight">#C4C9E8</color>
+    <color name="colorAccent">#02A8F3</color>
+
+    <color name="progress_bar_color">#ff2942</color>
+    <color name="progress_bar_background_light">#FFFAFAFA</color>
+
+    <color name="primary_green">#8BC34A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="background_card">#2a434a</color>
+</resources>

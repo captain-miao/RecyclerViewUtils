@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SwipeRefreshAndLoadMore</string>
+
+
+    <string name="app_loading">loading…</string>
+    <string name="app_loading_more">load more…</string>
+    <string name="app_no_more_data">no more data…</string>
+</resources>

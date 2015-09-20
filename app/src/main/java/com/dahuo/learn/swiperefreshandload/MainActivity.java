@@ -1,64 +1,90 @@
 package com.dahuo.learn.swiperefreshandload;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import com.dahuo.learn.swiperefreshandload.view.SwipeRefreshAndLoadLayout;
+import com.dahuo.learn.swiperefreshandload.adapter.SimpleAdapter;
+import com.dahuo.library.swiperefreshandloadmore.refreshView.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends Activity implements SwipeRefreshAndLoadLayout.OnRefreshListener {
+public class MainActivity extends Activity {
 
-    protected ListView mListView;
-    private ArrayAdapter<String> mListAdapter;
-    SwipeRefreshAndLoadLayout mSwipeLayout;
+    private SimpleAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
 
-        mListView = (ListView) findViewById(R.id.list);
-        mListAdapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1, values);
-		mListView.setAdapter(mListAdapter);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+        mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mAdapter = new SimpleAdapter(values);
+        mAdapter.setHasMoreData(false);
+        mAdapter.setHasFooter(false);
+        mRecyclerView.setAdapter(mAdapter);
 
 
-        mSwipeLayout = (SwipeRefreshAndLoadLayout) findViewById(R.id.swipe_container);
-        mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
-                                    android.R.color.holo_green_light,
-                                    android.R.color.holo_orange_light,
-                                    android.R.color.holo_red_light);
-        mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.BOTH);
+        //设置加载圈圈的颜色
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.line_color_run_speed_13);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                //
+                mSwipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.notifyItemRangeInserted(0, 5);
+                    }
+                }, 1000);//1秒
+            }
+        });
+
+
+        mAdapter.setHasMoreData(true);
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                mAdapter.setHasFooter(true);
+                mSwipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        int position = mAdapter.getItemCount();
+                        if (mAdapter.getItemCount() > 50) {
+                            mAdapter.setHasMoreDataAndFooter(false, true);
+                        } else {
+                            mAdapter.append("" +  mAdapter.getItemCount());
+                            mAdapter.append("" +  mAdapter.getItemCount());
+                            mAdapter.append("" +  mAdapter.getItemCount());
+                            mAdapter.append("" +  mAdapter.getItemCount());
+                            mAdapter.append("" +  mAdapter.getItemCount());
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
+                        //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
+                        mRecyclerView.scrollToPosition(position);
+                    }
+                }, 2000);//2秒
+            }
+        });
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, TextActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     ArrayList<String> values = new ArrayList<String>() {{
@@ -66,48 +92,7 @@ public class MainActivity extends Activity implements SwipeRefreshAndLoadLayout.
         add("iPhone");
         add("WindowsMobile");
         add("Blackberry");
-//        add("WebOS");
-//        add("Ubuntu");
-//        add("Windows7");
-//        add("Max OS X");
-//        add("Linux");
-//        add("OS/2");
-//        add("Ubuntu");
-//        add("Windows7");
-//        add("Max OS X");
-//        add("Linux");
-//        add("OS/2");
-//        add("Ubuntu");
-//        add("Windows7");
-//        add("Max OS X");
-//        add("Linux");
-//        add("OS/2");
-//        add("Android");
-//        add("iPhone");
-//        add("WindowsMobile");
     }};
 
-    @Override
-    public void onRefresh() {
-        values.add(0, "Add " + values.size());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeLayout.setRefreshing(false);
-                mListAdapter.notifyDataSetChanged();
-            }
-        }, 1000);
-    }
 
-    @Override
-    public void onLoadMore() {
-        values.add("Add " + values.size());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeLayout.setRefreshing(false);
-                mListAdapter.notifyDataSetChanged();
-            }
-        }, 1000);
-    }
 }

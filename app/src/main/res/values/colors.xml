@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    Just set custom primary and accent color.
+    Looks best with a light theme. see the AndroidManifest
+
+    android:theme="@style/MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus"
+    -->
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#512DA8</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryLight">#C4C9E8</color>
+    <!-- overwrite the selected colors because the primary color is to dark -->
+    <color name="material_drawer_selected_text">#536EEA</color>
+    <color name="material_drawer_dark_selected_text">#536EEA</color>
+
+
+    <color name="window_background">#FFF5F5F5</color>
+    <color name="progress_background_light">#FFFAFAFA</color>
+
+    <color name="page_view_gap_bg">#ff7e7e7e</color>
+
+    <color name="google_light_green">#FF99cc00</color>
+    <color name="google_dark_green">#FF669900</color>
+    <color name="google_white_background">#fff3f3f3</color>
+
+
+    <color name="line_color_run_slow_speed">#66fd3c</color>
+    <color name="line_color_stride">#FD8838</color>
+    <color name="line_color_sport">#FD733E</color>
+    <color name="line_color_run">#FD5546</color>
+    <color name="line_color_run_high_speed">#FD5546</color>
+
+
+    <color name="gps_text_blue_press">#177bae</color>
+
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="grey">#a3afb3</color>
+    <color name="red">#ff4343</color>
+    <color name="green">#ff4ed17e</color>
+    <color name="blue">#3259ff</color>
+
+    <color name="line_color_run_speed_1">#8acb04</color>
+    <color name="line_color_run_speed_3">#4aa657</color>
+    <color name="line_color_run_speed_5">#f3fa07</color>
+    <color name="line_color_run_speed_7">#ffbf05</color>
+    <color name="line_color_run_speed_9">#ff944b</color>
+    <color name="line_color_run_speed_11">#ff6d58</color>
+    <color name="line_color_run_speed_13">#ff2942</color>
+    <color name="line_color_run_speed_15">#e10c05</color>
+    <color name="line_color_run_speed_17">#a5110a</color>
+    <color name="line_color_run_speed_19">#6d0409</color>
+
+
+
+    <color name="light_grey">#cccccc</color>
+</resources>
