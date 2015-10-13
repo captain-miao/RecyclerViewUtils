@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
-        <com.dahuo.library.swiperefreshandloadmore.refreshView.MaterialProgressBarSupport
+        <com.dahuo.library.swiperefresh.MaterialProgressBarSupport
             android:id="@+id/progress_view"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:progressColor="@color/progress_bar_color"
             app:progressBackgroundColor="@color/progress_bar_background_light"
             app:progressSmallSize="true" />

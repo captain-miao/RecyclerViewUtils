@@ -3,6 +3,6 @@
 
     <string name="app_name">SwipeRefreshAndLoad</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_other">TextView</string>
+    <string name="label_action_label_grid_view">GridView</string>
 
 </resources>

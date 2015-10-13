@@ -1,4 +1,4 @@
-package com.dahuo.library.swiperefreshandloadmore.refreshView;
+package com.dahuo.library.swiperefresh;
 
 /*
  * Copyright (C) 2015 Jorge Castillo Pérez

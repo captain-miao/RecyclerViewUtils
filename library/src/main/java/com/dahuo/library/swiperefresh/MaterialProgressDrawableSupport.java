@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dahuo.library.swiperefreshandloadmore.refreshView;
+package com.dahuo.library.swiperefresh;
 
 import android.content.Context;
 import android.content.res.Resources;

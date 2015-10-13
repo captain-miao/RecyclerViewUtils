@@ -1,4 +1,4 @@
-package com.dahuo.library.swiperefreshandloadmore.refreshView;
+package com.dahuo.library.swiperefresh;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dahuo.library.swiperefreshandloadmore.R;
 
 
 /**

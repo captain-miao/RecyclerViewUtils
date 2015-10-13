@@ -1,6 +1,5 @@
 package com.dahuo.learn.swiperefreshandload.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dahuo.learn.swiperefreshandload.R;
-import com.dahuo.library.swiperefreshandloadmore.refreshView.BaseLoadMoreRecyclerAdapter;
+import com.dahuo.library.swiperefresh.BaseLoadMoreRecyclerAdapter;
 
 import java.util.List;
 
