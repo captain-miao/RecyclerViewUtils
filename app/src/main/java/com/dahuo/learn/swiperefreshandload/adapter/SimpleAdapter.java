@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dahuo.learn.swiperefreshandload.R;
-import com.dahuo.library.swiperefresh.BaseLoadMoreRecyclerAdapter;
+import com.dahuo.library.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
 
 import java.util.List;
 

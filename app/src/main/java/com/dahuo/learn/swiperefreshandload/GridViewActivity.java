@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.dahuo.learn.swiperefreshandload.adapter.SimpleAdapter;
-import com.dahuo.library.swiperefresh.BaseLoadMoreRecyclerAdapter;
-import com.dahuo.library.swiperefresh.EndlessRecyclerOnScrollListener;
+import com.dahuo.library.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
+import com.dahuo.library.recyclerviewutils.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 

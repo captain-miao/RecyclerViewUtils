@@ -1,4 +1,4 @@
-package com.dahuo.library.swiperefresh;
+package com.dahuo.library.recyclerviewutils;
 
 /*
  * Copyright (C) 2015 Jorge Castillo Pérez

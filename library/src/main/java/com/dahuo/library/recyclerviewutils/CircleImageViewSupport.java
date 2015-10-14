@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dahuo.library.swiperefresh;
+package com.dahuo.library.recyclerviewutils;
 
 import android.content.Context;
 import android.graphics.Canvas;

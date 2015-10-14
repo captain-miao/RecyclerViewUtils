@@ -1,4 +1,4 @@
-package com.dahuo.library.swiperefresh;
+package com.dahuo.library.recyclerviewutils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

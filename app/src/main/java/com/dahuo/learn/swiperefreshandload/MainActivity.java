@@ -11,7 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.dahuo.learn.swiperefreshandload.adapter.SimpleAdapter;
-import com.dahuo.library.swiperefresh.EndlessRecyclerOnScrollListener;
+import com.dahuo.library.recyclerviewutils.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 

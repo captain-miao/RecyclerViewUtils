@@ -1,4 +1,4 @@
-package com.dahuo.library.swiperefresh;
+package com.dahuo.library.recyclerviewutils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
