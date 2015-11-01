@@ -1,4 +1,4 @@
-package com.dahuo.library.recyclerviewutils;
+package com.github.captain_miao.recyclerviewutils;
 
 /*
  * Copyright (C) 2015 Jorge Castillo Pérez

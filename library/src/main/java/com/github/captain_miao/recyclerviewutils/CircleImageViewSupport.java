@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dahuo.library.recyclerviewutils;
+package com.github.captain_miao.recyclerviewutils;
 
 import android.content.Context;
 import android.graphics.Canvas;

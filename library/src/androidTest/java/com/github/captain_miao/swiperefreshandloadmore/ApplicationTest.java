@@ -1,4 +1,4 @@
-package com.dahuo.library.swiperefreshandloadmore;
+package com.github.captain_miao.swiperefreshandloadmore;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.dahuo.learn.swiperefreshandload;
+package com.github.learn.swiperefreshandload;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
-        <com.dahuo.library.recyclerviewutils.MaterialProgressBarSupport
+        <com.github.captain_miao.recyclerviewutils.MaterialProgressBarSupport
             android:id="@+id/progress_view"
             android:layout_width="40dp"
             android:layout_height="40dp"

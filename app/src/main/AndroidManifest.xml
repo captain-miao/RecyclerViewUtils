@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dahuo.learn.swiperefreshandload" >
+    package="com.github.learn.swiperefreshandload" >
 
     <application
         android:allowBackup="false"
@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.github.learn.swiperefreshandload.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GridViewActivity"
+            android:name="com.github.learn.swiperefreshandload.GridViewActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>

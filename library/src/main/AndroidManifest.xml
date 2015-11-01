@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dahuo.library.recyclerviewutils">
+    package="com.github.captain_miao.recyclerviewutils">
 
     <application>
 

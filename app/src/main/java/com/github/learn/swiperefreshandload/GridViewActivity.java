@@ -1,4 +1,4 @@
-package com.dahuo.learn.swiperefreshandload;
+package com.github.learn.swiperefreshandload;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,9 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import com.dahuo.learn.swiperefreshandload.adapter.SimpleAdapter;
-import com.dahuo.library.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
-import com.dahuo.library.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.learn.swiperefreshandload.adapter.SimpleAdapter;
+import com.github.captain_miao.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
+import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 
