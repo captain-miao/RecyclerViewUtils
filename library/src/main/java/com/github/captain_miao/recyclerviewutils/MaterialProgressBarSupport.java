@@ -67,9 +67,14 @@ public class MaterialProgressBarSupport extends ViewGroup {
         mCircleView.layout(l, t, r, b);
     }
 
-
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension((getMeasuredWidth() - 16), (getMeasuredHeight()  - 16));
+    }
 
     public void startProgress(){
+        mProgress.stop();
         mCircleView.setVisibility(View.VISIBLE);
         mProgress.setAlpha(MAX_ALPHA);
         mProgress.start();

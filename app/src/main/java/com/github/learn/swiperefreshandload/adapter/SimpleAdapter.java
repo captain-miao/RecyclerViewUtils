@@ -70,4 +70,16 @@ public class SimpleAdapter extends BaseLoadMoreRecyclerAdapter<String, SimpleAda
             return super.toString() + " '" + mTvContent.getText();
         }
     }
+
+
+    //自定义
+    public int getFooterLayoutResource() {
+        return R.layout.list_load_more;
+    }
+//    public int getFooterLoadingShowStringResource() {
+//        return com.github.captain_miao.recyclerviewutils.R.string.app_loading_more;//loading_more
+//    }
+//    public int getFooterNoMoreDataShowStringResource() {
+//        return com.github.captain_miao.recyclerviewutils.R.string.app_no_more_data;//loading_more
+//    }
 }

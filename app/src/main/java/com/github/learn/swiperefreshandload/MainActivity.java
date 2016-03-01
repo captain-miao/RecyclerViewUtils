@@ -53,7 +53,12 @@ public class MainActivity extends AppCompatActivity {
                         mAdapter.appendToTop(mAdapter.getItemCount() + "");
                         mAdapter.appendToTop(mAdapter.getItemCount() + "");
                         mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.notifyItemRangeInserted(0, 5);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.notifyItemRangeInserted(0, 10);
                     }
                 }, 1000);//1秒
             }

@@ -74,7 +74,12 @@ public class GridViewActivity extends AppCompatActivity {
                         mAdapter.appendToTop(mAdapter.getItemCount() + "");
                         mAdapter.appendToTop(mAdapter.getItemCount() + "");
                         mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.notifyItemRangeInserted(0, 5);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.notifyItemRangeInserted(0, 10);
                     }
                 }, 1000);//1秒
             }
@@ -90,7 +95,7 @@ public class GridViewActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         int position = mAdapter.getItemCount();
-                        if (mAdapter.getItemCount() > 50) {
+                        if (mAdapter.getItemCount() > 500) {
                             mAdapter.setHasMoreDataAndFooter(false, true);
                         } else {
                             mAdapter.setHasFooter(false);

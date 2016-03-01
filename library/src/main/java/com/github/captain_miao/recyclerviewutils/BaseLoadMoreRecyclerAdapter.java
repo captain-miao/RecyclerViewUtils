@@ -170,7 +170,7 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
     public void setHasFooter(boolean hasFooter) {
         if (this.hasFooter != hasFooter) {
             this.hasFooter = hasFooter;
-            notifyDataSetChanged();
+            //notifyDataSetChanged();
         }
     }
 
@@ -182,7 +182,7 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
     public void setHasMoreData(boolean isMoreData) {
         if (this.hasMoreData != isMoreData) {
             this.hasMoreData = isMoreData;
-            notifyDataSetChanged();
+            //notifyDataSetChanged();
         }
     }
 
@@ -190,7 +190,7 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
         if (this.hasMoreData != hasMoreData || this.hasFooter != hasFooter) {
             this.hasMoreData = hasMoreData;
             this.hasFooter = hasFooter;
-            notifyDataSetChanged();
+            //notifyDataSetChanged();
         }
     }
 
