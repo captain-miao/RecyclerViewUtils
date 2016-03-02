@@ -73,6 +73,10 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         }
     }
 
+    public boolean checkCanBePulledDown() {
+        int firstPos = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+        return firstPos == 0;
+    }
     public int getVisibleThreshold() {
         return visibleThreshold;
     }

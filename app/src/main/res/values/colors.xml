@@ -40,6 +40,7 @@
     <color name="red">#ff4343</color>
     <color name="green">#ff4ed17e</color>
     <color name="blue">#3259ff</color>
+    <color name="yellow">#FFF7D23E</color>
 
     <color name="line_color_run_speed_1">#8acb04</color>
     <color name="line_color_run_speed_3">#4aa657</color>
@@ -55,4 +56,12 @@
 
 
     <color name="light_grey">#cccccc</color>
+
+
+    <integer-array name="google_colors">
+        <item>@color/red</item>
+        <!--<item>@color/blue</item>-->
+        <!--<item>@color/yellow</item>-->
+        <!--<item>@color/green</item>-->
+    </integer-array>
 </resources>

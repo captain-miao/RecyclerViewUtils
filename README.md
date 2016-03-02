@@ -5,6 +5,12 @@ usage(Chinese):https://yanlu.me/recyclerview_pull_up_load_more/
 QQ  Group:436275452
 
 ![load_more_screenshot](/screenshot/load_more_screenshot.jpg?raw=true "load_more_screenshot")
+
+## import Pull to Refresh
+Ultra Pull to Refresh for Android:https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh.
+
+## auto-load-more for RecyclerView
+
 ## License
 
     Copyright 2014, 2015 captain_miao
