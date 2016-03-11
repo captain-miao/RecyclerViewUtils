@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private EndlessRecyclerOnScrollListener mLoadMoreListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +35,52 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new SimpleAdapter(values);
+        mAdapter = new SimpleAdapter(new ArrayList<String>());
+        initMockData();
         mAdapter.setHasMoreData(false);
         mAdapter.setHasFooter(false);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setHasMoreData(true);
+
+
+        mLoadMoreListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+
+            @Override
+            public void onLoadMore(final int pagination, int pageSize) {
+                mRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setHasFooter(true);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+
+
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        int position = mAdapter.getItemCount();
+                        if (mAdapter.getItemCount() > 50) {
+                            mAdapter.setHasMoreDataAndFooter(false, true);
+                        } else {
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
+                        //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
+                        //mRecyclerView.scrollToPosition(position);
+                        loadComplete();
+
+                    }
+                }, 1500);
+            }
+        };
+
 
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) findViewById(R.id.material_style_ptr_frame);
         // header
@@ -58,65 +100,27 @@ public class MainActivity extends AppCompatActivity {
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return linearLayoutManager.findFirstCompletelyVisibleItemPosition() <= 0;
+                return mLoadMoreListener.checkCanBePulledDown();
             }
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                mLoadMoreListener.setPagination(1);//恢复第一页
                 ptrFrameLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         ptrFrameLayout.refreshComplete();
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.notifyItemRangeInserted(0, 6);
+                        mAdapter.clear();
+                        initMockData();
+                        mAdapter.notifyDataSetChanged();
                         mRecyclerView.scrollToPosition(0);
+                        mAdapter.setHasMoreData(true);
                     }
                 }, 500);
             }
         });
 
-
-
-        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                mRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.setHasFooter(true);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-
-
-                mRecyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        int position = mAdapter.getItemCount();
-                        if (mAdapter.getItemCount() > 50) {
-                            mAdapter.setHasMoreDataAndFooter(false, true);
-                        } else {
-                            mAdapter.append("" + mAdapter.getItemCount());
-                            mAdapter.append("" + mAdapter.getItemCount());
-                            mAdapter.append("" + mAdapter.getItemCount());
-                            mAdapter.append("" + mAdapter.getItemCount());
-                            mAdapter.append("" + mAdapter.getItemCount());
-                        }
-                        mAdapter.notifyDataSetChanged();
-                        //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
-                        //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
-                        mRecyclerView.scrollToPosition(position);
-
-                    }
-                }, 1500);
-            }
-        });
+        mRecyclerView.addOnScrollListener(mLoadMoreListener);
     }
 
     @Override
@@ -140,12 +144,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    ArrayList<String> values = new ArrayList<String>() {{
-        add("Android");
-        add("iPhone");
-        add("WindowsMobile");
-        add("Blackberry");
-    }};
+    private void initMockData(){
+        for (int i = 0; i < 15; i++) {
+            mAdapter.appendToTop("1 page -> " + mAdapter.getItemCount() + "");
+        }
+    }
 
 
 }

@@ -30,17 +30,23 @@ import android.support.v7.widget.RecyclerView;
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
     public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
 
-    private int previousTotal = 0; // The total number of items in the dataset after the last load
     private boolean loading = false;
     //list到达 最后一个item的时候 触发加载
     private int visibleThreshold = 1;
     // The minimum amount of items to have below your current scroll position before loading more.
     int firstVisibleItem, visibleItemCount, totalItemCount;
-    //默认第一页
-    private int current_page = 1;
 
     private LinearLayoutManager mLinearLayoutManager;
 
+
+    //分页加载
+    private int pageSize = 15;  //查询数量
+    private int pagination = 1; //查询页码
+    public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager, int pagination, int pageSize) {
+        this.mLinearLayoutManager = linearLayoutManager;
+        this.pagination = pagination;
+        this.pageSize = pageSize;
+    }
     public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
         this.mLinearLayoutManager = linearLayoutManager;
     }
@@ -48,50 +54,52 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
+        if(!isLoading()) {
+            visibleItemCount = recyclerView.getChildCount();
+            totalItemCount = mLinearLayoutManager.getItemCount();
+            firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
-        visibleItemCount = recyclerView.getChildCount();
-        totalItemCount = mLinearLayoutManager.getItemCount();
-        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-
-        //判断加载完成了...
-        if (loading) {
-            if (totalItemCount > previousTotal) {
-                loading = false;
-                previousTotal = totalItemCount;
+            //totalItemCount > visibleItemCount 超过一个页面才有加载更多
+            if (!loading && totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                // End has been reached
+                loading = true;
+                pagination++;
+                onLoadMore(pagination, pageSize);
             }
-        }
-        //totalItemCount > visibleItemCount 超过一个页面才有加载更多
-        if (!loading && totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-            // End has been reached
-
-            // Do something
-            current_page++;
-
-            onLoadMore(current_page);
-
-            loading = true;
         }
     }
 
     public boolean checkCanBePulledDown() {
         int firstPos = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        return firstPos == 0;
-    }
-    public int getVisibleThreshold() {
-        return visibleThreshold;
+        return firstPos <= 0;
     }
 
-    public void setVisibleThreshold(int visibleThreshold) {
-        this.visibleThreshold = visibleThreshold;
+
+    public void loadComplete() {
+        loading = false;
     }
 
-    public int getCurrent_page() {
-        return current_page;
+    public synchronized boolean isLoading() {
+        return loading;
     }
 
-    public void setCurrent_page(int current_page) {
-        this.current_page = current_page;
+    public int getPagination() {
+        return pagination;
     }
 
-    public abstract void onLoadMore(int current_page);
+    public void setPagination(int pagination) {
+        this.pagination = pagination;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public abstract void onLoadMore(int pagination, int pageSize);
+
+
 }

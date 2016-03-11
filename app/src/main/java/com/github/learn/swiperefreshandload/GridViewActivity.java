@@ -23,6 +23,7 @@ public class GridViewActivity extends AppCompatActivity {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private EndlessRecyclerOnScrollListener mLoadMoreListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,7 @@ public class GridViewActivity extends AppCompatActivity {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                mLoadMoreListener.setPagination(1);//恢复第一页
                 ptrFrameLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -107,9 +109,10 @@ public class GridViewActivity extends AppCompatActivity {
 
 
         mAdapter.setHasMoreData(true);
-        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+        mLoadMoreListener = new EndlessRecyclerOnScrollListener(layoutManager) {
+
             @Override
-            public void onLoadMore(int current_page) {
+            public void onLoadMore(final int pagination, int pageSize) {
                 mRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -117,30 +120,33 @@ public class GridViewActivity extends AppCompatActivity {
                         mAdapter.notifyDataSetChanged();
                     }
                 });
+
+
                 mRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         int position = mAdapter.getItemCount();
-                        if (mAdapter.getItemCount() > 500) {
+                        if (mAdapter.getItemCount() > 50) {
                             mAdapter.setHasMoreDataAndFooter(false, true);
                         } else {
-                            mAdapter.setHasFooter(false);
-                            //mAdapter.remove(mAdapter.getItemCount() - 1);
-                            mAdapter.notifyItemChanged(mAdapter.getItemCount() - 1);
-                            mAdapter.append("" +  mAdapter.getItemCount());
-                            mAdapter.append("" +  mAdapter.getItemCount());
-                            mAdapter.append("" +  mAdapter.getItemCount());
-                            mAdapter.append("" +  mAdapter.getItemCount());
-                            mAdapter.append("" +  mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
                         }
                         mAdapter.notifyDataSetChanged();
                         //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
                         //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
                         mRecyclerView.scrollToPosition(position);
+                        loadComplete();
+
                     }
-                }, 2000);//2秒
+                }, 1500);
             }
-        });
+        };
+        mRecyclerView.addOnScrollListener(mLoadMoreListener);
     }
 
 
