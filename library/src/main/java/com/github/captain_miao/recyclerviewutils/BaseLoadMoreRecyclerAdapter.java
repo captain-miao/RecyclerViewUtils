@@ -92,7 +92,7 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
 
-        if (position == getBasicItemCount() && hasFooter) {
+        if (hasFooter && position == getBasicItemCount()) {
             return TYPE_FOOTER;
         }
         return TYPE_ITEM;//0
@@ -170,7 +170,6 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
     public void setHasFooter(boolean hasFooter) {
         if (this.hasFooter != hasFooter) {
             this.hasFooter = hasFooter;
-            //notifyDataSetChanged();
         }
     }
 
@@ -182,7 +181,6 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
     public void setHasMoreData(boolean isMoreData) {
         if (this.hasMoreData != isMoreData) {
             this.hasMoreData = isMoreData;
-            //notifyDataSetChanged();
         }
     }
 
@@ -190,7 +188,33 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
         if (this.hasMoreData != hasMoreData || this.hasFooter != hasFooter) {
             this.hasMoreData = hasMoreData;
             this.hasFooter = hasFooter;
-            //notifyDataSetChanged();
+        }
+    }
+
+    public void showLoadMoreView(){
+        this.hasMoreData = true;
+        if(hasFooter) {
+            notifyItemChanged(getItemCount());
+        } else {
+            this.hasFooter = true;
+            notifyItemInserted(getBasicItemCount());
+        }
+    }
+
+    public void showNoMoreDataView(){
+        this.hasMoreData = false;
+        if(hasFooter) {
+            notifyItemChanged(getItemCount());
+        } else {
+            this.hasFooter = true;
+            notifyItemInserted(getBasicItemCount());
+        }
+    }
+
+    public void hideFooterView(){
+        if(hasFooter) {
+            this.hasFooter = false;
+            notifyItemRemoved(getItemCount());
         }
     }
 

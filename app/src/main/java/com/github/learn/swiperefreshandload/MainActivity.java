@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private EndlessRecyclerOnScrollListener mLoadMoreListener;
+    private final int MAX_ITEM_COUNT = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 mRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setHasFooter(true);
-                        mAdapter.notifyDataSetChanged();
+                        if (mAdapter.getItemCount() < MAX_ITEM_COUNT) {
+                            mAdapter.showLoadMoreView();
+                        } else {
+                            mAdapter.showNoMoreDataView();
+                        }
+
                     }
                 });
 
@@ -60,17 +65,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        int position = mAdapter.getItemCount();
-                        if (mAdapter.getItemCount() > 50) {
-                            mAdapter.setHasMoreDataAndFooter(false, true);
+                        //int position = mAdapter.getItemCount();
+                        if (mAdapter.getItemCount() >= MAX_ITEM_COUNT) {
+                            mAdapter.showNoMoreDataView();
                         } else {
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.notifyDataSetChanged();
+                            mAdapter.hideFooterView();
                         }
-                        mAdapter.notifyDataSetChanged();
                         //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
                         //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
                         //mRecyclerView.scrollToPosition(position);
@@ -110,8 +116,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         ptrFrameLayout.refreshComplete();
-                        mAdapter.clear();
-                        initMockData();
+                        if(mAdapter.getItemCount() < 15) {
+                            mAdapter.clear();
+                            initMockData();
+                        } else {
+                            mAdapter.clear();
+                            initMockData(5);
+                        }
+                        mAdapter.hideFooterView();
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.scrollToPosition(0);
                         mAdapter.setHasMoreData(true);
@@ -144,10 +156,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initMockData(){
-        for (int i = 0; i < 15; i++) {
+    private void initMockData(int count){
+        for (int i = 0; i < count; i++) {
             mAdapter.appendToTop("1 page -> " + mAdapter.getItemCount() + "");
         }
+    }
+    private void initMockData() {
+        initMockData(15);
     }
 
 
