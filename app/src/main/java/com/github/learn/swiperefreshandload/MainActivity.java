@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
 import com.github.learn.swiperefreshandload.adapter.SimpleAdapter;
+import com.github.learn.swiperefreshandload.gridview.GridViewActivity;
+import com.github.learn.swiperefreshandload.webview.WebViewActivity;
 
 import java.util.ArrayList;
 
@@ -149,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_grid_view:
                 startActivity(new Intent(this, GridViewActivity.class));
+                return true;
+            case R.id.action_web_view:
+                startActivity(new Intent(this, WebViewActivity.class)
+                        .putExtra(WebViewActivity.KEY_URL, "http://api.yanlu.me/longpage"));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

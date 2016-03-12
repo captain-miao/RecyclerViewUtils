@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SwipeRefreshAndLoad</string>
+    <string name="app_name">RALMDemo</string>
     <string name="hello_world">Hello world!</string>
     <string name="label_action_label_grid_view">GridView</string>
+    <string name="label_action_label_web_view">WebView</string>
+    <string name="label_action_label_web_view_screen_shot">screenshot</string>
 
 </resources>
