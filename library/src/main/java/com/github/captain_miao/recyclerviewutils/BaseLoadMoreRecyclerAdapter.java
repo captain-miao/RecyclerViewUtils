@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -42,12 +41,12 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
 
-        public final ProgressBar mProgressView;
+        public final View mProgressView;
 
         public final TextView mTextView;
         public FooterViewHolder(View view) {
             super(view);
-            mProgressView = (ProgressBar) view.findViewById(R.id.progress_view);
+            mProgressView = view.findViewById(R.id.progress_view);
             mTextView = (TextView) view.findViewById(R.id.tv_content);
         }
 
@@ -76,9 +75,11 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
         if (holder instanceof FooterViewHolder) {
             //没有更多数据
             if (hasMoreData) {
+                ((FooterViewHolder) holder).mProgressView.setVisibility(View.GONE);
                 ((FooterViewHolder) holder).mProgressView.setVisibility(View.VISIBLE);
                 ((FooterViewHolder) holder).mTextView.setText(getFooterLoadingShowStringResource());
             } else {
+                ((FooterViewHolder) holder).mProgressView.setVisibility(View.VISIBLE);
                 ((FooterViewHolder) holder).mProgressView.setVisibility(View.GONE);
                 ((FooterViewHolder) holder).mTextView.setText(getFooterNoMoreDataShowStringResource());
             }

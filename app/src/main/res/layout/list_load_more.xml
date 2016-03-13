@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="horizontal">
 
     <LinearLayout
@@ -10,12 +11,14 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true">
 
-        <ProgressBar
-            style="@android:style/Widget.ProgressBar.Small"
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="visible"
+            app:indicator="BallSpinFadeLoader"
+            app:indicator_color="@color/colorAccent"
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/tv_content"

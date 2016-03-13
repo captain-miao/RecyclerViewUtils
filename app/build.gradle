@@ -25,6 +25,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:cardview-v7:23.2.1'
+    compile 'com.wang.avi:library:1.0.3'
+    compile 'com.nineoldandroids:library:2.4.0'
 //    compile 'com.github.captain-miao:recyclerviewutils:1.0.0'
     compile project(':library')
 }
