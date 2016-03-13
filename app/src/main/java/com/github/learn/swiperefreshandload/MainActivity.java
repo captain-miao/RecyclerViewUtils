@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void initMockData() {
-        initMockData(15);
+        initMockData(25);
     }
 
 

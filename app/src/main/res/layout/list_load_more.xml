@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true">
 
-        <com.github.captain_miao.recyclerviewutils.MaterialProgressBarSupport
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Small"
             android:id="@+id/progress_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:progressColor="@color/progress_bar_color"
-            app:progressBackgroundColor="@color/progress_bar_background_light"
-            app:progressSmallSize="true"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/tv_content"
