@@ -13,4 +13,12 @@
     <color name="primary_green">#8BC34A</color>
     <color name="white">#FFFFFF</color>
     <color name="background_card">#2a434a</color>
+
+
+    <integer-array name="refresh_progress_bar_colors">
+        <item>@color/progress_bar_color</item>
+        <!--<item>@color/blue</item>-->
+        <!--<item>@color/yellow</item>-->
+        <!--<item>@color/green</item>-->
+    </integer-array>
 </resources>

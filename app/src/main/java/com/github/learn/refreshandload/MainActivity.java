@@ -1,4 +1,4 @@
-package com.github.learn.swiperefreshandload;
+package com.github.learn.refreshandload;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
-import com.github.learn.swiperefreshandload.adapter.SimpleAdapter;
-import com.github.learn.swiperefreshandload.gridview.GridViewActivity;
-import com.github.learn.swiperefreshandload.webview.WebViewActivity;
+import com.github.learn.permission.PermissionActivity;
+import com.github.learn.refreshandload.adapter.SimpleAdapter;
+import com.github.learn.refreshandload.gridview.GridViewActivity;
+import com.github.learn.webview.WebViewActivity;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setHasFooter(false);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setHasMoreData(true);
-
 
         mLoadMoreListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
 
@@ -149,8 +149,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.action_refresh_recycler_view:
+                startActivity(new Intent(this, RefreshRecyclerActivity.class));
+                return true;
             case R.id.action_grid_view:
                 startActivity(new Intent(this, GridViewActivity.class));
+                return true;
+            case R.id.action_permission:
+                startActivity(new Intent(this, PermissionActivity.class));
                 return true;
             case R.id.action_web_view:
                 startActivity(new Intent(this, WebViewActivity.class)

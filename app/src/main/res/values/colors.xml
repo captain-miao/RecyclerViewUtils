@@ -37,6 +37,7 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="grey">#a3afb3</color>
+    <color name="grey2">#ddd</color>
     <color name="red">#ff4343</color>
     <color name="green">#ff4ed17e</color>
     <color name="blue">#3259ff</color>
@@ -53,7 +54,7 @@
     <color name="line_color_run_speed_17">#a5110a</color>
     <color name="line_color_run_speed_19">#6d0409</color>
 
-
+    <color name="divider_color">#dddddd</color>
 
     <color name="light_grey">#cccccc</color>
 

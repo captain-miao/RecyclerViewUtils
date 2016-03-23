@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GrantAP</string>
+
+
+    <string name="permission_rationale_message">申请权限说明，可以让用户更好的授予权限。</string>
+    <string name="permission_deny_message">权限申请失败，再做最后一次挣扎，希望授予权限。 </string>
+    <string name="permission_ok">确定</string>
+    <string name="permission_close">确定</string>
+    <string name="permission_cancel">取消</string>
+    <string name="permission_setting">设置</string>
+</resources>

@@ -1,4 +1,4 @@
-package com.github.learn.swiperefreshandload.adapter;
+package com.github.learn.refreshandload.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.github.captain_miao.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
-import com.github.learn.swiperefreshandload.R;
+import com.github.learn.refreshandload.R;
 
 import java.util.List;
 

@@ -31,6 +31,7 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
 
     private boolean loading = false;
+    private boolean loadMoreEnable = true;
     //list到达 最后一个item的时候 触发加载
     private int visibleThreshold = 1;
     // The minimum amount of items to have below your current scroll position before loading more.
@@ -60,7 +61,7 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
             firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
             //totalItemCount > visibleItemCount 超过一个页面才有加载更多
-            if (!loading && totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+            if (loadMoreEnable && !loading && totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 // End has been reached
                 loading = true;
                 pagination++;
@@ -81,6 +82,10 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
 
     public synchronized boolean isLoading() {
         return loading;
+    }
+
+    public void setLoadMoreEnable(boolean loadMoreEnable) {
+        this.loadMoreEnable = loadMoreEnable;
     }
 
     public int getPagination() {

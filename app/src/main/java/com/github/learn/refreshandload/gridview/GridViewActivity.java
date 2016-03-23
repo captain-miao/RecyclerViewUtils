@@ -1,4 +1,4 @@
-package com.github.learn.swiperefreshandload.gridview;
+package com.github.learn.refreshandload.gridview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +9,8 @@ import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
-import com.github.learn.swiperefreshandload.R;
-import com.github.learn.swiperefreshandload.adapter.SimpleAdapter;
+import com.github.learn.refreshandload.R;
+import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
 import java.util.ArrayList;
 

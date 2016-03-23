@@ -1,4 +1,4 @@
-package com.github.learn.swiperefreshandload.webview;
+package com.github.learn.webview;
 
 import android.content.Context;
 import android.content.Intent;

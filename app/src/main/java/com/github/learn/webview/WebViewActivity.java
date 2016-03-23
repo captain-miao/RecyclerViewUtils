@@ -1,4 +1,4 @@
-package com.github.learn.swiperefreshandload.webview;
+package com.github.learn.webview;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -19,7 +19,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.github.learn.swiperefreshandload.R;
+import com.github.learn.refreshandload.R;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -187,11 +187,16 @@ public class WebViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.action_web_view_screen_shot:
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+            case R.id.action_web_view_screen_shot: {
                 Bitmap bitmap = WebViewShoter.screenshot(mWebView);
                 WebViewShoter.saveImageToGallery(this, bitmap);
                 Toast.makeText(WebViewActivity.this, "save screen success", Toast.LENGTH_SHORT).show();
                 return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }
