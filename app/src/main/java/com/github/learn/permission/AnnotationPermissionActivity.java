@@ -1,5 +1,6 @@
 package com.github.learn.permission;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -14,7 +15,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.captain_miao.grantap.ListenerPermission;
+import com.example.captain_miao.grantap.AnnotatePermission;
+import com.example.captain_miao.grantap.annotation.PermissionDenied;
+import com.example.captain_miao.grantap.annotation.PermissionGranted;
+import com.example.captain_miao.grantap.annotation.PermissionsRequest;
 import com.example.captain_miao.grantap.listeners.PermissionListener;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -28,7 +32,7 @@ import java.util.List;
  * @author YanLu
  * @since 16/3/18
  */
-public class PermissionActivity extends AppCompatActivity implements OnRecyclerItemClickListener, PermissionListener {
+public class AnnotationPermissionActivity extends AppCompatActivity implements OnRecyclerItemClickListener, PermissionListener {
     private static final String TAG = "PermissionActivity";
     private PermissionAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -57,7 +61,7 @@ public class PermissionActivity extends AppCompatActivity implements OnRecyclerI
 
             @Override
             protected List<PermissionEntity> doInBackground(Boolean... params) {
-                return getAllPermissions(PermissionActivity.this);
+                return getAllPermissions(AnnotationPermissionActivity.this);
             }
 
             @Override
@@ -77,17 +81,13 @@ public class PermissionActivity extends AppCompatActivity implements OnRecyclerI
             mRequestPermission = null;
             SuperToast.create(this, "GRANT", SuperToast.Duration.LONG).show();
         } else if (status == PermissionStatus.DENIED) {
+            //SuperToast.create(this, "DENY", SuperToast.Duration.LONG).show();
+            //} else {
             //请求权限
-
-            //mAdapter.getItem(position)
-            ListenerPermission.from(this)
-                    .setPermissionListener(this)
-                    .setPermissions(mRequestPermission.permissionName)
-                    .setRationaleMsg("申请权限")
-                    .setRationaleConfirmText("确定")
-                    .setDeniedMsg("权限被拒绝")
-                    .setDeniedCloseButtonText("确定")
-                    .setGotoSettingButton(false)
+            AnnotatePermission
+                    .from(this, this)
+                    .addRequestCode(6699)
+                    //.setPermissions(mRequestPermission.permissionName)
                     .check();
         }
     }
@@ -122,6 +122,14 @@ public class PermissionActivity extends AppCompatActivity implements OnRecyclerI
 
     PermissionEntity mRequestPermission;
 
+    @PermissionsRequest(requestCode = 6699)
+    private String[] mPermissions = new String[]{
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.WRITE_CONTACTS
+    };
+
+    @PermissionGranted(requestCode = 6699)
     @Override
     public void permissionGranted() {
         if(mRequestPermission != null) {
@@ -131,6 +139,7 @@ public class PermissionActivity extends AppCompatActivity implements OnRecyclerI
         SuperToast.create(this, "User Grant", SuperToast.Duration.LONG).show();
     }
 
+    @PermissionDenied(requestCode = 6699)
     @Override
     public void permissionDenied() {
         SuperToast.create(this, "User Denied", SuperToast.Duration.LONG).show();

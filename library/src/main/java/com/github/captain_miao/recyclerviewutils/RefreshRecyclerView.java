@@ -45,7 +45,7 @@ public class RefreshRecyclerView extends FrameLayout {
 
     private void initRefreshRecyclerView(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        //关键点：this是一个LinearLayout，XML事例化的view加入了viewGroup，所以下面可以使用findViewById()
+        //关键点：this是一个FrameLayout，XML事例化的view加入了viewGroup，所以下面可以使用findViewById()
         inflater.inflate(R.layout.refresh_recycler_view, this);
         mRecyclerView = (RecyclerView) findViewById(R.id.service_recycler_view);
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.material_style_ptr_frame);
@@ -101,6 +101,16 @@ public class RefreshRecyclerView extends FrameLayout {
             Log.e(TAG, "only support LinearLayoutManager");
         }
     }
+    //about adapterRecyclerView
+    public void addItemDecoration(RecyclerView.ItemDecoration decor) {
+        mRecyclerView.addItemDecoration(decor, -1);
+    }
+
+    public void addItemDecoration(RecyclerView.ItemDecoration decor, int index) {
+        mRecyclerView.addItemDecoration(decor, index);
+    }
+
+
     //about adapter
     public void setAdapter(RecyclerView.Adapter adapter){
         mRecyclerView.setAdapter(adapter);

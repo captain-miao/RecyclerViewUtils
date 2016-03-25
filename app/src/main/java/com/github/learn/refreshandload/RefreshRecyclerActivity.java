@@ -22,21 +22,29 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_refresh_recycler_view);
-
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         mRefreshRecyclerView = (RefreshRecyclerView) findViewById(R.id.recycler_view);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRefreshRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new SimpleAdapter(new ArrayList<String>());
-        initMockData();
-        mAdapter.setHasMoreData(false);
-        mAdapter.setHasFooter(false);
+        //initMockData();
+        //mAdapter.setHasMoreData(false);
+        //mAdapter.setHasFooter(false);
         mRefreshRecyclerView.setAdapter(mAdapter);
-        mAdapter.setHasMoreData(true);
+        //mAdapter.setHasMoreData(true);
 
         mRefreshRecyclerView.setRecyclerViewListener(this);
-
-
+        mRefreshRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshRecyclerView.autoRefresh();
+            }
+        });
     }
 
 

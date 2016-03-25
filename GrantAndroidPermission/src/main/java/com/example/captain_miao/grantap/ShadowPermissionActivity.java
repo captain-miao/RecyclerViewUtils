@@ -112,11 +112,19 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
 
     private void permissionGranted() {
+        if(mPermissionListener != null){
+            mPermissionListener.permissionGranted();
+            mPermissionListener = null;
+        }
         finish();
         overridePendingTransition(0, 0);
     }
 
     private void permissionDenied(ArrayList<String> deniedpermissions) {
+        if(mPermissionListener != null){
+            mPermissionListener.permissionDenied();
+            mPermissionListener = null;
+        }
         finish();
         overridePendingTransition(0, 0);
     }
@@ -128,24 +136,17 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
 
         for (String permission : permissions) {
-
-
-
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 needPermissions.add(permission);
             }
-
         }
 
 
         boolean showRationale = false;
-
         for (String permission : needPermissions) {
-
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
                 showRationale = true;
             }
-
         }
 
 
@@ -189,25 +190,14 @@ public class ShadowPermissionActivity extends AppCompatActivity {
         for (int i = 0; i < permissions.length; i++) {
             String permission = permissions[i];
             if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-
-
                 deniedPermissions.add(permission);
-
             }
         }
 
         if (deniedPermissions.isEmpty()) {
             permissionGranted();
-            if(mPermissionListener != null){
-                mPermissionListener.permissionGranted();
-                mPermissionListener = null;
-            }
         } else {
-
-
             showPermissionDenyDialog(deniedPermissions);
-
-
         }
 
 
@@ -238,7 +228,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(denyMessage)) {
             // denyMessage
             permissionDenied(deniedPermissions);
-            mPermissionListener = null;
             return;
         }
 
@@ -253,10 +242,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         permissionDenied(deniedPermissions);
-                        if(mPermissionListener != null){
-                            mPermissionListener.permissionDenied();
-                            mPermissionListener = null;
-                        }
                     }
                 });
 

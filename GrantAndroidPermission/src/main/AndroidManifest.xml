@@ -9,7 +9,7 @@
 
         <activity
             android:name=".ShadowPermissionActivity"
-            android:label="@string/app_name"
+            android:label=""
             android:theme="@style/Theme.Transparent">
         </activity>
 

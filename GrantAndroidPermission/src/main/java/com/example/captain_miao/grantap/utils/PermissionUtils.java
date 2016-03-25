@@ -114,15 +114,14 @@ final public class PermissionUtils {
         return null;
     }
 
-    public static  <A extends Annotation> String[] findPermissionsWithRequestCode(Class clazz, Class<A> annotation, int requestCode) {
+    public static  <A extends Annotation> String[] findPermissionsWithRequestCode(Object object, Class clazz, Class<A> annotation, int requestCode) {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field :fields) {
             if (field.isAnnotationPresent(annotation)) {
                 if (isEqualRequestCodeFromAnnotation(field, annotation, requestCode)) {
                     field.setAccessible(true);
-                    String[] permissions = new String[]{};
                     try {
-                        return (String[]) field.get(permissions);
+                        return (String[]) field.get(object);
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }

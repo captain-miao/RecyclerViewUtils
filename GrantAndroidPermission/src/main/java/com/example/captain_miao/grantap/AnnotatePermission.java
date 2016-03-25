@@ -174,10 +174,10 @@ public class AnnotatePermission implements PermissionListener {
 
     public void check() {
         if (ObjectUtils.isEmpty(mPermissions)) {
-            mPermissions = PermissionUtils.findPermissionsWithRequestCode(object.getClass(), PermissionsRequest.class, mRequestCode);
+            mPermissions = PermissionUtils.findPermissionsWithRequestCode(object, object.getClass(), PermissionsRequest.class, mRequestCode);
         }
         if (ObjectUtils.isEmpty(mPermissions)) {
-            //throw new NullPointerException("You must setPermissions()");
+            throw new NullPointerException("You must setPermissions()");
         } else {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 Log.d(TAG, "pre Marshmallow");

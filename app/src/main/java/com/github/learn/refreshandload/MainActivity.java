@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.learn.permission.AnnotationPermissionActivity;
 import com.github.learn.permission.PermissionActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
@@ -154,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_grid_view:
                 startActivity(new Intent(this, GridViewActivity.class));
+                return true;
+            case R.id.action_annotation_permission:
+                startActivity(new Intent(this, AnnotationPermissionActivity.class));
                 return true;
             case R.id.action_permission:
                 startActivity(new Intent(this, PermissionActivity.class));
