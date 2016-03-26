@@ -19,8 +19,22 @@ import com.example.captain_miao.grantap.listeners.PermissionListener;
 import java.util.ArrayList;
 
 /**
- * @author YanLu
- * @since 16/3/19
+ * Copyright 2016 Ted Park
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.```
+ *
+ *
+ * modify from https://github.com/ParkSangGwon/TedPermission
  */
 public class ShadowPermissionActivity extends AppCompatActivity {
 
@@ -84,8 +98,8 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
             Bundle bundle = getIntent().getExtras();
             permissions = bundle.getStringArray(EXTRA_PERMISSIONS);
-            rationale_message = bundle.getString(EXTRA_RATIONALE_MESSAGE, getString(R.string.permission_rationale_message));
-            denyMessage = bundle.getString(EXTRA_DENY_MESSAGE, getString(R.string.permission_deny_message));
+            rationale_message = bundle.getString(EXTRA_RATIONALE_MESSAGE);
+            denyMessage = bundle.getString(EXTRA_DENY_MESSAGE);
             packageName = bundle.getString(EXTRA_PACKAGE_NAME);
             hasSettingButton = bundle.getBoolean(EXTRA_SETTING_BUTTON, false);
             settingButtonText = bundle.getString(EXTRA_SETTING_BUTTON_TEXT, getString(R.string.permission_setting));
@@ -134,13 +148,11 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
         ArrayList<String> needPermissions = new ArrayList<>();
 
-
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 needPermissions.add(permission);
             }
         }
-
 
         boolean showRationale = false;
         for (String permission : needPermissions) {
@@ -152,24 +164,15 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
         if (needPermissions.isEmpty()) {
             permissionGranted();
-        }
-        //From Setting Activity
-        else if (fromOnActivityResult) {
+        } else if (fromOnActivityResult) {
+            //From Setting Activity
             permissionDenied(needPermissions);
-        }
-        //Need Show Rationale
-        else if (showRationale && !TextUtils.isEmpty(rationale_message)) {
-
+        } else if (showRationale && !TextUtils.isEmpty(rationale_message)) {
+            //Need Show Rationale
             showRationaleDialog(needPermissions);
-
-
-        }
-        //Need Request Permissions
-        else {
-
+        } else {
+            //Need Request Permissions
             requestPermissions(needPermissions);
-
-
         }
 
 
@@ -177,7 +180,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
     public void requestPermissions(ArrayList<String> needPermissions) {
         ActivityCompat.requestPermissions(this, needPermissions.toArray(new String[needPermissions.size()]), REQ_CODE_PERMISSION_REQUEST);
-
     }
 
 
@@ -185,7 +187,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         ArrayList<String> deniedPermissions = new ArrayList<>();
-
 
         for (int i = 0; i < permissions.length; i++) {
             String permission = permissions[i];
@@ -199,8 +200,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
         } else {
             showPermissionDenyDialog(deniedPermissions);
         }
-
-
     }
 
 
@@ -210,7 +209,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setMessage(rationale_message)
                 .setCancelable(false)
-
                 .setNegativeButton(rationaleConfirmText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -233,11 +231,8 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-
         builder.setMessage(denyMessage)
                 .setCancelable(false)
-
                 .setNegativeButton(deniedCloseButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -247,7 +242,7 @@ public class ShadowPermissionActivity extends AppCompatActivity {
 
         if (hasSettingButton) {
 
-            builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(settingButtonText, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -265,10 +260,7 @@ public class ShadowPermissionActivity extends AppCompatActivity {
             });
 
         }
-
-
         builder.show();
-
     }
 
 
@@ -281,7 +273,6 @@ public class ShadowPermissionActivity extends AppCompatActivity {
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
-
     }
 
 }

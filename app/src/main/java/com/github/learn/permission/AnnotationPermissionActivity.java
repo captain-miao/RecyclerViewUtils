@@ -18,7 +18,7 @@ import android.view.View;
 import com.example.captain_miao.grantap.AnnotatePermission;
 import com.example.captain_miao.grantap.annotation.PermissionDenied;
 import com.example.captain_miao.grantap.annotation.PermissionGranted;
-import com.example.captain_miao.grantap.annotation.PermissionsRequest;
+import com.example.captain_miao.grantap.annotation.PermissionCheck;
 import com.example.captain_miao.grantap.listeners.PermissionListener;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -122,7 +122,7 @@ public class AnnotationPermissionActivity extends AppCompatActivity implements O
 
     PermissionEntity mRequestPermission;
 
-    @PermissionsRequest(requestCode = 6699)
+    @PermissionCheck(requestCode = 6699)
     private String[] mPermissions = new String[]{
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.RECEIVE_SMS,

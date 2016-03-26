@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permission_ok">OK</string>
+    <string name="permission_close">Close</string>
+    <string name="permission_cancel">Cancel</string>
+    <string name="permission_setting">Setting</string>
+</resources>

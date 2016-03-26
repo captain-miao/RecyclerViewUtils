@@ -9,7 +9,7 @@ import android.webkit.PermissionRequest;
 
 import com.example.captain_miao.grantap.annotation.PermissionDenied;
 import com.example.captain_miao.grantap.annotation.PermissionGranted;
-import com.example.captain_miao.grantap.annotation.PermissionsRequest;
+import com.example.captain_miao.grantap.annotation.PermissionCheck;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -95,8 +95,8 @@ final public class PermissionUtils {
             return requestCode == m.getAnnotation(PermissionDenied.class).requestCode();
         } else if (clazz.equals(PermissionGranted.class)) {
             return requestCode == m.getAnnotation(PermissionGranted.class).requestCode();
-        }  else if (clazz.equals(PermissionsRequest.class)) {
-            return requestCode == m.getAnnotation(PermissionsRequest.class).requestCode();
+        }  else if (clazz.equals(PermissionCheck.class)) {
+            return requestCode == m.getAnnotation(PermissionCheck.class).requestCode();
         } else {
             return false;
         }
