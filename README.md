@@ -1,5 +1,66 @@
 SwipeRefreshAndLoadMore of (Android 5.0)
 
+### Gradle
+Get library from  [oss.sonatype.org.io](https://oss.sonatype.org/content/repositories/snapshots)
+```javascript
+
+repositories {
+    
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+
+}
+
+dependencies {
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.6-SNAPSHOT'
+}
+
+```
+<br/>
+###RefreshRecyclerView
+```
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_grey">
+
+    <com.github.captain_miao.recyclerviewutils.RefreshRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.github.captain_miao.recyclerviewutils.RefreshRecyclerView>
+</RelativeLayout>
+```
+<br/>
+###RefreshRecyclerViewListener
+```
+        mRefreshRecyclerView = (RefreshRecyclerView) findViewById(R.id.recycler_view);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRefreshRecyclerView.setLayoutManager(linearLayoutManager);
+        mAdapter = new SimpleAdapter(new ArrayList<String>());
+
+        mRefreshRecyclerView.setAdapter(mAdapter);
+
+        mRefreshRecyclerView.setRecyclerViewListener(new RefreshRecyclerViewListener() {
+            @Override
+            public void onRefresh() {
+                
+            }
+
+            @Override
+            public void onLoadMore(int pagination, int pageSize) {
+
+            }
+        });
+        mRefreshRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshRecyclerView.autoRefresh();
+            }
+        });
+```
+<br/>
 usage(Chinese):https://yanlu.me/recyclerview_pull_up_load_more/
 
 QQ  Group:436275452

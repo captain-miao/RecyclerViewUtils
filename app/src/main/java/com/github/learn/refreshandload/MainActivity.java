@@ -15,6 +15,7 @@ import com.github.learn.permission.AnnotationPermissionActivity;
 import com.github.learn.permission.PermissionActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
+import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
 import com.github.learn.webview.WebViewActivity;
 
 import java.util.ArrayList;
@@ -158,6 +159,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_grid_view:
                 startActivity(new Intent(this, GridViewActivity.class));
+                return true;
+            case R.id.action_refresh_grid_view:
+                startActivity(new Intent(this, RefreshGridViewActivity.class));
                 return true;
             case R.id.action_annotation_permission:
                 startActivity(new Intent(this, AnnotationPermissionActivity.class));
