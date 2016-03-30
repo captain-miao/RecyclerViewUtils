@@ -10,7 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created on 15/8/23.
+ * @author YanLu
+ * @since 15/8/23
  */
 public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter{
@@ -21,7 +22,7 @@ public abstract class BaseLoadMoreRecyclerAdapter<T, VH extends RecyclerView.Vie
     private boolean hasFooter;//设置是否显示Footer
     private boolean hasMoreData;//设置是否可以继续加载数据
 
-    private final List<T> mList = new LinkedList<T>();
+    protected final List<T> mList = new LinkedList<T>();
 
 
     //数据itemViewHolder 实现

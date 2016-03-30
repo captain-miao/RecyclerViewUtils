@@ -15,10 +15,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.captain_miao.grantap.AnnotatePermission;
+import com.example.captain_miao.grantap.CheckAnnotatePermission;
+import com.example.captain_miao.grantap.annotation.PermissionCheck;
 import com.example.captain_miao.grantap.annotation.PermissionDenied;
 import com.example.captain_miao.grantap.annotation.PermissionGranted;
-import com.example.captain_miao.grantap.annotation.PermissionCheck;
 import com.example.captain_miao.grantap.listeners.PermissionListener;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -84,7 +84,7 @@ public class AnnotationPermissionActivity extends AppCompatActivity implements O
             //SuperToast.create(this, "DENY", SuperToast.Duration.LONG).show();
             //} else {
             //请求权限
-            AnnotatePermission
+            CheckAnnotatePermission
                     .from(this, this)
                     .addRequestCode(6699)
                     //.setPermissions(mRequestPermission.permissionName)

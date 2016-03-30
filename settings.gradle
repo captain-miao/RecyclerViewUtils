@@ -1,2 +1,2 @@
-include ':app', ':GrantAndroidPermission'
+include ':app'
 include ':library'

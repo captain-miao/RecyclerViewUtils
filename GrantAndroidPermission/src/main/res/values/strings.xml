@@ -1,6 +1,0 @@
-<resources>
-    <string name="permission_ok">确定</string>
-    <string name="permission_close">确定</string>
-    <string name="permission_cancel">取消</string>
-    <string name="permission_setting">设置</string>
-</resources>

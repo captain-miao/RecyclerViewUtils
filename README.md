@@ -13,7 +13,7 @@ Ultra Pull to Refresh for Android:https://github.com/liaohuqiu/android-Ultra-Pul
 
 ## License
 
-    Copyright 2014, 2015 captain_miao
+    Copyright 2014, 2015, 2016 captain_miao
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

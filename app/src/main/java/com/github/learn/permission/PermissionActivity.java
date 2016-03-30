@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.captain_miao.grantap.ListenerPermission;
+import com.example.captain_miao.grantap.CheckPermission;
 import com.example.captain_miao.grantap.listeners.PermissionListener;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -80,7 +80,7 @@ public class PermissionActivity extends AppCompatActivity implements OnRecyclerI
             //请求权限
 
             //mAdapter.getItem(position)
-            ListenerPermission.from(this)
+            CheckPermission.from(this)
                     .setPermissionListener(this)
                     .setPermissions(mRequestPermission.permissionName)
                     .setRationaleMsg("申请权限")

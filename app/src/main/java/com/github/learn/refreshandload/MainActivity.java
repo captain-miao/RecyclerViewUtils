@@ -150,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.action_header_recycler_view:
+                startActivity(new Intent(this, HeaderRecyclerActivity.class));
+                return true;
             case R.id.action_refresh_recycler_view:
                 startActivity(new Intent(this, RefreshRecyclerActivity.class));
                 return true;
