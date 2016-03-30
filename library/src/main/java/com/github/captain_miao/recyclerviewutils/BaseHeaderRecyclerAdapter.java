@@ -204,6 +204,14 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         removeFooterView(view, true);
     }
 
+    public int getHeaderSize() {
+        return mHeaderSize;
+    }
+
+    public int getFooterSize() {
+        return mFooterSize;
+    }
+
     public boolean isHeaderViewType(int viewType) {
         return viewType >= 0 && viewType < FOOTER_VIEW_TYPE_OFFSET;
     }

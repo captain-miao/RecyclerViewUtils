@@ -10,6 +10,10 @@
     <string name="label_action_label_permission">Permission</string>
     <string name="label_action_label_web_view">WebView</string>
     <string name="label_action_label_web_view_screen_shot">screenshot</string>
+    <string name="label_action_label_add_header_view">add header view</string>
+    <string name="label_action_label_del_header_view">del header view</string>
+    <string name="label_action_label_add_footer_view">add footer view</string>
+    <string name="label_action_label_del_footer_view">del footer view</string>
 
     <string name="uses_permission_name">&lt;uses-permission android:name=\&quot;%s\&quot;/&gt;</string>
 
