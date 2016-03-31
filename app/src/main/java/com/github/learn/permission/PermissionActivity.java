@@ -16,9 +16,9 @@ import android.view.View;
 
 import com.example.captain_miao.grantap.CheckPermission;
 import com.example.captain_miao.grantap.listeners.PermissionListener;
+import com.github.captain_miao.recyclerviewutils.common.DividerItemDecoration;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.github.learn.divider.DividerItemDecoration;
 import com.github.learn.refreshandload.R;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class PermissionActivity extends AppCompatActivity implements OnRecyclerI
         }
 
         mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.shape_list_divider));
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new PermissionAdapter(new ArrayList<PermissionEntity>(), this);

@@ -23,4 +23,7 @@
     <item android:id="@+id/action_web_view"
         android:title="@string/label_action_label_web_view"
         app:showAsAction="never" />
+    <item android:id="@+id/action_sticky_header_view"
+        android:title="@string/label_action_label_sticky_header_view"
+        app:showAsAction="never" />
 </menu>

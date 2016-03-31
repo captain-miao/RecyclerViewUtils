@@ -16,6 +16,7 @@ import com.github.learn.permission.PermissionActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
 import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
+import com.github.learn.stickyheaders.StickyHeadersActivity;
 import com.github.learn.webview.WebViewActivity;
 
 import java.util.ArrayList;
@@ -172,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_web_view:
                 startActivity(new Intent(this, WebViewActivity.class)
                         .putExtra(WebViewActivity.KEY_URL, "http://api.yanlu.me/longpage"));
+                return true;
+            case R.id.action_sticky_header_view:
+                startActivity(new Intent(this, StickyHeadersActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

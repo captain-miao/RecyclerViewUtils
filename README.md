@@ -70,7 +70,8 @@ QQ  Group:436275452
 ## import Pull to Refresh
 Ultra Pull to Refresh for Android:https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh.
 
-## auto-load-more for RecyclerView
+## import sticky-headers-recyclerview
+Sticky Headers decorator for Android's RecyclerView:https://github.com/timehop/sticky-headers-recyclerview
 
 ## License
 
