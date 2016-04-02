@@ -16,57 +16,22 @@ dependencies {
 
 ```
 <br/>
-###RefreshRecyclerView
-```
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light_grey">
+### RefreshRecyclerView  
+![load_more_screenshot](/screenshot/refresh_and_load_more.gif?raw=true "refresh_and_load_more")
 
-    <com.github.captain_miao.recyclerviewutils.RefreshRecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+### RecyclerView addHeaderView and addFooterView
+![add_header_view](/screenshot/add_header_view.gif?raw=true "add_header_view")
 
-    </com.github.captain_miao.recyclerviewutils.RefreshRecyclerView>
-</RelativeLayout>
-```
+### StickyRecyclerHeaderView  
+![sticky_header_view](/screenshot/sticky_header_view.gif?raw=true "sticky_header_view")
+
+
+
 <br/>
-###RefreshRecyclerViewListener
-```
-        mRefreshRecyclerView = (RefreshRecyclerView) findViewById(R.id.recycler_view);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRefreshRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new SimpleAdapter(new ArrayList<String>());
 
-        mRefreshRecyclerView.setAdapter(mAdapter);
-
-        mRefreshRecyclerView.setRecyclerViewListener(new RefreshRecyclerViewListener() {
-            @Override
-            public void onRefresh() {
-                
-            }
-
-            @Override
-            public void onLoadMore(int pagination, int pageSize) {
-
-            }
-        });
-        mRefreshRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshRecyclerView.autoRefresh();
-            }
-        });
-```
-<br/>
-usage(Chinese):https://yanlu.me/recyclerview_pull_up_load_more/
 
 QQ  Group:436275452
-
-![load_more_screenshot](/screenshot/load_more_screenshot.jpg?raw=true "load_more_screenshot")
-
+# Thanks
 ## import Pull to Refresh
 Ultra Pull to Refresh for Android:https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh.
 

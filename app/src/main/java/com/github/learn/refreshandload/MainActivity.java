@@ -11,13 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
-import com.github.learn.permission.AnnotationPermissionActivity;
-import com.github.learn.permission.PermissionActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
 import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
 import com.github.learn.stickyheaders.StickyHeadersActivity;
-import com.github.learn.webview.WebViewActivity;
 
 import java.util.ArrayList;
 
@@ -163,16 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_refresh_grid_view:
                 startActivity(new Intent(this, RefreshGridViewActivity.class));
-                return true;
-            case R.id.action_annotation_permission:
-                startActivity(new Intent(this, AnnotationPermissionActivity.class));
-                return true;
-            case R.id.action_permission:
-                startActivity(new Intent(this, PermissionActivity.class));
-                return true;
-            case R.id.action_web_view:
-                startActivity(new Intent(this, WebViewActivity.class)
-                        .putExtra(WebViewActivity.KEY_URL, "http://api.yanlu.me/longpage"));
                 return true;
             case R.id.action_sticky_header_view:
                 startActivity(new Intent(this, StickyHeadersActivity.class));
