@@ -1,4 +1,4 @@
-SwipeRefreshAndLoadMore of (Android 5.0)
+RecyclerView Utils
 
 ### Gradle
 Get library from  [oss.sonatype.org.io](https://oss.sonatype.org/content/repositories/snapshots)
@@ -25,6 +25,9 @@ dependencies {
 ### StickyRecyclerHeaderView  
 ![sticky_header_view](/screenshot/sticky_header_view.gif?raw=true "sticky_header_view")
 
+### ExpandableRecyclerHeaderView  
+![expandable_recycler_view](/screenshot/expandable_recycler_view.gif?raw=true "expandable_recycler_view")
+
 
 
 <br/>
@@ -37,6 +40,9 @@ Ultra Pull to Refresh for Android:https://github.com/liaohuqiu/android-Ultra-Pul
 
 ## import sticky-headers-recyclerview
 Sticky Headers decorator for Android's RecyclerView:https://github.com/timehop/sticky-headers-recyclerview
+
+## import expandable-recycler-view
+A custom RecyclerView which allows for an expandable view to be attached to each ViewHolder:https://github.com/bignerdranch/expandable-recycler-view
 
 ## License
 

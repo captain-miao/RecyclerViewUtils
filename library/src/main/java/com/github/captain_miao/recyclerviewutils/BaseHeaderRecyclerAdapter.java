@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     private boolean showLoadMoreView;//has load more view
     private boolean hasMoreData;//load more display message
 
-    protected final List<T> mList = new LinkedList<T>();
+    protected List<T> mItemList = new ArrayList<>();
 
 
     //Content itemViewHolder
@@ -89,7 +88,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(isContentViewType(viewType)){
-            return onCreateItemViewHolder(parent, viewType);
+            return onCreateItemViewHolder(parent, viewType - CONTENT_VIEW_TYPE_OFFSET);
         } else if (isHeaderViewType(viewType)) {
             return mHeaderViews.get(viewType - HEADER_VIEW_TYPE_OFFSET);
         } else if(isFooterViewType(viewType)){
@@ -241,7 +240,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
 
     public List<T> getList() {
-        return mList;
+        return mItemList;
     }
 
 
@@ -249,7 +248,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         if (list == null) {
             return;
         }
-        mList.addAll(list);
+        mItemList.addAll(list);
         if(notifyDataChange) {
             notifyDataSetChanged();
         }
@@ -262,7 +261,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         if (t == null) {
             return;
         }
-        mList.add(t);
+        mItemList.add(t);
         if(notifyDataChange) {
             notifyDataSetChanged();
         }
@@ -283,7 +282,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         if (item == null) {
             return;
         }
-        mList.add(0, item);
+        mItemList.add(0, item);
         notifyDataSetChanged();
     }
 
@@ -291,14 +290,14 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         if (list == null) {
             return;
         }
-        mList.addAll(0, list);
+        mItemList.addAll(0, list);
         notifyDataSetChanged();
     }
 
 
     public T remove(int dataListIndex, boolean notifyDataChange) {
-        if (dataListIndex >= 0 && dataListIndex < mList.size()) {
-            T t = mList.remove(dataListIndex);
+        if (dataListIndex >= 0 && dataListIndex < mItemList.size()) {
+            T t = mItemList.remove(dataListIndex);
             if(notifyDataChange) {
                 notifyItemRemoved(mHeaderSize + dataListIndex);
             }
@@ -314,7 +313,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
 
     public boolean remove(T data, boolean notifyDataChange) {
-        boolean ret =  mList.remove(data);
+        boolean ret =  mItemList.remove(data);
         if(ret && notifyDataChange){
             notifyDataSetChanged();
         }
@@ -326,7 +325,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
 
     public void clear(boolean notifyDataChange) {
-        mList.clear();
+        mItemList.clear();
         if(notifyDataChange) {
             notifyDataSetChanged();
         }
@@ -336,7 +335,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
 
     protected int getBasicItemCount() {
-        return mList.size();
+        return mItemList.size();
     }
 
     @Override
@@ -346,7 +345,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
 
     public T getItem(int position) {
         if(isContentView(position)){
-            return mList.get(position - mHeaderSize);
+            return mItemList.get(position - mHeaderSize);
         } else {
             return null;
         }

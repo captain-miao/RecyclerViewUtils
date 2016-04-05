@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
 import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
@@ -163,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_sticky_header_view:
                 startActivity(new Intent(this, StickyHeadersActivity.class));
+                return true;
+            case R.id.action_expandable_view:
+                startActivity(new Intent(this, ExpandableRecyclerActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

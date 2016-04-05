@@ -31,10 +31,21 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     int mOrientation = -1;
 
+    private DividerJudge mDividerJudge;
+
+    public interface DividerJudge{
+        //是否需要显示分割线
+        boolean isDecorate(View view, RecyclerView parent);
+    }
     public DividerItemDecoration(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
+    }
+
+    public DividerItemDecoration(Context context, DividerJudge dividerJudge) {
+        this(context);
+        mDividerJudge = dividerJudge;
     }
 
     public DividerItemDecoration(Context context, AttributeSet attrs) {
@@ -74,10 +85,13 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                               RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (mDivider == null) {
+            return;
+        }
+
+        if (mDividerJudge != null && !mDividerJudge.isDecorate(view, parent)) {
             return;
         }
 
@@ -126,33 +140,36 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
         for (int i = mShowFirstDivider ? 0 : 1; i < childCount; i++) {
             View child = parent.getChildAt(i);
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-
-            if (orientation == LinearLayoutManager.VERTICAL) {
-                top = child.getTop() - params.topMargin - size;
-                bottom = top + size;
-            } else { //horizontal
-                left = child.getLeft() - params.leftMargin;
-                right = left + size;
+            if (mDividerJudge == null || mDividerJudge.isDecorate(child, parent)) {
+                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+                if (orientation == LinearLayoutManager.VERTICAL) {
+                    top = child.getTop() - params.topMargin - size;
+                    bottom = top + size;
+                } else { //horizontal
+                    left = child.getLeft() - params.leftMargin;
+                    right = left + size;
+                }
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(c);
             }
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(c);
         }
 
         // show last divider
         if (mShowLastDivider && childCount > 0) {
             View child = parent.getChildAt(childCount - 1);
-            if (parent.getChildAdapterPosition(child) == (state.getItemCount() - 1)) {
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-                if (orientation == LinearLayoutManager.VERTICAL) {
-                    top = child.getBottom() + params.bottomMargin;
-                    bottom = top + size;
-                } else { // horizontal
-                    left = child.getRight() + params.rightMargin;
-                    right = left + size;
+            if (mDividerJudge == null || mDividerJudge.isDecorate(child, parent)) {
+                if (parent.getChildAdapterPosition(child) == (state.getItemCount() - 1)) {
+                    RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+                    if (orientation == LinearLayoutManager.VERTICAL) {
+                        top = child.getBottom() + params.bottomMargin;
+                        bottom = top + size;
+                    } else { // horizontal
+                        left = child.getRight() + params.rightMargin;
+                        right = left + size;
+                    }
+                    mDivider.setBounds(left, top, right, bottom);
+                    mDivider.draw(c);
                 }
-                mDivider.setBounds(left, top, right, bottom);
-                mDivider.draw(c);
             }
         }
     }
@@ -168,5 +185,29 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             }
         }
         return mOrientation;
+    }
+
+    public DividerJudge getDividerJudge() {
+        return mDividerJudge;
+    }
+
+    public void setDividerJudge(DividerJudge mDividerJudge) {
+        this.mDividerJudge = mDividerJudge;
+    }
+
+    public boolean isShowFirstDivider() {
+        return mShowFirstDivider;
+    }
+
+    public void setShowFirstDivider(boolean mShowFirstDivider) {
+        this.mShowFirstDivider = mShowFirstDivider;
+    }
+
+    public boolean isShowLastDivider() {
+        return mShowLastDivider;
+    }
+
+    public void setShowLastDivider(boolean mShowLastDivider) {
+        this.mShowLastDivider = mShowLastDivider;
     }
 }
