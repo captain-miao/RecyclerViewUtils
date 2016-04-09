@@ -46,6 +46,10 @@
             android:name="com.github.learn.expandable.ExpandableRecyclerActivity"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name="com.github.learn.index.IndexRecyclerActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>

@@ -39,13 +39,13 @@ public class StickyHeadersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frg_sticky_header, container, false);
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
         // Set adapter populated with example dummy data
         final VehicleDetectionAdapter adapter = new VehicleDetectionAdapter();
         //no header
         adapter.addData(new DetectionVo(-1, " Title ", " Title ", " Value "));
-        adapter.addAllData(getDummyDataSet());
+        adapter.addAllData(getMockDataSet());
         recyclerView.setAdapter(adapter);
 
         // Set layout manager
@@ -89,7 +89,7 @@ public class StickyHeadersFragment extends Fragment {
     }
 
 
-    private List<DetectionVo> getDummyDataSet() {
+    private List<DetectionVo> getMockDataSet() {
         List<DetectionVo> detectionVoList = new ArrayList<>();
         for(int i = 0; i < 20; i++){
             for(int j= 0; j < 20; j++) {

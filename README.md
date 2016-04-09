@@ -28,6 +28,9 @@ dependencies {
 ### ExpandableRecyclerHeaderView  
 ![expandable_recycler_view](/screenshot/expandable_recycler_view.gif?raw=true "expandable_recycler_view")
 
+### IndexRecyclerHeaderView  
+![index_recycler_view](/screenshot/index_recycler_view.gif?raw=true "index_recycler_view")
+
 
 
 <br/>
@@ -43,6 +46,9 @@ Sticky Headers decorator for Android's RecyclerView:https://github.com/timehop/s
 
 ## import expandable-recycler-view
 A custom RecyclerView which allows for an expandable view to be attached to each ViewHolder:https://github.com/bignerdranch/expandable-recycler-view
+
+## Easy sidebar for RecyclerView
+Easy sidebar for RecyclerView: https://github.com/CaMnter/EasyRecyclerViewSidebar
 
 ## License
 
