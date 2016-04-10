@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.captain_miao.recyclerviewutils.BaseHeaderRecyclerAdapter;
+import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.learn.refreshandload.R;
@@ -18,9 +18,9 @@ import java.util.List;
  * @author YanLu
  * @since 15/9/15
  */
-public class SimpleHeaderAdapter extends BaseHeaderRecyclerAdapter<String, RecyclerView.ViewHolder> implements OnRecyclerItemClickListener {
+public class SimpleWrapperAdapter extends BaseWrapperRecyclerAdapter<String, RecyclerView.ViewHolder> implements OnRecyclerItemClickListener {
 
-    public SimpleHeaderAdapter(List<String> items) {
+    public SimpleWrapperAdapter(List<String> items) {
         appendToList(items);
     }
 
@@ -29,7 +29,7 @@ public class SimpleHeaderAdapter extends BaseHeaderRecyclerAdapter<String, Recyc
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
 
-        return new SimpleHeaderAdapter.ItemViewHolder(view);
+        return new SimpleWrapperAdapter.ItemViewHolder(view);
     }
 
 
@@ -62,7 +62,7 @@ public class SimpleHeaderAdapter extends BaseHeaderRecyclerAdapter<String, Recyc
         public ItemViewHolder(View view) {
             super(view);
             mTvContent = (TextView) view.findViewById(R.id.tv_content);
-            setOnRecyclerItemClickListener(SimpleHeaderAdapter.this);
+            setOnRecyclerItemClickListener(SimpleWrapperAdapter.this);
             //view.setOnClickListener(this);
             //mTvContent.setOnClickListener(this);
             addOnItemViewClickListener();
@@ -74,16 +74,4 @@ public class SimpleHeaderAdapter extends BaseHeaderRecyclerAdapter<String, Recyc
             return super.toString() + " '" + mTvContent.getText();
         }
     }
-
-
-    //自定义
-    public int getFooterLayoutResource() {
-        return R.layout.list_load_more;
-    }
-//    public int getFooterLoadingShowStringResource() {
-//        return com.github.captain_miao.recyclerviewutils.R.string.app_loading_more;//loading_more
-//    }
-//    public int getFooterNoMoreDataShowStringResource() {
-//        return com.github.captain_miao.recyclerviewutils.R.string.app_no_more_data;//loading_more
-//    }
 }

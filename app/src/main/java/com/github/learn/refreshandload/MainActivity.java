@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
+import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
@@ -41,11 +43,14 @@ public class MainActivity extends AppCompatActivity {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new SimpleAdapter(new ArrayList<String>());
+        mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {
+            @Override
+            public int getLoadMoreLayoutResource() {
+                return R.layout.list_load_more;
+            }
+        });
         initMockData();
-        mAdapter.setHasMoreData(false);
-        mAdapter.setHasFooter(false);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setHasMoreData(true);
 
         mLoadMoreListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
 
@@ -129,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                         mAdapter.hideFooterView();
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.scrollToPosition(0);
-                        mAdapter.setHasMoreData(true);
                     }
                 }, 500);
             }
@@ -164,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_sticky_header_view:
                 startActivity(new Intent(this, StickyHeadersActivity.class));
+                return true;
+            case R.id.action_expandable_view:
+                startActivity(new Intent(this, ExpandableRecyclerActivity.class));
                 return true;
             case R.id.action_index_view:
                 startActivity(new Intent(this, IndexRecyclerActivity.class));

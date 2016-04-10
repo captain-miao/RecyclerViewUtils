@@ -37,7 +37,7 @@ public class EasySidebar extends View {
 
     private List<String> sections;
 
-    private OnTouchSectionListener onTouchSectionListener;
+    private OnClickSectionListener onClickSectionListener;
 
 
     public EasySidebar(Context context) {
@@ -153,8 +153,8 @@ public class EasySidebar extends View {
         String floatText = this.sections.get(sectionIndex);
 
         this.floatView.setText(floatText);
-        if (this.onTouchSectionListener != null) {
-            this.onTouchSectionListener.onTouchSection(sectionIndex);
+        if (this.onClickSectionListener != null) {
+            this.onClickSectionListener.onClickSection(sectionIndex);
         }
     }
 
@@ -181,22 +181,22 @@ public class EasySidebar extends View {
     }
 
 
-    public OnTouchSectionListener getOnTouchSectionListener() {
-        return onTouchSectionListener;
+    public OnClickSectionListener getOnClickSectionListener() {
+        return onClickSectionListener;
     }
 
 
-    public void setOnTouchSectionListener(OnTouchSectionListener onTouchSectionListener) {
-        this.onTouchSectionListener = onTouchSectionListener;
+    public void setOnClickSectionListener(OnClickSectionListener onClickSectionListener) {
+        this.onClickSectionListener = onClickSectionListener;
     }
 
 
-    public interface OnTouchSectionListener {
+    public interface OnClickSectionListener {
         /**
          * On touch section
          *
          * @param sectionIndex sectionIndex
          */
-        void onTouchSection(int sectionIndex);
+        void onClickSection(int sectionIndex);
     }
 }

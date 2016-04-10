@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class IndexRecyclerActivity extends AppCompatActivity implements EasySidebar.OnTouchSectionListener {
+public class IndexRecyclerActivity extends AppCompatActivity implements EasySidebar.OnClickSectionListener {
 
     private RecyclerView mRecyclerView;
     VehicleDetectionAdapter mAdapter;
@@ -65,7 +65,7 @@ public class IndexRecyclerActivity extends AppCompatActivity implements EasySide
 
 
 
-        mSidebar.setOnTouchSectionListener(this);
+        mSidebar.setOnClickSectionListener(this);
         this.mSidebar.setSections(sections);
     }
 
@@ -84,7 +84,7 @@ public class IndexRecyclerActivity extends AppCompatActivity implements EasySide
 
 
     @Override
-    public void onTouchSection(int sectionIndex) {
+    public void onClickSection(int sectionIndex) {
         //scroll to position
         String section = sections.get(sectionIndex);
         int position = sectionsMap.get(section);

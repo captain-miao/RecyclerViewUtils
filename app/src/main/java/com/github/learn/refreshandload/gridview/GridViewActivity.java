@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.captain_miao.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
@@ -35,7 +35,6 @@ public class GridViewActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        //mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
 
         // 网格布局管理器
@@ -44,25 +43,24 @@ public class GridViewActivity extends AppCompatActivity {
             @Override
             public int getSpanSize(int position) {
                 //加载更多 占领 整个一行
-                switch (mAdapter.getItemViewType(position)) {
-                    case BaseLoadMoreRecyclerAdapter.TYPE_FOOTER:
-                        return 3;//number of columns of the grid
-                    case BaseLoadMoreRecyclerAdapter.TYPE_ITEM:
-                        return 1;
-                    default:
-                        return -1;
+                if(!mAdapter.isContentView(position)){
+                    return layoutManager.getSpanCount();//number of columns of the grid
+                } else {
+                    return 1;
                 }
             }
-
         });
 
 
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new SimpleAdapter(values);
-        mAdapter.setHasMoreData(false);
-        mAdapter.setHasFooter(false);
         mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {
+            @Override
+            public int getLoadMoreLayoutResource() {
+                return R.layout.list_load_more;
+            }
+        });
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) findViewById(R.id.material_style_ptr_frame);
         // header
         final MaterialHeader header = new MaterialHeader(this);
@@ -81,7 +79,7 @@ public class GridViewActivity extends AppCompatActivity {
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return layoutManager.findFirstCompletelyVisibleItemPosition() == 0;
+                return layoutManager.findFirstCompletelyVisibleItemPosition() <= 0;
             }
 
             @Override
@@ -109,7 +107,6 @@ public class GridViewActivity extends AppCompatActivity {
         });
 
 
-        mAdapter.setHasMoreData(true);
         mLoadMoreListener = new EndlessRecyclerOnScrollListener(layoutManager) {
 
             @Override
@@ -117,8 +114,7 @@ public class GridViewActivity extends AppCompatActivity {
                 mRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setHasFooter(true);
-                        mAdapter.notifyDataSetChanged();
+                        mAdapter.showLoadMoreView();
                     }
                 });
 
@@ -129,7 +125,7 @@ public class GridViewActivity extends AppCompatActivity {
 
                         int position = mAdapter.getItemCount();
                         if (mAdapter.getItemCount() > 50) {
-                            mAdapter.setHasMoreDataAndFooter(false, true);
+                            mAdapter.showNoMoreDataView();
                         } else {
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
                             mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
@@ -142,6 +138,7 @@ public class GridViewActivity extends AppCompatActivity {
                         //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
                         mRecyclerView.scrollToPosition(position);
                         loadComplete();
+                        mAdapter.hideFooterView();
 
                     }
                 }, 1500);

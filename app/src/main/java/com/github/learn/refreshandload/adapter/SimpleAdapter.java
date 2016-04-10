@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.captain_miao.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
+import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.learn.refreshandload.R;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author YanLu
  * @since 15/9/15
  */
-public class SimpleAdapter extends BaseLoadMoreRecyclerAdapter<String, SimpleAdapter.ItemViewHolder>  implements OnRecyclerItemClickListener {
+public class SimpleAdapter extends BaseWrapperRecyclerAdapter<String, SimpleAdapter.ItemViewHolder> implements OnRecyclerItemClickListener {
 
     public SimpleAdapter(List<String> items) {
         appendToList(items);
@@ -59,27 +59,9 @@ public class SimpleAdapter extends BaseLoadMoreRecyclerAdapter<String, SimpleAda
             super(view);
             mTvContent = (TextView) view.findViewById(R.id.tv_content);
             setOnRecyclerItemClickListener(SimpleAdapter.this);
-            //view.setOnClickListener(this);
-            //mTvContent.setOnClickListener(this);
             addOnItemViewClickListener();
             addOnViewClickListener(mTvContent);
         }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mTvContent.getText();
-        }
     }
 
-
-    //自定义
-    public int getFooterLayoutResource() {
-        return R.layout.list_load_more;
-    }
-//    public int getFooterLoadingShowStringResource() {
-//        return com.github.captain_miao.recyclerviewutils.R.string.app_loading_more;//loading_more
-//    }
-//    public int getFooterNoMoreDataShowStringResource() {
-//        return com.github.captain_miao.recyclerviewutils.R.string.app_no_more_data;//loading_more
-//    }
 }

@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 
-import com.github.captain_miao.recyclerviewutils.RefreshRecyclerView;
+import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
+import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class RefreshRecyclerActivity extends AppCompatActivity implements RefreshRecyclerViewListener {
 
     private SimpleAdapter mAdapter;
-    private RefreshRecyclerView mRefreshRecyclerView;
+    private WrapperRecyclerView mWrapperRecyclerView;
     private final int MAX_ITEM_COUNT = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +28,19 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        mRefreshRecyclerView = (RefreshRecyclerView) findViewById(R.id.recycler_view);
+        mWrapperRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRefreshRecyclerView.setLayoutManager(linearLayoutManager);
+        mWrapperRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new SimpleAdapter(new ArrayList<String>());
-        //initMockData();
-        //mAdapter.setHasMoreData(false);
-        //mAdapter.setHasFooter(false);
-        mRefreshRecyclerView.setAdapter(mAdapter);
+        mAdapter.setLoadMoreFooterView(new DefaultLoadMoreFooterView(this));
+        mWrapperRecyclerView.setAdapter(mAdapter);
         //mAdapter.setHasMoreData(true);
 
-        mRefreshRecyclerView.setRecyclerViewListener(this);
-        mRefreshRecyclerView.post(new Runnable() {
+        mWrapperRecyclerView.setRecyclerViewListener(this);
+        mWrapperRecyclerView.post(new Runnable() {
             @Override
             public void run() {
-                mRefreshRecyclerView.autoRefresh();
+                mWrapperRecyclerView.autoRefresh();
             }
         });
     }
@@ -72,10 +71,10 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
 
     @Override
     public void onRefresh() {
-        mRefreshRecyclerView.postDelayed(new Runnable() {
+        mWrapperRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mRefreshRecyclerView.refreshComplete();
+                mWrapperRecyclerView.refreshComplete();
                 if(mAdapter.getItemCount() < 15) {
                     mAdapter.clear();
                     initMockData();
@@ -85,15 +84,14 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
                 }
                 mAdapter.hideFooterView();
                 mAdapter.notifyDataSetChanged();
-                mRefreshRecyclerView.getRecyclerView().scrollToPosition(0);
-                mAdapter.setHasMoreData(true);
+                mWrapperRecyclerView.getRecyclerView().scrollToPosition(0);
             }
         }, 500);
     }
 
     @Override
     public void onLoadMore(final int pagination, int pageSize) {
-        mRefreshRecyclerView.post(new Runnable() {
+        mWrapperRecyclerView.post(new Runnable() {
             @Override
             public void run() {
                 if (mAdapter.getItemCount() < MAX_ITEM_COUNT) {
@@ -106,7 +104,7 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
         });
 
 
-        mRefreshRecyclerView.postDelayed(new Runnable() {
+        mWrapperRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
 
@@ -125,7 +123,7 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
                 //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
                 //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
                 //mRefreshRecyclerView.scrollToPosition(position);
-                mRefreshRecyclerView.loadMoreComplete();
+                mWrapperRecyclerView.loadMoreComplete();
 
             }
         }, 1500);

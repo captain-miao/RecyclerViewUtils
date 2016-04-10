@@ -4,10 +4,10 @@
                 android:layout_height="match_parent"
                 android:background="@color/light_grey">
 
-    <com.github.captain_miao.recyclerviewutils.RefreshRecyclerView
+    <com.github.captain_miao.recyclerviewutils.WrapperRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.github.captain_miao.recyclerviewutils.RefreshRecyclerView>
+    </com.github.captain_miao.recyclerviewutils.WrapperRecyclerView>
 </RelativeLayout>

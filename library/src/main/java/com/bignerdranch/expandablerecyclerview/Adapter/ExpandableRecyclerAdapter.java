@@ -10,7 +10,7 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.bignerdranch.expandablerecyclerview.Model.ParentWrapper;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
-import com.github.captain_miao.recyclerviewutils.BaseHeaderRecyclerAdapter;
+import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ import java.util.List;
  * @since 5/27/2015
  */
 public abstract class ExpandableRecyclerAdapter<PVH extends ParentViewHolder, CVH extends ChildViewHolder>
-        extends BaseHeaderRecyclerAdapter implements ParentViewHolder.ParentListItemExpandCollapseListener {
+        extends BaseWrapperRecyclerAdapter implements ParentViewHolder.ParentListItemExpandCollapseListener {
 
     private static final String EXPANDED_STATE_MAP = "ExpandableRecyclerAdapter.ExpandedStateMap";
     public static final int TYPE_PARENT = 0;
@@ -115,7 +115,6 @@ public abstract class ExpandableRecyclerAdapter<PVH extends ParentViewHolder, CV
      *                       adapter is linked to
      */
     public ExpandableRecyclerAdapter(@NonNull List<? extends ParentListItem> parentItemList) {
-        super();
         mParentItemList = parentItemList;
         mItemList = ExpandableRecyclerAdapterHelper.generateParentChildItemList(parentItemList);
         mAttachedRecyclerViewPool = new ArrayList<>();

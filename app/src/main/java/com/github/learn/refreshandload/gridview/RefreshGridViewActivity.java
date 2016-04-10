@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.MenuItem;
 
-import com.github.captain_miao.recyclerviewutils.BaseLoadMoreRecyclerAdapter;
-import com.github.captain_miao.recyclerviewutils.RefreshRecyclerView;
+import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
+import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class RefreshGridViewActivity extends AppCompatActivity {
 
     private SimpleAdapter mAdapter;
-    private RefreshRecyclerView mRecyclerView;
+    private WrapperRecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class RefreshGridViewActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        mRecyclerView = (RefreshRecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
 
         // 网格布局管理器
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -37,13 +37,10 @@ public class RefreshGridViewActivity extends AppCompatActivity {
             @Override
             public int getSpanSize(int position) {
                 //加载更多 占领 整个一行
-                switch (mAdapter.getItemViewType(position)) {
-                    case BaseLoadMoreRecyclerAdapter.TYPE_FOOTER:
-                        return 3;//number of columns of the grid
-                    case BaseLoadMoreRecyclerAdapter.TYPE_ITEM:
-                        return 1;
-                    default:
-                        return -1;
+                if(mAdapter.isContentView(position)){
+                    return layoutManager.getSpanCount();//number of columns of the grid
+                } else {
+                    return 1;
                 }
             }
 
@@ -53,7 +50,12 @@ public class RefreshGridViewActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new SimpleAdapter(values);
         mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {
+            @Override
+            public int getLoadMoreLayoutResource() {
+                return R.layout.list_load_more;
+            }
+        });
         mRecyclerView.setRecyclerViewListener(new RefreshRecyclerViewListener() {
             @Override
             public void onRefresh() {

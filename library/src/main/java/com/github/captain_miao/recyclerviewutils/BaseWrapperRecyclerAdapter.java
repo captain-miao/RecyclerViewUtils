@@ -1,10 +1,12 @@
 package com.github.captain_miao.recyclerviewutils;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.UnRecyclableViewHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +17,8 @@ import java.util.Map;
  * @author YanLu
  * @since 16/3/30
  */
-public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter{
-    private static final String TAG = "BaseHeaderRecyclerAdapter";
+public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter{
+    private static final String TAG = "BaseWrapperRecyclerAdapter";
 
     public static final int NO_POSITION = -1;
     public static final long NO_ID = -1;
@@ -39,8 +41,8 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     private Map<View, RecyclerView.ViewHolder> mFooterViewHolderMap = new HashMap<>();
     private int mFooterSize;
 
-
-
+    //load more footer view
+    private BaseLoadMoreFooterView mLoadMoreFooterView;
     private boolean showLoadMoreView;//has load more view
     private boolean hasMoreData;//load more display message
 
@@ -57,36 +59,9 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         return 0;
     }
 
-    public int getFooterLayoutResource() {
-        return R.layout.item_view_load_more;//default
-    }
-    public int getFooterLoadingShowStringResource() {
-        return R.string.app_loading_more;//loading_more
-    }
-    public int getFooterNoMoreDataShowStringResource() {
-        return R.string.app_no_more_data;//loading_more
-    }
-
-    public static class FooterViewHolder extends RecyclerView.ViewHolder {
-
-        public final View mProgressView;
-
-        public final TextView mTextView;
-        public FooterViewHolder(View view) {
-            super(view);
-            mProgressView = view.findViewById(R.id.progress_view);
-            mTextView = (TextView) view.findViewById(R.id.tv_content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mTextView.getText();
-        }
-
-    }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(isContentViewType(viewType)){
             return onCreateItemViewHolder(parent, viewType - CONTENT_VIEW_TYPE_OFFSET);
         } else if (isHeaderViewType(viewType)) {
@@ -94,9 +69,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
         } else if(isFooterViewType(viewType)){
             return mFooterViews.get(viewType - FOOTER_VIEW_TYPE_OFFSET);
         } else if (isFooterLoadMoreViewType(viewType)) {//the bottom load more view
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(getFooterLayoutResource(), parent, false);
-            return new FooterViewHolder(view);
+            return new UnRecyclableViewHolder(mLoadMoreFooterView);
         }
 
         return null;
@@ -104,17 +77,12 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
 
     @Override
     @SuppressWarnings("unchecked")
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof FooterViewHolder) {
-            //没有更多数据
+    public final void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (mLoadMoreFooterView != null && isFooterLoadMoreViewType(getItemViewType(position))) {
             if (hasMoreData) {
-                ((FooterViewHolder) holder).mProgressView.setVisibility(View.GONE);
-                ((FooterViewHolder) holder).mProgressView.setVisibility(View.VISIBLE);
-                ((FooterViewHolder) holder).mTextView.setText(getFooterLoadingShowStringResource());
+                mLoadMoreFooterView.showLoading();
             } else {
-                ((FooterViewHolder) holder).mProgressView.setVisibility(View.VISIBLE);
-                ((FooterViewHolder) holder).mProgressView.setVisibility(View.GONE);
-                ((FooterViewHolder) holder).mTextView.setText(getFooterNoMoreDataShowStringResource());
+                mLoadMoreFooterView.showNoMoreData();
             }
         } else {
             onBindItemViewHolder((VH) holder, position);
@@ -123,7 +91,7 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
 
 
     @Override
-    final public int getItemViewType(int position) {
+    public final int getItemViewType(int position) {
         //header view type
         if(mHeaderSize > 0 && position < mHeaderSize) {
             return HEADER_VIEW_TYPE_OFFSET + position;//header view has different viewType
@@ -144,6 +112,20 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
             return FOOTER_LOAD_MORE_VIEW_TYPE;
         }
         return INVALID_TYPE;
+    }
+
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        int position = holder.getLayoutPosition();
+        if (!isContentView(position)) {
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
+                StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+                lp.setFullSpan(true);
+            }
+        }
     }
 
     public void addHeaderView(View view, boolean notifyDataChange) {
@@ -201,6 +183,14 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
     public void removeFooterView(View view) {
         removeFooterView(view, true);
+    }
+
+    public BaseLoadMoreFooterView getLoadMoreFooterView() {
+        return mLoadMoreFooterView;
+    }
+
+    public void setLoadMoreFooterView(BaseLoadMoreFooterView mLoadMoreFooterView) {
+        this.mLoadMoreFooterView = mLoadMoreFooterView;
     }
 
     public int getHeaderSize() {
@@ -363,6 +353,9 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
 
 
     public void showLoadMoreView(){
+        if(mLoadMoreFooterView == null){
+            throw new IllegalArgumentException("mLoadMoreFooterView is null, you can call setLoadMoreFooterView()");
+        }
         this.hasMoreData = true;
         if(showLoadMoreView) {
             notifyItemChanged(getItemCount());
@@ -373,6 +366,9 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
 
     public void showNoMoreDataView(){
+        if(mLoadMoreFooterView == null){
+            throw new IllegalArgumentException("mLoadMoreFooterView is null, you can call setLoadMoreFooterView()");
+        }
         this.hasMoreData = false;
         if(showLoadMoreView) {
             notifyItemChanged(getItemCount());
@@ -383,6 +379,9 @@ public abstract class BaseHeaderRecyclerAdapter<T, VH extends RecyclerView.ViewH
     }
 
     public void hideFooterView(){
+        if(mLoadMoreFooterView == null){
+            throw new IllegalArgumentException("mLoadMoreFooterView is null, must call setLoadMoreFooterView()");
+        }
         if(showLoadMoreView) {
             this.showLoadMoreView = false;
             notifyItemRemoved(getItemCount());

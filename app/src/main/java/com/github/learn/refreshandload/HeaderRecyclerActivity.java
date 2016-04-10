@@ -12,9 +12,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.captain_miao.recyclerviewutils.RefreshRecyclerView;
+import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
+import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
-import com.github.learn.refreshandload.adapter.SimpleHeaderAdapter;
+import com.github.learn.refreshandload.adapter.SimpleWrapperAdapter;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ import java.util.ArrayList;
 
 public class HeaderRecyclerActivity extends AppCompatActivity implements View.OnClickListener, RefreshRecyclerViewListener {
 
-    private SimpleHeaderAdapter mAdapter;
-    private RefreshRecyclerView mRefreshRecyclerView;
+    private SimpleWrapperAdapter mAdapter;
+    private WrapperRecyclerView mWrapperRecyclerView;
     private View mRecyclerViewHeader;
     private TextView mTvHeader;
     private View mRecyclerViewFooter;
@@ -38,21 +39,22 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-        mAdapter = new SimpleHeaderAdapter(new ArrayList<String>());
+        mAdapter = new SimpleWrapperAdapter(new ArrayList<String>());
+        mAdapter.setLoadMoreFooterView(new DefaultLoadMoreFooterView(this));
         addHeaderView();
         addFooterView();
 
-        mRefreshRecyclerView = (RefreshRecyclerView) findViewById(R.id.recycler_view);
+        mWrapperRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRefreshRecyclerView.setLayoutManager(linearLayoutManager);
-        mRefreshRecyclerView.setAdapter(mAdapter);
+        mWrapperRecyclerView.setLayoutManager(linearLayoutManager);
+        mWrapperRecyclerView.setAdapter(mAdapter);
 
-        mRefreshRecyclerView.setRecyclerViewListener(this);
-        mRefreshRecyclerView.disableLoadMore();
-        mRefreshRecyclerView.post(new Runnable() {
+        mWrapperRecyclerView.setRecyclerViewListener(this);
+        mWrapperRecyclerView.disableLoadMore();
+        mWrapperRecyclerView.post(new Runnable() {
             @Override
             public void run() {
-                mRefreshRecyclerView.autoRefresh();
+                mWrapperRecyclerView.autoRefresh();
             }
         });
     }
@@ -151,10 +153,10 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onRefresh() {
-        mRefreshRecyclerView.postDelayed(new Runnable() {
+        mWrapperRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mRefreshRecyclerView.refreshComplete();
+                mWrapperRecyclerView.refreshComplete();
                 if (mAdapter.getItemCount() < 15) {
                     mAdapter.clear();
                     initMockData();
@@ -164,7 +166,7 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
                 }
                 mAdapter.hideFooterView();
                 mAdapter.notifyDataSetChanged();
-                mRefreshRecyclerView.getRecyclerView().scrollToPosition(0);
+                mWrapperRecyclerView.getRecyclerView().scrollToPosition(0);
             }
         }, 500);
     }

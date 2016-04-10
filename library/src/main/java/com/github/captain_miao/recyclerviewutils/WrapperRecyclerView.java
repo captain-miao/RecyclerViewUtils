@@ -1,6 +1,7 @@
 package com.github.captain_miao.recyclerviewutils;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -20,32 +21,32 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
  * @author YanLu
  * @since 16/3/23
  */
-public class RefreshRecyclerView extends FrameLayout {
+public class WrapperRecyclerView extends FrameLayout {
     private static final String TAG = "RefreshRecyclerView";
 
     private RecyclerView mRecyclerView;
+    private BaseWrapperRecyclerAdapter mAdapter;
     private PtrFrameLayout mPtrFrameLayout;
     private RefreshRecyclerViewListener mRecyclerViewListener;
     private EndlessRecyclerOnScrollListener mEndlessRecyclerOnScrollListener;
 
-    public RefreshRecyclerView(Context context) {
+    public WrapperRecyclerView(Context context) {
         super(context);
         initRefreshRecyclerView(context);
     }
 
-    public RefreshRecyclerView(Context context, AttributeSet attrs) {
+    public WrapperRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initRefreshRecyclerView(context);
     }
 
-    public RefreshRecyclerView(Context context, AttributeSet attrs, int defStyle) {
+    public WrapperRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initRefreshRecyclerView(context);
     }
 
     private void initRefreshRecyclerView(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        //关键点：this是一个FrameLayout，XML事例化的view加入了viewGroup，所以下面可以使用findViewById()
         inflater.inflate(R.layout.refresh_recycler_view, this);
         mRecyclerView = (RecyclerView) findViewById(R.id.service_recycler_view);
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.material_style_ptr_frame);
@@ -60,7 +61,7 @@ public class RefreshRecyclerView extends FrameLayout {
         header.setPtrFrameLayout(mPtrFrameLayout);
 
 
-        mPtrFrameLayout.setDurationToCloseHeader(1500);
+        mPtrFrameLayout.setDurationToCloseHeader(500);
         mPtrFrameLayout.setHeaderView(header);
         mPtrFrameLayout.addPtrUIHandler(header);
         mPtrFrameLayout.setEnabledNextPtrAtOnce(false);
@@ -96,6 +97,21 @@ public class RefreshRecyclerView extends FrameLayout {
                     }
                 }
             });
+            if(layout instanceof GridLayoutManager) {
+                final GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        //加载更多 占领 整个一行
+                        if (!mAdapter.isContentView(position)) {
+                            return gridLayoutManager.getSpanCount();//number of columns of the grid
+                        } else {
+                            return 1;
+                        }
+                    }
+
+                });
+            }
 
         } else {
             Log.e(TAG, "only support LinearLayoutManager");
@@ -112,7 +128,8 @@ public class RefreshRecyclerView extends FrameLayout {
 
 
     //about adapter
-    public void setAdapter(RecyclerView.Adapter adapter){
+    public void setAdapter(BaseWrapperRecyclerAdapter adapter){
+        this.mAdapter = adapter;
         mRecyclerView.setAdapter(adapter);
     }
 
