@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.7'
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.7-SNAPSHOT'
 }
 
 ```
@@ -29,7 +29,7 @@ dependencies {
 ![expandable_recycler_view](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/expandable_recycler_view.gif "expandable_recycler_view")
 
 ### IndexRecyclerHeaderView  
-![index_recycler_view](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/index_recycler_view.gif` "index_recycler_view")
+![index_recycler_view](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/index_recycler_view.gif "index_recycler_view")
 
 
 
