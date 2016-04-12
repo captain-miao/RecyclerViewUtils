@@ -43,8 +43,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
 
     //load more footer view
     private BaseLoadMoreFooterView mLoadMoreFooterView;
-    private boolean showLoadMoreView;//has load more view
-    private boolean hasMoreData;//load more display message
+    private boolean showLoadMoreView;//is show load more view
 
     protected List<T> mItemList = new ArrayList<>();
 
@@ -78,13 +77,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
     @Override
     @SuppressWarnings("unchecked")
     public final void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (mLoadMoreFooterView != null && isFooterLoadMoreViewType(getItemViewType(position))) {
-            if (hasMoreData) {
-                mLoadMoreFooterView.showLoading();
-            } else {
-                mLoadMoreFooterView.showNoMoreData();
-            }
-        } else {
+        if (isContentView(position)) {
             onBindItemViewHolder((VH) holder, position);
         }
     }
@@ -356,9 +349,9 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
         if(mLoadMoreFooterView == null){
             throw new IllegalArgumentException("mLoadMoreFooterView is null, you can call setLoadMoreFooterView()");
         }
-        this.hasMoreData = true;
+        mLoadMoreFooterView.showLoading();
         if(showLoadMoreView) {
-            notifyItemChanged(getItemCount());
+            //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
             notifyItemInserted(getBasicItemCount());
@@ -369,9 +362,9 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
         if(mLoadMoreFooterView == null){
             throw new IllegalArgumentException("mLoadMoreFooterView is null, you can call setLoadMoreFooterView()");
         }
-        this.hasMoreData = false;
+        mLoadMoreFooterView.showNoMoreData();
         if(showLoadMoreView) {
-            notifyItemChanged(getItemCount());
+            //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
             notifyItemInserted(getBasicItemCount());
