@@ -68,6 +68,23 @@ public class WrapperRecyclerView extends FrameLayout {
     }
 
     public void setLayoutManager(RecyclerView.LayoutManager layout) {
+        if(layout instanceof GridLayoutManager) {
+            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (mAdapter.isContentView(position)) {
+                        return 1;
+                    } else {
+                        //full line
+                        return gridLayoutManager.getSpanCount();//number of columns of the grid
+                    }
+                }
+
+            });
+        }
+
+
         mRecyclerView.setLayoutManager(layout);
         if (layout instanceof LinearLayoutManager) {
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layout;
@@ -97,21 +114,7 @@ public class WrapperRecyclerView extends FrameLayout {
                     }
                 }
             });
-            if(layout instanceof GridLayoutManager) {
-                final GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
-                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        //加载更多 占领 整个一行
-                        if (!mAdapter.isContentView(position)) {
-                            return gridLayoutManager.getSpanCount();//number of columns of the grid
-                        } else {
-                            return 1;
-                        }
-                    }
 
-                });
-            }
 
         } else {
             Log.e(TAG, "only support LinearLayoutManager");
