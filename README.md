@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.8-SNAPSHOT'
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.8'
 }
 
 ```
