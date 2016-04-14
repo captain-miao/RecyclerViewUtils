@@ -3,7 +3,9 @@ package com.github.learn.refreshandload;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
@@ -17,7 +19,7 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
 
     private SimpleAdapter mAdapter;
     private WrapperRecyclerView mWrapperRecyclerView;
-    private final int MAX_ITEM_COUNT = 100;
+    private final int MAX_ITEM_COUNT = 30;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,10 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
         mAdapter.setLoadMoreFooterView(new DefaultLoadMoreFooterView(this));
         mWrapperRecyclerView.setAdapter(mAdapter);
         //mAdapter.setHasMoreData(true);
-
+        addHeaderView();
+        addFooterView();
         mWrapperRecyclerView.setRecyclerViewListener(this);
+
         mWrapperRecyclerView.post(new Runnable() {
             @Override
             public void run() {
@@ -45,6 +49,17 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
         });
     }
 
+    private void addHeaderView() {
+        View mRecyclerViewHeader = LayoutInflater.from(this).inflate(R.layout.recycler_view_header, null);
+        mRecyclerViewHeader.findViewById(R.id.btn_header_change_color).setVisibility(View.GONE);
+        mAdapter.addHeaderView(mRecyclerViewHeader, true);
+    }
+
+    private void addFooterView() {
+        View mRecyclerViewHeader = LayoutInflater.from(this).inflate(R.layout.recycler_view_footer, null);
+        mRecyclerViewHeader.findViewById(R.id.btn_footer_change_color).setVisibility(View.GONE);
+        mAdapter.addFooterView(mRecyclerViewHeader, true);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -124,7 +139,6 @@ public class RefreshRecyclerActivity extends AppCompatActivity implements Refres
                 //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
                 //mRefreshRecyclerView.scrollToPosition(position);
                 mWrapperRecyclerView.loadMoreComplete();
-
             }
         }, 1500);
     }

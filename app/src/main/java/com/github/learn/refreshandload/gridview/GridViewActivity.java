@@ -37,17 +37,18 @@ public class GridViewActivity extends AppCompatActivity {
 
         mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
 
-        // 网格布局管理器
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                //加载更多 占领 整个一行
-                if(!mAdapter.isContentView(position)){
-                    return layoutManager.getSpanCount();//number of columns of the grid
-                } else {
+
+                if(mAdapter.isContentView(position)){
                     return 1;
+                } else {
+                    //full line
+                    return layoutManager.getSpanCount();//number of columns of the grid
                 }
+
             }
         });
 

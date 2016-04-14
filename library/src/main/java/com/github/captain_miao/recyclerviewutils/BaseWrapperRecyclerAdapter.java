@@ -354,7 +354,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
-            notifyItemInserted(getBasicItemCount());
+            notifyItemInserted(getItemCount());
         }
     }
 
@@ -367,7 +367,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
-            notifyItemInserted(getBasicItemCount());
+            notifyItemInserted(getItemCount());
         }
     }
 
@@ -377,7 +377,9 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
         }
         if(showLoadMoreView) {
             this.showLoadMoreView = false;
-            notifyItemRemoved(getItemCount());
+            //for java.lang.IllegalStateException: Added View has RecyclerView as parent but view is not a real child.
+            //https://github.com/captain-miao/RecyclerViewUtils/issues/3
+            notifyDataSetChanged();
         }
     }
 
