@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -111,6 +112,13 @@ public class MaterialHeader extends View implements PtrUIHandler {
     }
 
     public void setColorSchemeColors(int[] colors) {
+        mDrawable.setColorSchemeColors(colors);
+        invalidate();
+    }
+
+    //for single color
+    public void setColorSchemeColor(@ColorRes int rid) {
+        int[] colors = new int[]{getResources().getColor(rid)};
         mDrawable.setColorSchemeColors(colors);
         invalidate();
     }
