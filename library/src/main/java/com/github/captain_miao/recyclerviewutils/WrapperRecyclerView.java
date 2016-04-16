@@ -167,11 +167,23 @@ public class WrapperRecyclerView extends FrameLayout {
     public void disableLoadMore(){
         mEndlessRecyclerOnScrollListener.setLoadMoreEnable(false);
     }
+
     public void enableLoadMore(){
         mEndlessRecyclerOnScrollListener.setLoadMoreEnable(true);
     }
+
     public void loadMoreComplete(){
         mEndlessRecyclerOnScrollListener.loadComplete();
+    }
+
+    public void showLoadMoreView(){
+        mAdapter.showLoadMoreView();
+    }
+    public void showNoMoreDataView(){
+        mAdapter.showNoMoreDataView();
+    }
+    public void hideFooterView(){
+        mAdapter.hideFooterView();
     }
 
     public RecyclerView getRecyclerView() {
