@@ -69,19 +69,24 @@ public class WrapperRecyclerView extends FrameLayout {
 
     public void setLayoutManager(RecyclerView.LayoutManager layout) {
         if(layout instanceof GridLayoutManager) {
-            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (mAdapter.isContentView(position)) {
-                        return 1;
-                    } else {
-                        //full line
-                        return gridLayoutManager.getSpanCount();//number of columns of the grid
+            GridLayoutManager.SpanSizeLookup lookup = ((GridLayoutManager) layout).getSpanSizeLookup();
+            //if user not define, it,s DefaultSpanSizeLookup, then custom it.
+            if (lookup instanceof GridLayoutManager.DefaultSpanSizeLookup) {
+                final GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        if (mAdapter.isContentView(position)) {
+                            return 1;
+                        } else {
+                            //full line
+                            return gridLayoutManager.getSpanCount();//number of columns of the grid
+                        }
                     }
-                }
 
-            });
+                });
+            }
+
         }
 
 
@@ -129,6 +134,13 @@ public class WrapperRecyclerView extends FrameLayout {
         mRecyclerView.addItemDecoration(decor, index);
     }
 
+    public void setRecyclerViewPadding(int left, int top, int right, int bottom){
+        mRecyclerView.setPadding(left, top, right, bottom);
+    }
+
+    public void setRecyclerViewClipToPadding(boolean clipToPadding){
+        mRecyclerView.setClipToPadding(clipToPadding);
+    }
 
     //about adapter
     public void setAdapter(BaseWrapperRecyclerAdapter adapter){
