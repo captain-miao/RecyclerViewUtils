@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RALMDemo</string>
+    <string name="recycler_view_utils_app_name">RALMDemo</string>
 
 
     <string name="app_loading">加载中…</string>
