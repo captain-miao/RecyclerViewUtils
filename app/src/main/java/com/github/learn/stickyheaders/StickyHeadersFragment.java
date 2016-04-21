@@ -53,18 +53,19 @@ public class StickyHeadersFragment extends Fragment {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), orientation, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        // Add the sticky headers decoration
-        final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
-        recyclerView.addItemDecoration(headersDecor);
-
         // Add decoration for dividers between list items
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+
+        // Add the sticky headers decoration
+        final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
                 headersDecor.invalidateHeaders();
             }
         });
+        recyclerView.addItemDecoration(headersDecor);
+
 
 
         // Add touch listeners

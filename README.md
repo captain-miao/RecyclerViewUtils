@@ -5,7 +5,8 @@ Get library from  [oss.sonatype.org.io](https://oss.sonatype.org/content/reposit
 ```javascript
 
 repositories {
-    
+
+    maven { url 'https://oss.sonatype.org/content/repositories/releases' }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 
 }
@@ -31,10 +32,19 @@ dependencies {
 ### IndexRecyclerHeaderView  
 ![index_recycler_view](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/index_recycler_view.gif "index_recycler_view")
 
-
-
 <br/>
 
+### Tips:
+1. work with ViewPager: disableWhenHorizontalMove()
+2. work with LongPressed: setInterceptEventWhileWorking()
+3. StickyRecyclerHeaderView work with addItemDecoration:
+```
+first Add decoration for dividers between list items
+    mRecyclerView.addItemDecoration(new DividerItemDecoration(this));
+then:
+    final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
+    mRecyclerView.addItemDecoration(headersDecor);
+```
 
 QQ  Group:436275452
 # Thanks
