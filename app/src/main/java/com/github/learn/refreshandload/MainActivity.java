@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
+import com.github.learn.databinding.DataBindingRecyclerActivity;
 import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
@@ -174,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_index_view:
                 startActivity(new Intent(this, IndexRecyclerActivity.class));
+                return true;
+            case R.id.action_data_binding_view:
+                startActivity(new Intent(this, DataBindingRecyclerActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

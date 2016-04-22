@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.github.learn.refreshandload">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="false"
@@ -23,32 +25,36 @@
         </activity>
         <activity
             android:name="com.github.learn.refreshandload.gridview.GridViewActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_grid_view">
         </activity>
         <activity
             android:name="com.github.learn.refreshandload.gridview.RefreshGridViewActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_refresh_grid_view">
         </activity>
         <activity
             android:name="com.github.learn.refreshandload.RefreshRecyclerActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_recycler_view">
         </activity>
 
         <activity
             android:name="com.github.learn.refreshandload.HeaderRecyclerActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_header_view">
         </activity>
         <activity
             android:name="com.github.learn.stickyheaders.StickyHeadersActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_sticky_header_view">
         </activity>
         <activity
             android:name="com.github.learn.expandable.ExpandableRecyclerActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_expandable_view">
         </activity>
         <activity
             android:name="com.github.learn.index.IndexRecyclerActivity"
-            android:label="@string/app_name">
+            android:label="@string/label_action_label_index_view">
+        </activity>
+        <activity
+            android:name="com.github.learn.databinding.DataBindingRecyclerActivity"
+            android:label="@string/label_action_label_data_binding">
         </activity>
     </application>
 

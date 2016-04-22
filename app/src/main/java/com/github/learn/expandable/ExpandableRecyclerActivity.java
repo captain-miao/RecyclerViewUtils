@@ -39,9 +39,6 @@ public class ExpandableRecyclerActivity extends AppCompatActivity {
             @Override
             public boolean isDecorate(View view, RecyclerView parent) {
                 RecyclerView.ViewHolder viewHolder = parent.getChildViewHolder(view);
-                //previous position also is child
-                //int position = viewHolder.getAdapterPosition();
-                //boolean isChild = mAdapter.getContentViewType(position - 1) == ExpandableRecyclerAdapter.TYPE_CHILD;
                 return viewHolder instanceof ChildViewHolder;
             }
         });
