@@ -33,7 +33,7 @@ public class DataBindingRecyclerActivity extends AppCompatActivity implements Im
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        mBinding.setTxtColor(getResources().getColor(R.color.blue));
+        //mBinding.setTxtColor(getResources().getColor(R.color.blue));
         mBinding.setBgColor(getResources().getColor(R.color.green));
         //mBinding.setVariable(BR.txtColor, getResources().getColor(R.color.blue));
         mBinding.setImageUrl(images[0]);
