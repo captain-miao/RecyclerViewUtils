@@ -7,20 +7,10 @@
     card_view:cardCornerRadius="4dp"
     style="@style/CardView.Light"
     android:layout_margin="4dp">
-
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp">
-
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:adjustViewBounds="true"/>
-    </RelativeLayout>
+        android:layout_gravity="top"
+        android:adjustViewBounds="true"/>
 </android.support.v7.widget.CardView>

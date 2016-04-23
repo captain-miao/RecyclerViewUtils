@@ -68,7 +68,7 @@ public abstract class LinearLayoutWithRecyclerOnScrollListener extends RecyclerO
     }
 
 
-    public boolean checkCanBePulledDown() {
+    public boolean checkCanDoRefresh() {
         int position = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
         if (position == 0) {
             return true;

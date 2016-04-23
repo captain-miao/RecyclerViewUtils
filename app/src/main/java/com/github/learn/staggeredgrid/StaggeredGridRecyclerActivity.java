@@ -88,7 +88,7 @@ public class StaggeredGridRecyclerActivity extends AppCompatActivity implements 
     private String[] images = new String[]{
             "http://ww1.sinaimg.cn/small/7a8aed7bjw1f2sm0ns82hj20f00l8tb9.jpg",
             "http://ww4.sinaimg.cn/large/7a8aed7bjw1f2tpr3im0mj20f00l6q4o.jpg",
-            "http://ww4.sinaimg.cn/small/610dc034jw1f2uyg3nvq7j20gy0p6myx.jpg",
+            "http://ww4.sinaimg.cn/large/610dc034jw1f2uyg3nvq7j20gy0p6myx.jpg",
             "http://ww2.sinaimg.cn/large/7a8aed7bjw1f2w0qujoecj20f00kzjtt.jpg",
             "http://ww3.sinaimg.cn/small/7a8aed7bjw1f2x7vxkj0uj20d10mi42r.jpg",
             "http://ww1.sinaimg.cn/large/7a8aed7bjw1f2zwrqkmwoj20f00lg0v7.jpg",
@@ -101,10 +101,12 @@ public class StaggeredGridRecyclerActivity extends AppCompatActivity implements 
 
     @Override
     public void onRefresh() {
+        mWrapperRecyclerView.disableLoadMore();
         mWrapperRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mWrapperRecyclerView.refreshComplete();
+                mWrapperRecyclerView.enableLoadMore();
                 if(mAdapter.getItemCount() < 15) {
                     mAdapter.clear();
                     initMockData();

@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return mLoadMoreListener.checkCanBePulledDown();
+                return mLoadMoreListener.checkCanDoRefresh();
             }
 
             @Override

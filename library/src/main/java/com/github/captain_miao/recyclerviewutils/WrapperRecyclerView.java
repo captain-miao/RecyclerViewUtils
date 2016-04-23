@@ -1,6 +1,7 @@
 package com.github.captain_miao.recyclerviewutils;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -97,6 +98,18 @@ public class WrapperRecyclerView extends FrameLayout {
                     mRecyclerViewListener.onLoadMore(pagination, pageSize);
                 }
             }
+
+            public boolean checkCanDoRefresh() {
+                //todo < api 14
+                //return !mRecyclerView.canScrollVertically(-1);
+
+                if (android.os.Build.VERSION.SDK_INT < 14) {
+                    return !(ViewCompat.canScrollVertically(mRecyclerView, -1) || mRecyclerView.getScrollY() > 0);
+                } else {
+                    return !ViewCompat.canScrollVertically(mRecyclerView, -1);
+                }
+
+            }
         };
         mRecyclerView.addOnScrollListener(mOnScrollListener);
     }
@@ -117,7 +130,7 @@ public class WrapperRecyclerView extends FrameLayout {
         mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return mOnScrollListener.checkCanBePulledDown();
+                return mOnScrollListener.checkCanDoRefresh();
             }
 
             @Override

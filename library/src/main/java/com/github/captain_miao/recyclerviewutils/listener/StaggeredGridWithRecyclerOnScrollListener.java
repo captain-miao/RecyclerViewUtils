@@ -13,7 +13,6 @@ public abstract class StaggeredGridWithRecyclerOnScrollListener extends Recycler
     public static String TAG = StaggeredGridWithRecyclerOnScrollListener.class.getSimpleName();
 
     // The minimum amount of items to have below your current scroll position before loading more.
-    private int visibleThreshold = 1;
     int pastVisibleItems, visibleItemCount, totalItemCount;
     private StaggeredGridLayoutManager mLayoutManager;
 
@@ -49,26 +48,6 @@ public abstract class StaggeredGridWithRecyclerOnScrollListener extends Recycler
         }
     }
 
-    public boolean checkCanBePulledDown() {
-        boolean allViewAreOverScreen = true;
-        int[] positions = mLayoutManager.findFirstVisibleItemPositions(null);
-        for (int i = 0; i < positions.length; i++) {
-            if (positions[i] == 0) {
-                return true;
-            }
-            if (positions[i] != -1) {
-                allViewAreOverScreen = false;
-            }
-        }
-        if (allViewAreOverScreen) {
-            positions = mLayoutManager.findFirstVisibleItemPositions(null);
-            for (int i = 0; i < positions.length; i++) {
-                if (positions[i] == 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    public abstract boolean checkCanDoRefresh();
 
 }

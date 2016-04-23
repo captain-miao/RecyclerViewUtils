@@ -14,7 +14,7 @@ public abstract class RecyclerOnScrollListener extends RecyclerView.OnScrollList
     protected int pageSize = 15;
     protected int pagination = 1;
 
-    public abstract boolean checkCanBePulledDown();
+    public abstract boolean checkCanDoRefresh();
     public abstract void onLoadMore(int pagination, int pageSize);
 
 
