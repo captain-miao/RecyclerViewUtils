@@ -1,4 +1,4 @@
-package com.github.captain_miao.recyclerviewutils;
+package com.github.captain_miao.recyclerviewutils.listener;
 
 /*
  * Copyright (C) 2015 Jorge Castillo Pérez
@@ -27,40 +27,37 @@ import android.support.v7.widget.RecyclerView;
  *
  * modify at 2015/08/23
  */
-public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
-    public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
+public abstract class LinearLayoutWithRecyclerOnScrollListener extends RecyclerOnScrollListener {
+    public static String TAG = LinearLayoutWithRecyclerOnScrollListener.class.getSimpleName();
 
-    private boolean loading = false;
-    private boolean loadMoreEnable = true;
-    //list到达 最后一个item的时候 触发加载
-    private int visibleThreshold = 1;
+
     // The minimum amount of items to have below your current scroll position before loading more.
+    private int visibleThreshold = 1;
     int firstVisibleItem, visibleItemCount, totalItemCount;
-
     private LinearLayoutManager mLinearLayoutManager;
 
+    public abstract void onLoadMore(int pagination, int pageSize);
 
-    //分页加载
-    private int pageSize = 15;  //查询数量
-    private int pagination = 1; //查询页码
-    public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager, int pagination, int pageSize) {
+
+    public LinearLayoutWithRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager, int pagination, int pageSize) {
         this.mLinearLayoutManager = linearLayoutManager;
         this.pagination = pagination;
         this.pageSize = pageSize;
     }
-    public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
+
+    public LinearLayoutWithRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
         this.mLinearLayoutManager = linearLayoutManager;
     }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        if(!isLoading()) {
+        if (!isLoading()) {
             visibleItemCount = recyclerView.getChildCount();
             totalItemCount = mLinearLayoutManager.getItemCount();
             firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
-            //totalItemCount > visibleItemCount 超过一个页面才有加载更多
+            //totalItemCount > visibleItemCount load more
             if (loadMoreEnable && !loading && totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 // End has been reached
                 loading = true;
@@ -70,41 +67,18 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         }
     }
 
+
     public boolean checkCanBePulledDown() {
-        int firstPos = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        return firstPos <= 0;
+        int position = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+        if (position == 0) {
+            return true;
+        } else if (position == -1) {
+            position = mLinearLayoutManager.findFirstVisibleItemPosition();
+            return position == 0;
+        }
+        //int firstPos = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+        return false;
     }
-
-
-    public void loadComplete() {
-        loading = false;
-    }
-
-    public synchronized boolean isLoading() {
-        return loading;
-    }
-
-    public void setLoadMoreEnable(boolean loadMoreEnable) {
-        this.loadMoreEnable = loadMoreEnable;
-    }
-
-    public int getPagination() {
-        return pagination;
-    }
-
-    public void setPagination(int pagination) {
-        this.pagination = pagination;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public abstract void onLoadMore(int pagination, int pageSize);
 
 
 }

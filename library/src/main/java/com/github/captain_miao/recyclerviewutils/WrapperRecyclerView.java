@@ -4,13 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
+import com.github.captain_miao.recyclerviewutils.listener.RecyclerOnScrollListener;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
+import com.github.captain_miao.recyclerviewutils.listener.StaggeredGridWithRecyclerOnScrollListener;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -28,7 +32,7 @@ public class WrapperRecyclerView extends FrameLayout {
     private BaseWrapperRecyclerAdapter mAdapter;
     private PtrFrameLayout mPtrFrameLayout;
     private RefreshRecyclerViewListener mRecyclerViewListener;
-    private EndlessRecyclerOnScrollListener mEndlessRecyclerOnScrollListener;
+    private RecyclerOnScrollListener mOnScrollListener;
 
     public WrapperRecyclerView(Context context) {
         super(context);
@@ -68,6 +72,65 @@ public class WrapperRecyclerView extends FrameLayout {
     }
 
     public void setLayoutManager(RecyclerView.LayoutManager layout) {
+        mRecyclerView.setLayoutManager(layout);
+
+        if (layout instanceof LinearLayoutManager) {
+
+            setLinearLayoutOnScrollListener((LinearLayoutManager) layout);
+            setPtrHandler();
+            setGridLayoutManager(layout);
+
+        } else if(layout instanceof StaggeredGridLayoutManager) {
+            setStaggeredGridOnScrollListener((StaggeredGridLayoutManager) layout);
+            setPtrHandler();
+        } else {
+            Log.e(TAG, "only support LinearLayoutManager and StaggeredGridLayoutManager");
+        }
+    }
+
+
+    private void setStaggeredGridOnScrollListener(StaggeredGridLayoutManager layoutManager){
+        mOnScrollListener = new StaggeredGridWithRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int pagination, int pageSize) {
+                if(mRecyclerViewListener != null){
+                    mRecyclerViewListener.onLoadMore(pagination, pageSize);
+                }
+            }
+        };
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+    }
+
+    private void setLinearLayoutOnScrollListener(LinearLayoutManager layoutManager){
+        mOnScrollListener = new LinearLayoutWithRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int pagination, int pageSize) {
+                if(mRecyclerViewListener != null){
+                    mRecyclerViewListener.onLoadMore(pagination, pageSize);
+                }
+            }
+        };
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+    }
+
+    private void setPtrHandler(){
+        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return mOnScrollListener.checkCanBePulledDown();
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                mOnScrollListener.setPagination(1);//恢复第一页
+                if(mRecyclerViewListener != null){
+                    mRecyclerViewListener.onRefresh();
+                }
+            }
+        });
+    }
+
+    private void setGridLayoutManager(RecyclerView.LayoutManager layout){
         if(layout instanceof GridLayoutManager) {
             GridLayoutManager.SpanSizeLookup lookup = ((GridLayoutManager) layout).getSpanSizeLookup();
             //if user not define, it,s DefaultSpanSizeLookup, then custom it.
@@ -88,43 +151,8 @@ public class WrapperRecyclerView extends FrameLayout {
             }
 
         }
-
-
-        mRecyclerView.setLayoutManager(layout);
-        if (layout instanceof LinearLayoutManager) {
-            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layout;
-
-            mEndlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-                @Override
-                public void onLoadMore(int pagination, int pageSize) {
-                    if(mRecyclerViewListener != null){
-                        mRecyclerViewListener.onLoadMore(pagination, pageSize);
-                    }
-                }
-            };
-            mRecyclerView.addOnScrollListener(mEndlessRecyclerOnScrollListener);
-
-
-            mPtrFrameLayout.setPtrHandler(new PtrHandler() {
-                @Override
-                public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                    return mEndlessRecyclerOnScrollListener.checkCanBePulledDown();
-                }
-
-                @Override
-                public void onRefreshBegin(PtrFrameLayout frame) {
-                    mEndlessRecyclerOnScrollListener.setPagination(1);//恢复第一页
-                    if(mRecyclerViewListener != null){
-                        mRecyclerViewListener.onRefresh();
-                    }
-                }
-            });
-
-
-        } else {
-            Log.e(TAG, "only support LinearLayoutManager");
-        }
     }
+
     //about adapterRecyclerView
     public void addItemDecoration(RecyclerView.ItemDecoration decor) {
         mRecyclerView.addItemDecoration(decor, -1);
@@ -169,23 +197,23 @@ public class WrapperRecyclerView extends FrameLayout {
 
     //about load more
     public void setPageSize(int pageSize){
-        mEndlessRecyclerOnScrollListener.setPageSize(pageSize);
-        mEndlessRecyclerOnScrollListener.setPagination(pageSize);
+        mOnScrollListener.setPageSize(pageSize);
+        mOnScrollListener.setPagination(pageSize);
     }
     public void setPagination(int pagination){
-        mEndlessRecyclerOnScrollListener.setPagination(pagination);
+        mOnScrollListener.setPagination(pagination);
     }
 
     public void disableLoadMore(){
-        mEndlessRecyclerOnScrollListener.setLoadMoreEnable(false);
+        mOnScrollListener.setLoadMoreEnable(false);
     }
 
     public void enableLoadMore(){
-        mEndlessRecyclerOnScrollListener.setLoadMoreEnable(true);
+        mOnScrollListener.setLoadMoreEnable(true);
     }
 
     public void loadMoreComplete(){
-        mEndlessRecyclerOnScrollListener.loadComplete();
+        mOnScrollListener.loadComplete();
     }
 
     public void showLoadMoreView(){

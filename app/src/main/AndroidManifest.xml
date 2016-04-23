@@ -53,6 +53,10 @@
             android:label="@string/label_action_label_index_view">
         </activity>
         <activity
+            android:name="com.github.learn.staggeredgrid.StaggeredGridRecyclerActivity"
+            android:label="@string/label_action_label_staggered_grid_view">
+        </activity>
+        <activity
             android:name="com.github.learn.databinding.DataBindingRecyclerActivity"
             android:label="@string/label_action_label_data_binding">
         </activity>

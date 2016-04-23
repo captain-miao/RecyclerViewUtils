@@ -23,6 +23,9 @@
     <item android:id="@+id/action_index_view"
         android:title="@string/label_action_label_index_view"
         app:showAsAction="never" />
+    <item android:id="@+id/action_staggered_grid_view"
+        android:title="@string/label_action_label_staggered_grid_view"
+        app:showAsAction="never" />
     <item android:id="@+id/action_data_binding_view"
         android:title="@string/label_action_label_data_binding"
         app:showAsAction="never" />

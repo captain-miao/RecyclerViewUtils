@@ -50,12 +50,13 @@ public class IndexRecyclerActivity extends AppCompatActivity implements EasySide
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        // Add decoration for dividers between list items
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this));
+
         // Add the sticky headers decoration
         final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
         mRecyclerView.addItemDecoration(headersDecor);
 
-        // Add decoration for dividers between list items
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this));
         mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {

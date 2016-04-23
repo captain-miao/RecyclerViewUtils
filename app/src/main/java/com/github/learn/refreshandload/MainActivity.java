@@ -10,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.learn.databinding.DataBindingRecyclerActivity;
 import com.github.learn.expandable.ExpandableRecyclerActivity;
@@ -18,6 +18,7 @@ import com.github.learn.index.IndexRecyclerActivity;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
 import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
+import com.github.learn.staggeredgrid.StaggeredGridRecyclerActivity;
 import com.github.learn.stickyheaders.StickyHeadersActivity;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private EndlessRecyclerOnScrollListener mLoadMoreListener;
+    private LinearLayoutWithRecyclerOnScrollListener mLoadMoreListener;
     private final int MAX_ITEM_COUNT = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         initMockData();
         mRecyclerView.setAdapter(mAdapter);
 
-        mLoadMoreListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+        mLoadMoreListener = new LinearLayoutWithRecyclerOnScrollListener(linearLayoutManager) {
 
             @Override
             public void onLoadMore(final int pagination, int pageSize) {
@@ -175,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_index_view:
                 startActivity(new Intent(this, IndexRecyclerActivity.class));
+                return true;
+            case R.id.action_staggered_grid_view:
+                startActivity(new Intent(this, StaggeredGridRecyclerActivity.class));
                 return true;
             case R.id.action_data_binding_view:
                 startActivity(new Intent(this, DataBindingRecyclerActivity.class));

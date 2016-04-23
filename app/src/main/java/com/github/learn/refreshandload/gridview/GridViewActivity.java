@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.captain_miao.recyclerviewutils.EndlessRecyclerOnScrollListener;
+import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
@@ -24,7 +24,7 @@ public class GridViewActivity extends AppCompatActivity {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private EndlessRecyclerOnScrollListener mLoadMoreListener;
+    private LinearLayoutWithRecyclerOnScrollListener mLoadMoreListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +108,7 @@ public class GridViewActivity extends AppCompatActivity {
         });
 
 
-        mLoadMoreListener = new EndlessRecyclerOnScrollListener(layoutManager) {
+        mLoadMoreListener = new LinearLayoutWithRecyclerOnScrollListener(layoutManager) {
 
             @Override
             public void onLoadMore(final int pagination, int pageSize) {
