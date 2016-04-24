@@ -45,13 +45,14 @@ public class StaggeredGridAdapter extends BaseWrapperRecyclerAdapter<String, Rec
     @Override
     public void onClick(View v, int position) {
         switch (v.getId()){
-            case R.id.tv_content:
-                Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
-                break;
+            //case R.id.tv_content:
+            //    Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
+            //    break;
             default:
+                Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
                 //mock click todo  last item
-                int index = (int) getItemId(position);
-                remove(index);
+                //int index = (int) getItemId(position);
+                //remove(index);
                 //notifyItemRemoved(position);
         }
     }
