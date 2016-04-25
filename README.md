@@ -39,6 +39,7 @@ dependencies {
 2. work with LongPressed: setInterceptEventWhileWorking()
 3. StickyRecyclerHeaderView work with addItemDecoration:
 ```
+divider color is the same as header backgroud.
 first Add decoration for dividers between list items
     mRecyclerView.addItemDecoration(new DividerItemDecoration(this));
 then:
