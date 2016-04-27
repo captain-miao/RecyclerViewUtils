@@ -2,7 +2,7 @@ RecyclerView Utils
 
 ### Gradle
 Get library from  [oss.sonatype.org.io](https://oss.sonatype.org/content/repositories/snapshots)
-```javascript
+```java
 
 repositories {
 
@@ -12,7 +12,9 @@ repositories {
 }
 
 dependencies {
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.8'
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.1.9'
+    //or 
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.0-SNAPSHOT'
 }
 
 ```
