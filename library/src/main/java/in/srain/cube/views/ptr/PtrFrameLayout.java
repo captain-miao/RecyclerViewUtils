@@ -328,11 +328,13 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
-                mPtrIndicator.onMove(e.getX(), e.getY());
+                float x = e.getX();
+                float y = e.getY();
+                mPtrIndicator.onMove(x, y);
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
 
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > 0 && (Math.abs(offsetX) - Math.abs(offsetY) > 0.4))) {
+                if (isHorizontalMoveArea(x, y) && !mPreventForHorizontal && (Math.abs(offsetX) > 0 && (Math.abs(offsetX) - Math.abs(offsetY) > 0.4))) {
                     if (mPtrIndicator.isInStartPosition()) {
                         mPreventForHorizontal = true;
                     }
@@ -1061,4 +1063,19 @@ public class PtrFrameLayout extends ViewGroup {
             mIsRunning = true;
         }
     }
+
+    //For Horizontal Move Area
+    private HorizontalMoveArea mHorizontalMoveArea;
+    private boolean isHorizontalMoveArea(float x, float y){
+        return mDisableWhenHorizontalMove || mHorizontalMoveArea == null || mHorizontalMoveArea.isHorizontalMoveArea(x, y);
+    }
+
+    public void setHorizontalMoveArea(HorizontalMoveArea horizontalMoveArea) {
+        mHorizontalMoveArea = horizontalMoveArea;
+    }
+
+    public interface HorizontalMoveArea {
+        boolean isHorizontalMoveArea(float x, float y);
+    }
+
 }

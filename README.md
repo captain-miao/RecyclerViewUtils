@@ -38,7 +38,7 @@ dependencies {
 
 ### Tips:
 1. work with ViewPager: disableWhenHorizontalMove()
-2. work with LongPressed: setInterceptEventWhileWorking()
+//2. work with LongPressed: setInterceptEventWhileWorking()
 3. StickyRecyclerHeaderView work with addItemDecoration:
 ```
 divider color is the same as header backgroud.

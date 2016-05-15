@@ -217,6 +217,15 @@ public class WrapperRecyclerView extends FrameLayout {
         mOnScrollListener.setPagination(pagination);
     }
 
+
+    public void disableRefresh(){
+        mPtrFrameLayout.setEnabled(false);
+    }
+
+    public void enableRefresh(){
+        mPtrFrameLayout.setEnabled(true);
+    }
+
     public void disableLoadMore(){
         mOnScrollListener.setLoadMoreEnable(false);
     }
