@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 return R.layout.list_load_more;
             }
         });
-        initMockData();
+        initMockData(0);
         mRecyclerView.setAdapter(mAdapter);
 
         mLoadMoreListener = new LinearLayoutWithRecyclerOnScrollListener(linearLayoutManager) {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
-        ptrFrameLayout.setEnabledNextPtrAtOnce(false);
+        ptrFrameLayout.setEnabledNextPtrAtOnce(true);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {

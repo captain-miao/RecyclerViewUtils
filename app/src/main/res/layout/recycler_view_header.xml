@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="A Header View"/>
+        android:lineSpacingExtra="@dimen/text_view_line_spacing"
+        android:text="@string/very_long_text"/>
     
     <Button
         android:layout_margin="24dp"

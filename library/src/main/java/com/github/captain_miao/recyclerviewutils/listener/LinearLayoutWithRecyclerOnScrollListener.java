@@ -21,6 +21,7 @@ package com.github.captain_miao.recyclerviewutils.listener;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 /**
  * @author Jorge Castillo Pérez
@@ -69,15 +70,16 @@ public abstract class LinearLayoutWithRecyclerOnScrollListener extends RecyclerO
 
 
     public boolean checkCanDoRefresh() {
-        int position = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        if (position == 0) {
-            return true;
-        } else if (position == -1) {
-            position = mLinearLayoutManager.findFirstVisibleItemPosition();
-            return position == 0;
+        //fixed https://github.com/captain-miao/RecyclerViewUtils/issues/5
+        if(mLinearLayoutManager.getItemCount() == 0) return true;
+        int firstVisiblePosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        if(firstVisiblePosition == 0) {
+            View firstVisibleView = mLinearLayoutManager.findViewByPosition(firstVisiblePosition);
+            int top = firstVisibleView.getTop();
+            return top >= 0;
+        } else {
+            return false;
         }
-        //int firstPos = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        return false;
     }
 
 

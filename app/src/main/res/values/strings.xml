@@ -23,4 +23,47 @@
 
     <string name="uses_permission_name">&lt;uses-permission android:name=\&quot;%s\&quot;/&gt;</string>
 
+
+    <string name="very_long_text">\r\n
+        00--very long text\r\n
+        01--very long text\r\n
+        02--very long text\r\n
+        03--very long text\r\n
+        04--very long text\r\n
+        05--very long text\r\n
+        06--very long text\r\n
+        07--very long text\r\n
+        08--very long text\r\n
+        09--very long text\r\n
+        10--very long text\r\n
+        11--very long text\r\n
+        12--very long text\r\n
+        13--very long text\r\n
+        14--very long text\r\n
+        15--very long text\r\n
+        16--very long text\r\n
+        17--very long text\r\n
+        18--very long text\r\n
+        19--very long text\r\n
+        20--very long text\r\n
+        21--very long text\r\n
+        22--very long text\r\n
+        23--very long text\r\n
+        24--very long text\r\n
+        25--very long text\r\n
+        26--very long text\r\n
+        27--very long text\r\n
+        28--very long text\r\n
+        29--very long text\r\n
+        30--very long text\r\n
+        31--very long text\r\n
+        32--very long text\r\n
+        33--very long text\r\n
+        34--very long text\r\n
+        35--very long text\r\n
+        36--very long text\r\n
+        37--very long text\r\n
+        38--very long text\r\n
+        39--very long text\r\n
+    </string>
 </resources>
