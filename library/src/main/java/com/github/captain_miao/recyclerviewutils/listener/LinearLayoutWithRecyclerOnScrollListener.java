@@ -80,6 +80,11 @@ public abstract class LinearLayoutWithRecyclerOnScrollListener extends RecyclerO
         } else {
             return false;
         }
+
+        //it's also work.(but I can't test enough)
+        //since support library 22.1, suggest using ViewCompat.canScrollVertically()
+        //but not recyclerView reference
+        //return !ViewCompat.canScrollVertically(recyclerView, -1);
     }
 
 

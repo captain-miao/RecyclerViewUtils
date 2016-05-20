@@ -14,7 +14,12 @@ repositories {
 dependencies {
     compile compile 'com.github.captain-miao:recyclerviewutils:1.1.9'
     //or 
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.0-SNAPSHOT'
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.1-SNAPSHOT'
+    //comment follows:
+    //compile 'in.srain.cube:ultra-ptr:1.0.11'
+    //compile 'com.timehop.stickyheadersrecyclerview:library:[latest.version.number]@aar'
+    //compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
+    //compile 'com.camnter.easyrecyclerviewsidebar:easyrecyclerviewsidebar:1.3'
 }
 
 ```
@@ -24,6 +29,9 @@ dependencies {
 
 ### RecyclerView addHeaderView and addFooterView
 ![add_header_view](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/add_header_view.gif "add_header_view")
+
+### RecyclerView With Header ViewPage
+![recycle_view_whith_header_view_page](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/recycle_view_whith_header_view_page.gif "recycle_view_whith_header_view_page")
 
 ### StickyRecyclerHeaderView  
 ![sticky_header_view](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/sticky_header_view.gif "sticky_header_view")

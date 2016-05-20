@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">RALMDemo</string>
     <string name="hello_world">Hello world!</string>
@@ -22,6 +22,14 @@
     <string name="label_action_label_del_footer_view">del footer view</string>
 
     <string name="uses_permission_name">&lt;uses-permission android:name=\&quot;%s\&quot;/&gt;</string>
+
+    <!-- guide -->
+    <string name="guide_title_1">First Title</string>
+    <string name="guide_description_1" tools:ignore="Typos">description description description</string>
+    <string name="guide_title_2">Second Title</string>
+    <string name="guide_description_2" tools:ignore="Typos">description description description</string>
+    <string name="guide_title_3">Third Title</string>
+    <string name="guide_description_3" tools:ignore="Typos">description description description</string>
 
 
     <string name="very_long_text">\r\n
