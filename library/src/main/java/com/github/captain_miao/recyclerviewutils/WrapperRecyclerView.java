@@ -227,15 +227,25 @@ public class WrapperRecyclerView extends FrameLayout {
     }
 
     public void disableLoadMore(){
-        mOnScrollListener.setLoadMoreEnable(false);
+        if(mOnScrollListener == null){
+            throw new IllegalArgumentException("mOnScrollListener is null, this method could only be called after setLayoutManager()");
+        } else {
+            mOnScrollListener.setLoadMoreEnable(false);
+        }
     }
 
     public void enableLoadMore(){
-        mOnScrollListener.setLoadMoreEnable(true);
+        if(mOnScrollListener == null){
+            throw new IllegalArgumentException("mOnScrollListener is null, this method could only be called after setLayoutManager()");
+        } else {
+            mOnScrollListener.setLoadMoreEnable(true);
+        }
     }
 
     public void loadMoreComplete(){
-        mOnScrollListener.loadComplete();
+        if(mOnScrollListener != null){
+            mOnScrollListener.loadComplete();
+        }
     }
 
     public void showLoadMoreView(){
