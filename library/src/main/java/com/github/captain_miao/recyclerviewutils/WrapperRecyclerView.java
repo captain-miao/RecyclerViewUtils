@@ -72,17 +72,24 @@ public class WrapperRecyclerView extends FrameLayout {
         mPtrFrameLayout.setEnabledNextPtrAtOnce(false);
     }
 
+    // default enable load more listener
     public void setLayoutManager(RecyclerView.LayoutManager layout) {
+        setLayoutManager(layout, true);
+    }
+    public void setLayoutManager(RecyclerView.LayoutManager layout, boolean enableLoadMore) {
         mRecyclerView.setLayoutManager(layout);
 
         if (layout instanceof LinearLayoutManager) {
-
-            setLinearLayoutOnScrollListener((LinearLayoutManager) layout);
+            if (enableLoadMore) {
+                setLinearLayoutOnScrollListener((LinearLayoutManager) layout);
+            }
             setPtrHandler();
             setGridLayoutManager(layout);
 
         } else if(layout instanceof StaggeredGridLayoutManager) {
-            setStaggeredGridOnScrollListener((StaggeredGridLayoutManager) layout);
+            if (enableLoadMore) {
+                setStaggeredGridOnScrollListener((StaggeredGridLayoutManager) layout);
+            }
             setPtrHandler();
         } else {
             Log.e(TAG, "only support LinearLayoutManager and StaggeredGridLayoutManager");
@@ -135,7 +142,7 @@ public class WrapperRecyclerView extends FrameLayout {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mOnScrollListener.setPagination(1);//恢复第一页
+                mOnScrollListener.setPagination(1);// reset 1th
                 if(mRecyclerViewListener != null){
                     mRecyclerViewListener.onRefresh();
                 }
@@ -228,7 +235,7 @@ public class WrapperRecyclerView extends FrameLayout {
 
     public void disableLoadMore(){
         if(mOnScrollListener == null){
-            throw new IllegalArgumentException("mOnScrollListener is null, this method could only be called after setLayoutManager()");
+            throw new IllegalArgumentException("mOnScrollListener is null, this method could only be called after setLayoutManager(layout, true)");
         } else {
             mOnScrollListener.setLoadMoreEnable(false);
         }
@@ -236,7 +243,7 @@ public class WrapperRecyclerView extends FrameLayout {
 
     public void enableLoadMore(){
         if(mOnScrollListener == null){
-            throw new IllegalArgumentException("mOnScrollListener is null, this method could only be called after setLayoutManager()");
+            throw new IllegalArgumentException("mOnScrollListener is null, this method could only be called after setLayoutManager(layout, true)");
         } else {
             mOnScrollListener.setLoadMoreEnable(true);
         }
