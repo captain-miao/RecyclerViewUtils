@@ -1,5 +1,7 @@
 package com.github.learn.refreshandload.adapter;
 
+import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.learn.refreshandload.R;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 /**
@@ -39,15 +42,29 @@ public class SimpleAdapter extends BaseWrapperRecyclerAdapter<String, SimpleAdap
     }
 
     @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder vh, int position, List payloads) {
+        if(payloads != null && payloads.size() > 0 && vh instanceof SimpleAdapter.ItemViewHolder){
+            for(Object o : payloads){
+                if(o != null && o instanceof Integer) {
+                    ((SimpleAdapter.ItemViewHolder) vh).mTvContent.setTextColor((Integer) o);
+                }
+            }
+        } else {
+            super.onBindViewHolder(vh, position);
+        }
+    }
+
+    @Override
     public void onClick(View v, int position) {
         switch (v.getId()){
             case R.id.tv_content:
-                Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
+                notifyItemChanged(position, getRandomColor());
                 break;
             default:
+                Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
                 //mock click todo  last item
-                remove(position);
-                notifyItemRemoved(position);
+                //remove(position);
+                //notifyItemRemoved(position);
         }
     }
 
@@ -64,4 +81,11 @@ public class SimpleAdapter extends BaseWrapperRecyclerAdapter<String, SimpleAdap
         }
     }
 
+
+    public static int getRandomColor() {
+        SecureRandom secureRandom = new SecureRandom();
+        return Color.HSVToColor(150, new float[]{
+                secureRandom.nextInt(359), 1, 1
+        });
+    }
 }

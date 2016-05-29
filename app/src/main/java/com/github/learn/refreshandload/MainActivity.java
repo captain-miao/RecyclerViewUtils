@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 return R.layout.list_load_more;
             }
         });
-        initMockData(0);
+        initMockData();
         mRecyclerView.setAdapter(mAdapter);
 
         mLoadMoreListener = new LinearLayoutWithRecyclerOnScrollListener(linearLayoutManager) {
