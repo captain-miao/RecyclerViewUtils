@@ -2,6 +2,7 @@ package com.github.captain_miao.recyclerviewutils;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,7 +19,7 @@ import java.util.Map;
  * @since 16/3/30
  */
 public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter{
-    private static final String TAG = "BaseWrapperRecyclerAdapter";
+    private static final String TAG = "BaseRvAdapter";
 
     public static final int NO_POSITION = -1;
     public static final long NO_ID = -1;
@@ -109,6 +110,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         int position = holder.getLayoutPosition();
@@ -228,11 +230,18 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
 
 
     public void addAll(List<T> list, boolean notifyDataChange) {
-        if (list == null) {
+        if (list == null || list.isEmpty()) {
             return;
         }
         mItemList.addAll(list);
         if(notifyDataChange) {
+            try {
+                notifyItemRangeInserted(mHeaderSize + getBasicItemCount(), list.size());
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemRangeInserted failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
             notifyDataSetChanged();
         }
     }
@@ -246,7 +255,13 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
         }
         mItemList.add(t);
         if(notifyDataChange) {
-            notifyDataSetChanged();
+            try {
+                notifyItemInserted(mHeaderSize + getBasicItemCount());
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemInserted failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
         }
     }
     public void add(T t) {
@@ -254,11 +269,31 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
     }
 
     public void appendToList(List<T> list) {
+        if (list == null || list.isEmpty()) {
+            return;
+        }
         addAll(list);
+        try {
+            notifyItemRangeInserted(mHeaderSize + getBasicItemCount(), list.size());
+        } catch (Exception e) {
+            Log.w(TAG, "notifyItemRangeInserted failure");
+            e.printStackTrace();
+            notifyDataSetChanged();
+        }
     }
 
-    public void append(T t) {
-        add(t);
+    public void append(T item) {
+        if (item == null) {
+            return;
+        }
+        add(item);
+        try {
+            notifyItemInserted(mHeaderSize + getBasicItemCount());
+        } catch (Exception e) {
+            Log.w(TAG, "notifyItemInserted failure");
+            e.printStackTrace();
+            notifyDataSetChanged();
+        }
     }
 
     public void appendToTop(T item) {
@@ -266,7 +301,13 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             return;
         }
         mItemList.add(0, item);
-        notifyDataSetChanged();
+        try {
+            notifyItemInserted(mHeaderSize);
+        } catch (Exception e) {
+            Log.w(TAG, "notifyItemInserted failure");
+            e.printStackTrace();
+            notifyDataSetChanged();
+        }
     }
 
     public void appendToTopList(List<T> list) {
@@ -274,17 +315,28 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             return;
         }
         mItemList.addAll(0, list);
-        notifyDataSetChanged();
+        try {
+            notifyItemRangeInserted(mHeaderSize, list.size());
+        } catch (Exception e) {
+            Log.w(TAG, "notifyItemRangeInserted failure");
+            e.printStackTrace();
+            notifyDataSetChanged();
+        }
     }
 
 
     public T remove(int dataListIndex, boolean notifyDataChange) {
         if (dataListIndex >= 0 && dataListIndex < mItemList.size()) {
             T t = mItemList.remove(dataListIndex);
-            if(notifyDataChange) {
-                notifyItemRemoved(mHeaderSize + dataListIndex);
+            if (notifyDataChange) {
+                try {
+                    notifyItemRemoved(mHeaderSize + dataListIndex);
+                } catch (Exception e) {
+                    Log.w(TAG, "notifyItemRemoved failure");
+                    e.printStackTrace();
+                    notifyDataSetChanged();
+                }
             }
-            //notifyDataSetChanged();
             return t;
         } else {
             return null;
@@ -296,15 +348,38 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
     }
 
     public boolean remove(T data, boolean notifyDataChange) {
-        boolean ret =  mItemList.remove(data);
-        if(ret && notifyDataChange){
-            notifyDataSetChanged();
-        }
-
-        return ret;
+        int position = mItemList.indexOf(data);
+        remove(position, notifyDataChange);
+        return position >= 0;
     }
+
     public boolean remove(T data) {
         return remove(data, true);
+    }
+
+
+    public void update(int dataListIndex, boolean notifyDataChange) {
+        if (dataListIndex >= 0 && dataListIndex < mItemList.size()) {
+            if (notifyDataChange) {
+                try {
+                    notifyItemChanged(mHeaderSize + dataListIndex);
+                } catch (Exception e) {
+                    Log.w(TAG, "notifyItemChanged failure");
+                    e.printStackTrace();
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    public boolean update(T data, boolean notifyDataChange) {
+        int position = mItemList.indexOf(data);
+        update(position, notifyDataChange);
+        return position >= 0;
+    }
+
+    public boolean update(T data) {
+        return update(data, true);
     }
 
     public void clear(boolean notifyDataChange) {
