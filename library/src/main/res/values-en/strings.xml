@@ -5,4 +5,5 @@
     <string name="app_loading">loading…</string>
     <string name="app_loading_more">load more…</string>
     <string name="app_no_more_data">no more data…</string>
+    <string name="ptr_frame_layout_content_empty">The content view in PtrFrameLayout is empty. Do you forget to specify its id in xml layout file?</string>
 </resources>

@@ -53,11 +53,11 @@ public class PtrFrameLayout extends ViewGroup {
     private static int ID = 1;
     protected final String LOG_TAG = "in.srain.cube.views.ptr-frame-" + ++ID;
     // auto refresh status
-    private static byte FLAG_AUTO_REFRESH_AT_ONCE = 0x01;
-    private static byte FLAG_AUTO_REFRESH_BUT_LATER = 0x01 << 1;
-    private static byte FLAG_ENABLE_NEXT_PTR_AT_ONCE = 0x01 << 2;
-    private static byte FLAG_PIN_CONTENT = 0x01 << 3;
-    private static byte MASK_AUTO_REFRESH = 0x03;
+    private final static byte FLAG_AUTO_REFRESH_AT_ONCE = 0x01;
+    private final static byte FLAG_AUTO_REFRESH_BUT_LATER = 0x01 << 1;
+    private final static byte FLAG_ENABLE_NEXT_PTR_AT_ONCE = 0x01 << 2;
+    private final static byte FLAG_PIN_CONTENT = 0x01 << 3;
+    private final static byte MASK_AUTO_REFRESH = 0x03;
     protected View mContent;
     // optional config for define header and content in xml file
     private int mHeaderId = 0;
@@ -138,7 +138,7 @@ public class PtrFrameLayout extends ViewGroup {
     protected void onFinishInflate() {
         final int childCount = getChildCount();
         if (childCount > 2) {
-            throw new IllegalStateException("PtrFrameLayout only can host 2 elements");
+            throw new IllegalStateException("PtrFrameLayout can only contains 2 children");
         } else if (childCount == 2) {
             if (mHeaderId != 0 && mHeaderView == null) {
                 mHeaderView = findViewById(mHeaderId);
@@ -182,7 +182,7 @@ public class PtrFrameLayout extends ViewGroup {
             errorView.setTextColor(0xffff6600);
             errorView.setGravity(Gravity.CENTER);
             errorView.setTextSize(20);
-            errorView.setText("The content view in PtrFrameLayout is empty. Do you forget to specify its id in xml layout file?");
+            errorView.setText(R.string.ptr_frame_layout_content_empty);
             mContent = errorView;
             addView(mContent);
         }
@@ -208,7 +208,7 @@ public class PtrFrameLayout extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        if (DEBUG && DEBUG_LAYOUT) {
+        if (isDebug()) {
             PtrCLog.d(LOG_TAG, "onMeasure frame: width: %s, height: %s, padding: %s %s %s %s",
                     getMeasuredHeight(), getMeasuredWidth(),
                     getPaddingLeft(), getPaddingRight(), getPaddingTop(), getPaddingBottom());
@@ -224,7 +224,7 @@ public class PtrFrameLayout extends ViewGroup {
 
         if (mContent != null) {
             measureContentView(mContent, widthMeasureSpec, heightMeasureSpec);
-            if (DEBUG && DEBUG_LAYOUT) {
+            if (isDebug()) {
                 ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
                 PtrCLog.d(LOG_TAG, "onMeasure content, width: %s, height: %s, margin: %s %s %s %s",
                         getMeasuredWidth(), getMeasuredHeight(),
@@ -254,35 +254,40 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void layoutChildren() {
-        int offsetX = mPtrIndicator.getCurrentPosY();
+        int offset = mPtrIndicator.getCurrentPosY();
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
 
         if (mHeaderView != null) {
             MarginLayoutParams lp = (MarginLayoutParams) mHeaderView.getLayoutParams();
             final int left = paddingLeft + lp.leftMargin;
-            final int top = paddingTop + lp.topMargin + offsetX - mHeaderHeight;
+            final int top = -(mHeaderHeight - paddingTop - lp.topMargin - offset);
             final int right = left + mHeaderView.getMeasuredWidth();
             final int bottom = top + mHeaderView.getMeasuredHeight();
             mHeaderView.layout(left, top, right, bottom);
-            if (DEBUG && DEBUG_LAYOUT) {
+            if (isDebug()) {
                 PtrCLog.d(LOG_TAG, "onLayout header: %s %s %s %s", left, top, right, bottom);
             }
         }
         if (mContent != null) {
             if (isPinContent()) {
-                offsetX = 0;
+                offset = 0;
             }
             MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
             final int left = paddingLeft + lp.leftMargin;
-            final int top = paddingTop + lp.topMargin + offsetX;
+            final int top = paddingTop + lp.topMargin + offset;
             final int right = left + mContent.getMeasuredWidth();
             final int bottom = top + mContent.getMeasuredHeight();
-            if (DEBUG && DEBUG_LAYOUT) {
+            if (isDebug()) {
                 PtrCLog.d(LOG_TAG, "onLayout content: %s %s %s %s", left, top, right, bottom);
             }
             mContent.layout(left, top, right, bottom);
         }
+    }
+
+    @SuppressWarnings({"PointlessBooleanExpression", "ConstantConditions"})
+    private boolean isDebug() {
+        return DEBUG && DEBUG_LAYOUT;
     }
 
     public boolean dispatchTouchEventSupper(MotionEvent e) {
@@ -1005,6 +1010,10 @@ public class PtrFrameLayout extends ViewGroup {
                 movePos(deltaY);
                 post(this);
             } else {
+                // fix https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/issues/239
+                if (mPtrIndicator.getCurrentPosY() != mTo) {
+                    movePos(mTo - mPtrIndicator.getCurrentPosY());
+                }
                 finish();
             }
         }
