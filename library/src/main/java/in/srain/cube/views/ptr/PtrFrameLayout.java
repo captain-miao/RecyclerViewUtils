@@ -1076,7 +1076,7 @@ public class PtrFrameLayout extends ViewGroup {
     //For Horizontal Move Area
     private HorizontalMoveArea mHorizontalMoveArea;
     private boolean isHorizontalMoveArea(float x, float y){
-        return mDisableWhenHorizontalMove || mHorizontalMoveArea == null || mHorizontalMoveArea.isHorizontalMoveArea(x, y);
+        return mDisableWhenHorizontalMove && (mHorizontalMoveArea == null || mHorizontalMoveArea.isHorizontalMoveArea(x, y));
     }
 
     public void setHorizontalMoveArea(HorizontalMoveArea horizontalMoveArea) {
