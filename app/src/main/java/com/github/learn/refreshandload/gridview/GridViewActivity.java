@@ -7,8 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.GridItemSpacingDecoration;
+import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
@@ -54,6 +55,7 @@ public class GridViewActivity extends AppCompatActivity {
 
 
         mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(new GridItemSpacingDecoration(this, R.dimen.grid_item_spacing));
         mAdapter = new SimpleAdapter(values);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {
@@ -84,22 +86,23 @@ public class GridViewActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
+            public void onRefreshBegin(final PtrFrameLayout frame) {
                 mLoadMoreListener.setPagination(1);//恢复第一页
                 ptrFrameLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
                         mAdapter.notifyItemRangeInserted(0, 10);
+//                        mAdapter.notifyDataSetChanged();
                         ptrFrameLayout.refreshComplete();
                         mRecyclerView.scrollToPosition(0);
                     }

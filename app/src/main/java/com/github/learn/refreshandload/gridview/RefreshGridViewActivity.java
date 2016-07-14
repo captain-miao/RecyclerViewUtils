@@ -45,16 +45,16 @@ public class RefreshGridViewActivity extends AppCompatActivity {
         mRecyclerView.setRecyclerViewListener(new RefreshRecyclerViewListener() {
             @Override
             public void onRefresh() {
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
-                mAdapter.appendToTop(mAdapter.getItemCount() + "");
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
                 mAdapter.notifyItemRangeInserted(0, 10);
                 mRecyclerView.refreshComplete();
                 mRecyclerView.getRecyclerView().scrollToPosition(0);

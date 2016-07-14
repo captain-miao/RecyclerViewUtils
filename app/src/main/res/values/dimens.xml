@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_view_line_spacing">2dp</dimen>
+    <dimen name="grid_item_spacing">2dp</dimen>
 
 
 

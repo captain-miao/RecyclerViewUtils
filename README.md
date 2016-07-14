@@ -12,9 +12,10 @@ repositories {
 }
 
 dependencies {
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.1'
-    //or 
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.2-SNAPSHOT'
+    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.3'
+
+    
+    
     //comment follows:
     //compile 'in.srain.cube:ultra-ptr:1.0.11'
     //compile 'com.timehop.stickyheadersrecyclerview:library:[latest.version.number]@aar'

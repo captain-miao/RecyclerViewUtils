@@ -283,30 +283,31 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
     }
 
     public void append(T item) {
+        append(item, true);
+    }
+    public void append(T item, boolean notifyDataChange) {
         if (item == null) {
             return;
         }
-        add(item);
-        try {
-            notifyItemInserted(mHeaderSize + getBasicItemCount());
-        } catch (Exception e) {
-            Log.w(TAG, "notifyItemInserted failure");
-            e.printStackTrace();
-            notifyDataSetChanged();
-        }
+        add(item, notifyDataChange);
     }
 
     public void appendToTop(T item) {
+        appendToTop(item, true);
+    }
+    public void appendToTop(T item, boolean notifyDataChange) {
         if (item == null) {
             return;
         }
         mItemList.add(0, item);
-        try {
-            notifyItemInserted(mHeaderSize);
-        } catch (Exception e) {
-            Log.w(TAG, "notifyItemInserted failure");
-            e.printStackTrace();
-            notifyDataSetChanged();
+        if(notifyDataChange) {
+            try {
+                notifyItemInserted(mHeaderSize);
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemInserted failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
         }
     }
 
