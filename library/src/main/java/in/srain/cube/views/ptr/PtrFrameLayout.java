@@ -1080,7 +1080,10 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public void setHorizontalMoveArea(HorizontalMoveArea horizontalMoveArea) {
-        mHorizontalMoveArea = horizontalMoveArea;
+        if(horizontalMoveArea != null) {
+            mHorizontalMoveArea = horizontalMoveArea;
+            mDisableWhenHorizontalMove = true;
+        }
     }
 
     public interface HorizontalMoveArea {
