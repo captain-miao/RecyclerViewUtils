@@ -272,7 +272,7 @@ public class StaggeredGridRecyclerActivity extends AppCompatActivity implements 
                 }
                 //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
                 //mAdapter.notifyItemRangeInserted(mAdapter.getItemCount() - 5, 5);
-                //mRefreshRecyclerView.scrollToPosition(position);
+                //mWrapperRecyclerView.scrollToPosition(position);
                 mWrapperRecyclerView.loadMoreComplete();
             }
         }, 1500);
