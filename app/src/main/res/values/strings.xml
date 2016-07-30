@@ -12,6 +12,7 @@
     <string name="label_action_label_web_view">WebView</string>
     <string name="label_action_label_sticky_header_view">StickyHeader</string>
     <string name="label_action_label_expandable_view">Expandable</string>
+    <string name="label_action_label_sticky_expandable_view">StickyAndExpandableHeader </string>
     <string name="label_action_label_staggered_grid_view">StaggeredGrid</string>
     <string name="label_action_label_index_view">Index</string>
     <string name="label_action_label_data_binding">DataBinding</string>

@@ -1,8 +1,2 @@
 <manifest
-    package="com.github.captain_miao.recyclerviewutils">
-
-    <application>
-
-    </application>
-
-</manifest>
+    package="com.github.captain_miao.recyclerviewutils" />

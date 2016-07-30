@@ -237,6 +237,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             case R.id.action_expandable_view:
                 startActivity(new Intent(this, ExpandableRecyclerActivity.class));
                 return true;
+            case R.id.action_sticky_expandable_view:
+                startActivity(new Intent(this, StickyHeadersActivity.class).putExtra("StickyAndExpandable", true));
+                return true;
             case R.id.action_index_view:
                 startActivity(new Intent(this, IndexRecyclerActivity.class));
                 return true;

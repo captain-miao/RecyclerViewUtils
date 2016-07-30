@@ -21,7 +21,11 @@ public class StickyHeadersActivity extends AppCompatActivity {
         }
         if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.container, new StickyHeadersFragment());
+            if (getIntent() != null && getIntent().getBooleanExtra("StickyAndExpandable", false)) {
+                fragmentTransaction.add(R.id.container, new StickyAndExpandableHeadersFragment());
+            } else {
+                fragmentTransaction.add(R.id.container, new StickyHeadersFragment());
+            }
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
             fragmentTransaction.commit();
         }
