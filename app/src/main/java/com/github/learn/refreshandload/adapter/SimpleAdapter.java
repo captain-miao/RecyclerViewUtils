@@ -62,9 +62,8 @@ public class SimpleAdapter extends BaseWrapperRecyclerAdapter<String, SimpleAdap
                 break;
             default:
                 Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
-                //mock click todo  last item
-                //remove(position);
-                //notifyItemRemoved(position);
+                //mock click
+                remove(getItem(position));
         }
     }
 

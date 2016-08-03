@@ -55,6 +55,7 @@ public class WrapperRecyclerView extends FrameLayout {
         inflater.inflate(R.layout.refresh_recycler_view, this);
         mRecyclerView = (RecyclerView) findViewById(R.id.service_recycler_view);
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.material_style_ptr_frame);
+        mEmptyViewContainer = (FrameLayout) findViewById(R.id.empty_view_container);
 
         // header
         final MaterialHeader header = new MaterialHeader(context);
@@ -192,8 +193,16 @@ public class WrapperRecyclerView extends FrameLayout {
 
     //about adapter
     public void setAdapter(BaseWrapperRecyclerAdapter adapter){
+        if(mRegisterCheckEmptyView){
+            unregisterAdapterDataObserver();
+        }
         this.mAdapter = adapter;
         mRecyclerView.setAdapter(adapter);
+
+        // check RegisterCheckEmptyView
+        if(mEmptyView != null){
+            registerAdapterDataObserver();
+        }
     }
 
 
@@ -282,4 +291,71 @@ public class WrapperRecyclerView extends FrameLayout {
     }
 
 
+    // add empty view
+    private View mEmptyView;
+    private boolean mRegisterCheckEmptyView = false;
+    private FrameLayout mEmptyViewContainer;
+    final private RecyclerView.AdapterDataObserver mAdapterObserver = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+          checkIfEmptyView();
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+          checkIfEmptyView();
+        }
+
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            checkIfEmptyView();
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+          checkIfEmptyView();
+        }
+      };
+
+    public View getEmptyView() {
+        return mEmptyView;
+    }
+
+    public void setEmptyView(View emptyView) {
+        mEmptyView = emptyView;
+
+        if(mEmptyViewContainer.getChildCount() > 0){
+            Log.e(TAG, "had empty view...maybe setEmptyView twice");
+            mEmptyViewContainer.removeAllViews();
+        }
+
+        mEmptyViewContainer.addView(emptyView);
+
+        registerAdapterDataObserver();
+    }
+
+    private void registerAdapterDataObserver(){
+        if(!mRegisterCheckEmptyView && mEmptyView != null && mAdapter != null){
+            mRegisterCheckEmptyView = true;
+            mAdapter.registerAdapterDataObserver(mAdapterObserver);
+        }
+    }
+
+    private void unregisterAdapterDataObserver(){
+        if(mRegisterCheckEmptyView){
+            mAdapter.registerAdapterDataObserver(mAdapterObserver);
+            mRegisterCheckEmptyView = false;
+        }
+    }
+
+    private void checkIfEmptyView() {
+      if (mEmptyView != null && mAdapter != null) {
+          if(mAdapter.getItemCount() == 0 || (mAdapter.getItemCount() == 1 && mAdapter.isShowingLoadMoreView())){
+              mEmptyViewContainer.setVisibility(VISIBLE);
+              mRecyclerView.setVisibility(GONE);
+          } else {
+              mRecyclerView.setVisibility(VISIBLE);
+              mEmptyViewContainer.setVisibility(GONE);
+          }
+      }
+    }
 }

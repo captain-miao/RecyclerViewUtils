@@ -21,6 +21,13 @@
             android:clickable="true"
             android:orientation="vertical">
 
+            <FrameLayout
+                android:id="@+id/empty_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/service_recycler_view"
                 android:layout_width="match_parent"

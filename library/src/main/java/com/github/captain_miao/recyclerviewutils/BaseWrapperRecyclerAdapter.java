@@ -459,4 +459,8 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
         }
     }
 
+    public boolean isShowingLoadMoreView(){
+        return showLoadMoreView;
+    }
+
 }

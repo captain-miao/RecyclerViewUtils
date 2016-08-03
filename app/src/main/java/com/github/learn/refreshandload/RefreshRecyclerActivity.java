@@ -17,11 +17,14 @@ import java.util.List;
 public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
     private static final String TAG = "RefreshRecyclerActivity";
 
+    private View mEmptyView;
     @Override
     protected void initRecyclerView() {
         super.initRecyclerView();
-        addHeaderView();
-        addFooterView();
+        //addHeaderView();
+        //addFooterView();
+        mEmptyView = getLayoutInflater().inflate(R.layout.recycler_empty_view, null);
+        mWrapperRecyclerView.setEmptyView(mEmptyView);
     }
 
 
@@ -65,8 +68,8 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
 
             @Override
             protected void onPostExecute(List<String> items) {
-                // 加载完数据 页数+1
                 if(items != null && items.size() > 0) {
+                    // 加载完数据 页数+1
                     mCurrPage++;
                     if (mIsRefresh) {
                         refreshData(items);
