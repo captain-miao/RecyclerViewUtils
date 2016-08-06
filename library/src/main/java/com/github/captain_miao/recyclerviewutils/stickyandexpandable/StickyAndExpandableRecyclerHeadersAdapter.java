@@ -15,8 +15,8 @@ import java.util.Map;
  * @author YanLu
  * @since 16/7/30
  */
-public abstract class StickyAndExpandableRecyclerHeadersAdapter<T, VH extends RecyclerView.ViewHolder,  VHEADER extends RecyclerView.ViewHolder>
-        extends BaseWrapperRecyclerAdapter<T, VH> implements StickyRecyclerHeadersAdapter<VHEADER> {
+public abstract class StickyAndExpandableRecyclerHeadersAdapter<T, VH extends RecyclerView.ViewHolder,  HEADER extends RecyclerView.ViewHolder>
+        extends BaseWrapperRecyclerAdapter<T, VH> implements StickyRecyclerHeadersAdapter<HEADER> {
 
     private Map<? extends StickyHeaderItem, List<T>> mDataMap;
 

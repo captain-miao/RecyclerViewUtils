@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion this.compileSdkVersion
+    buildToolsVersion this.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion this.minSdkVersion
     }
     buildTypes {
         release {
@@ -16,9 +16,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile("com.android.support:recyclerview-v7:${this.supportLibrariesVersion}")
 }
 
 //apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
