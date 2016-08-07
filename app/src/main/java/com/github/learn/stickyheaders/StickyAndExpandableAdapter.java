@@ -8,11 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.captain_miao.recyclerviewutils.stickyandexpandable.StickyAndExpandableRecyclerHeadersAdapter;
-import com.github.captain_miao.recyclerviewutils.stickyandexpandable.StickyHeaderItem;
 import com.github.learn.refreshandload.R;
-
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -23,8 +19,8 @@ public class StickyAndExpandableAdapter
         extends StickyAndExpandableRecyclerHeadersAdapter<DetectionModel, StickyAndExpandableAdapter.ItemViewHolder, StickyAndExpandableAdapter.HeaderItemViewHolder> {
     private static final String TAG = "VehicleDetectionAdapter";
 
-    public StickyAndExpandableAdapter(RecyclerView recyclerView, Map<? extends StickyHeaderItem, List<DetectionModel>> dataMap) {
-        super(recyclerView, dataMap);
+    public StickyAndExpandableAdapter(RecyclerView recyclerView) {
+        super(recyclerView);
     }
 
 

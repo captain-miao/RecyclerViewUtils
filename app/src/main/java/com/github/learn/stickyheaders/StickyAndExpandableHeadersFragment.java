@@ -14,9 +14,7 @@ import com.github.captain_miao.recyclerviewutils.common.DividerItemDecoration;
 import com.github.learn.refreshandload.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author YanLu
@@ -25,7 +23,6 @@ import java.util.Map;
 public class StickyAndExpandableHeadersFragment extends Fragment {
 
 
-    private Map<DetectionModel, List<DetectionModel>> mDataMap = new HashMap<>();
     private List<DetectionModel> mDataList = new ArrayList<>();
     public StickyAndExpandableHeadersFragment() {
         super();
@@ -45,7 +42,7 @@ public class StickyAndExpandableHeadersFragment extends Fragment {
 
         // Set adapter populated with example dummy data
         initMockData();
-        final StickyAndExpandableAdapter adapter = new StickyAndExpandableAdapter(recyclerView, mDataMap);
+        final StickyAndExpandableAdapter adapter = new StickyAndExpandableAdapter(recyclerView);
         adapter.addAll(mDataList);
 
         recyclerView.setAdapter(adapter);
@@ -97,10 +94,9 @@ public class StickyAndExpandableHeadersFragment extends Fragment {
             model.categoryId = i;
             model.category = i +" Header ";
             model.parentItem = true;
+            model.childItems.addAll(detectionVoList);
 
             mDataList.add(model);
-
-            mDataMap.put(model, detectionVoList);
         }
     }
 
