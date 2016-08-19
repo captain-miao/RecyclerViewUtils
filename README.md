@@ -25,6 +25,9 @@ dependencies {
 
 ```
 <br/>
+### StickyAndExpandableRecyclerHeaderView(New)  
+![sticky_and_expandable_screenshot](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/sticky_and_expandable.gif "sticky_and_expandable")
+
 ### RefreshRecyclerView  
 ![load_more_screenshot](https://raw.githubusercontent.com/captain-miao/me.github.com/master/screenshot/refresh_and_load_more.gif "refresh_and_load_more")
 
@@ -46,7 +49,7 @@ dependencies {
 <br/>
 
 ### Tips:
-1. work with ViewPager: disableWhenHorizontalMove()
+1. work with ViewPager: disableWhenHorizontalMove()  
 //2. work with LongPressed: setInterceptEventWhileWorking()
 3. StickyRecyclerHeaderView work with addItemDecoration:
 ```
