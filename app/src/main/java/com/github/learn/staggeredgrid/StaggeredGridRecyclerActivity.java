@@ -1,38 +1,34 @@
 package com.github.learn.staggeredgrid;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
+import com.github.learn.base.BaseActivity;
 import com.github.learn.refreshandload.R;
 
 import java.util.ArrayList;
 
 
-public class StaggeredGridRecyclerActivity extends AppCompatActivity implements RefreshRecyclerViewListener {
+public class StaggeredGridRecyclerActivity extends BaseActivity implements RefreshRecyclerViewListener {
 
     private StaggeredGridAdapter mAdapter;
     private WrapperRecyclerView mWrapperRecyclerView;
     private final int MAX_ITEM_COUNT = 130;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void init(Bundle savedInstanceState) {
         setContentView(R.layout.ac_refresh_recycler_view);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-        }
+
 
         mWrapperRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
-        final StaggeredGridLayoutManager LayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mWrapperRecyclerView.setLayoutManager(LayoutManager);
+        //final StaggeredGridLayoutManager LayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mWrapperRecyclerView.setLayoutManager(LayoutManagers.staggeredGrid(2, LinearLayoutManager.VERTICAL).create(this));
         mAdapter = new StaggeredGridAdapter(new ArrayList<String>());
         mAdapter.setLoadMoreFooterView(new DefaultLoadMoreFooterView(this));
         mWrapperRecyclerView.setAdapter(mAdapter);

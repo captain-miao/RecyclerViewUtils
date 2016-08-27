@@ -1,39 +1,34 @@
 package com.github.learn.refreshandload.gridview;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.MenuItem;
 
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
+import com.github.learn.base.BaseActivity;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
 import java.util.ArrayList;
 
 
-public class RefreshGridViewActivity extends AppCompatActivity {
+public class RefreshGridViewActivity extends BaseActivity {
 
     private SimpleAdapter mAdapter;
     private WrapperRecyclerView mRecyclerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void init(Bundle savedInstanceState) {
         setContentView(R.layout.ac_refresh_recycler_view);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-        }
+
 
         mRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
 
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        //final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
 
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(LayoutManagers.grid(3).create(this));
         mAdapter = new SimpleAdapter(values);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {

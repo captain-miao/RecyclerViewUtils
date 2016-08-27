@@ -1,5 +1,6 @@
 package com.github.captain_miao.recyclerviewutils.common;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,7 @@ public class LayoutManagers {
     }
 
     public interface LayoutManagerFactory {
-        RecyclerView.LayoutManager create(RecyclerView recyclerView);
+        RecyclerView.LayoutManager create(Context context);
     }
 
     /**
@@ -27,8 +28,8 @@ public class LayoutManagers {
     public static LayoutManagerFactory linear() {
         return new LayoutManagerFactory() {
             @Override
-            public RecyclerView.LayoutManager create(RecyclerView recyclerView) {
-                return new LinearLayoutManager(recyclerView.getContext());
+            public RecyclerView.LayoutManager create(Context context) {
+                return new LinearLayoutManager(context);
             }
         };
     }
@@ -39,8 +40,8 @@ public class LayoutManagers {
     public static LayoutManagerFactory linear(@Orientation final int orientation, final boolean reverseLayout) {
         return new LayoutManagerFactory() {
             @Override
-            public RecyclerView.LayoutManager create(RecyclerView recyclerView) {
-                return new LinearLayoutManager(recyclerView.getContext(), orientation, reverseLayout);
+            public RecyclerView.LayoutManager create(Context context) {
+                return new LinearLayoutManager(context, orientation, reverseLayout);
             }
         };
     }
@@ -51,8 +52,8 @@ public class LayoutManagers {
     public static LayoutManagerFactory grid(final int spanCount) {
         return new LayoutManagerFactory() {
             @Override
-            public RecyclerView.LayoutManager create(RecyclerView recyclerView) {
-                return new GridLayoutManager(recyclerView.getContext(), spanCount);
+            public RecyclerView.LayoutManager create(Context context) {
+                return new GridLayoutManager(context, spanCount);
             }
         };
     }
@@ -63,8 +64,8 @@ public class LayoutManagers {
     public static LayoutManagerFactory grid(final int spanCount, @Orientation final int orientation, final boolean reverseLayout) {
         return new LayoutManagerFactory() {
             @Override
-            public RecyclerView.LayoutManager create(RecyclerView recyclerView) {
-                return new GridLayoutManager(recyclerView.getContext(), spanCount, orientation, reverseLayout);
+            public RecyclerView.LayoutManager create(Context context) {
+                return new GridLayoutManager(context, spanCount, orientation, reverseLayout);
             }
         };
     }
@@ -75,7 +76,7 @@ public class LayoutManagers {
     public static LayoutManagerFactory staggeredGrid(final int spanCount, @Orientation final int orientation) {
         return new LayoutManagerFactory() {
             @Override
-            public RecyclerView.LayoutManager create(RecyclerView recyclerView) {
+            public RecyclerView.LayoutManager create(Context context) {
                 return new StaggeredGridLayoutManager(spanCount, orientation);
             }
         };

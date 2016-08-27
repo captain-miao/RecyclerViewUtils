@@ -1,13 +1,13 @@
 package com.github.learn.base;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
 
 import java.util.List;
@@ -69,7 +69,8 @@ public abstract class BaseRecyclerActivity<T> extends BaseActivity implements Re
 
     //Recycler 绑定 LayoutManager
     protected RecyclerView.LayoutManager getLayoutManager(){
-        return new LinearLayoutManager(this);
+        return LayoutManagers.linear().create(this);
+        //return new LinearLayoutManager(this);
     }
 
     public boolean enablePullToRefresh(){
