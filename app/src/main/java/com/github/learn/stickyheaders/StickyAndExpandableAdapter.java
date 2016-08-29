@@ -38,7 +38,7 @@ public class StickyAndExpandableAdapter
     public ItemViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
         if(viewType == 0) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_sticky_header, parent, false);
+                    .inflate(R.layout.item_view_sticky_and_header, parent, false);
             return new ItemViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
