@@ -1,7 +1,6 @@
 package com.timehop.stickyheadersrecyclerview;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,7 +57,6 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
 
     @Override
     public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
-        Log.d("QQQQQQQQQQQ", e.toString());
         if (this.mOnHeaderClickListener != null) {
             mTapDetector.onTouchEvent(e);
         }
@@ -84,7 +82,6 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
                     mOnHeaderClickListener.onHeaderClick(headerView, position, headerId);
 
                     headerView.onTouchEvent(e);
-                    Log.d("QQQQQQQQQQQ", e.toString());
                     return true;
                 }
             }
