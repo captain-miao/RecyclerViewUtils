@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
+import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.captain_miao.recyclerviewutils.stickyandexpandable.StickyAndExpandableRecyclerHeadersAdapter;
 import com.github.learn.refreshandload.R;
 
@@ -64,7 +67,7 @@ public class StickyAndExpandableAdapter
     @Override
     public long getHeaderId(int position) {
         DetectionModel vo = getItem(position);
-        return vo.getHeaderId();
+        return vo != null ? vo.getHeaderId() : NO_ID;
     }
 
     @Override
@@ -77,10 +80,14 @@ public class StickyAndExpandableAdapter
     @Override
     public void onBindHeaderViewHolder(HeaderItemViewHolder holder, int position) {
         DetectionModel vo = getItem(position);
-        holder.mTvTitle.setText(vo.category);
+        if(vo != null) {
+            holder.mTvTitle.setText(vo.category);
+        } else {
+            holder.mTvTitle.setText("");
+        }
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends ClickableViewHolder implements OnRecyclerItemClickListener {
         public TextView mTvTitle;
         public TextView mTvValue;
 
@@ -88,6 +95,13 @@ public class StickyAndExpandableAdapter
             super(view);
             mTvTitle = (TextView) view.findViewById(R.id.detail_title);
             mTvValue = (TextView) view.findViewById(R.id.detail_value);
+            addOnItemViewClickListener();
+            setOnRecyclerItemClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v, int position) {
+            Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
         }
     }
 

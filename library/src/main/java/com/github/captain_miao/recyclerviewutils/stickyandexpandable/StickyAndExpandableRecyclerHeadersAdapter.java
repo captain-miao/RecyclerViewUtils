@@ -17,7 +17,6 @@ import java.util.List;
 public abstract class StickyAndExpandableRecyclerHeadersAdapter<T extends StickyHeaderItem, VH extends RecyclerView.ViewHolder,  HEADER extends RecyclerView.ViewHolder>
         extends BaseWrapperRecyclerAdapter<T, VH> implements StickyRecyclerHeadersAdapter<HEADER> {
 
-
     private StickyAndExpandableRecyclerHeadersAdapter() {
     }
 
@@ -73,5 +72,4 @@ public abstract class StickyAndExpandableRecyclerHeadersAdapter<T extends Sticky
         });
 
     }
-
 }
