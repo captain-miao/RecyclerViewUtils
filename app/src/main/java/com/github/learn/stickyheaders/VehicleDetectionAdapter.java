@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
+import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.learn.refreshandload.R;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 
@@ -100,7 +103,7 @@ public class VehicleDetectionAdapter extends RecyclerView.Adapter<RecyclerView.V
         holder.mTvTitle.setText(vo.category);
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends ClickableViewHolder implements OnRecyclerItemClickListener {
         public TextView mTvTitle;
         public TextView mTvValue;
 
@@ -108,6 +111,13 @@ public class VehicleDetectionAdapter extends RecyclerView.Adapter<RecyclerView.V
             super(view);
             mTvTitle = (TextView) view.findViewById(R.id.detail_title);
             mTvValue = (TextView) view.findViewById(R.id.detail_value);
+            addOnItemViewClickListener();
+            setOnRecyclerItemClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v, int position) {
+            Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
         }
     }
 

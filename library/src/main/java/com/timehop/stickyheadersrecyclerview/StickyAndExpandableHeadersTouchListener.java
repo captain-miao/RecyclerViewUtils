@@ -23,7 +23,7 @@ import android.view.View;
  *    from https://github.com/timehop/sticky-headers-recyclerview
  */
 
-public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTouchListener {
+public class StickyAndExpandableHeadersTouchListener implements RecyclerView.OnItemTouchListener {
     private final GestureDetector mTapDetector;
     private final RecyclerView mRecyclerView;
     private final StickyRecyclerHeadersDecoration mDecor;
@@ -33,8 +33,8 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
         void onHeaderClick(View header, int position, long headerId);
     }
 
-    public StickyRecyclerHeadersTouchListener(final RecyclerView recyclerView,
-                                              final StickyRecyclerHeadersDecoration decor) {
+    public StickyAndExpandableHeadersTouchListener(final RecyclerView recyclerView,
+                                                   final StickyRecyclerHeadersDecoration decor) {
         mTapDetector = new GestureDetector(recyclerView.getContext(), new SingleTapDetector());
         mRecyclerView = recyclerView;
         mDecor = decor;
@@ -45,7 +45,7 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
             return (StickyRecyclerHeadersAdapter) mRecyclerView.getAdapter();
         } else {
             throw new IllegalStateException("A RecyclerView with " +
-                    StickyRecyclerHeadersTouchListener.class.getSimpleName() +
+                    StickyAndExpandableHeadersTouchListener.class.getSimpleName() +
                     " requires a " + StickyRecyclerHeadersAdapter.class.getSimpleName());
         }
     }
@@ -58,7 +58,7 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
     @Override
     public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
         if (this.mOnHeaderClickListener != null) {
-            return mTapDetector.onTouchEvent(e);
+            mTapDetector.onTouchEvent(e);
         }
         return false;
     }

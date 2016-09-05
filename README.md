@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile compile 'com.github.captain-miao:recyclerviewutils:1.2.4'
+    compile 'com.github.captain-miao:recyclerviewutils:1.2.4'
 
     
     

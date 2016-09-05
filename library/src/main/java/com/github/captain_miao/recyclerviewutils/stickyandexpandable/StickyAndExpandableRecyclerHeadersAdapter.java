@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
+import com.timehop.stickyheadersrecyclerview.StickyAndExpandableHeadersTouchListener;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
 
 import java.util.List;
 
@@ -30,13 +30,13 @@ public abstract class StickyAndExpandableRecyclerHeadersAdapter<T extends Sticky
         final StickyRecyclerHeadersDecoration headersDecoration = new StickyRecyclerHeadersDecoration(this);
         recyclerView.addItemDecoration(headersDecoration);
 
-        StickyRecyclerHeadersTouchListener headersTouchListener =
-                new StickyRecyclerHeadersTouchListener(recyclerView, headersDecoration);
+        StickyAndExpandableHeadersTouchListener headersTouchListener =
+                new StickyAndExpandableHeadersTouchListener(recyclerView, headersDecoration);
 
         recyclerView.addOnItemTouchListener(headersTouchListener);
 
         headersTouchListener.setOnHeaderClickListener(
-                new StickyRecyclerHeadersTouchListener.OnHeaderClickListener() {
+                new StickyAndExpandableHeadersTouchListener.OnHeaderClickListener() {
                     @Override
                     public void onHeaderClick(View header, int position, long headerId) {
                         T item = getItem(position);
