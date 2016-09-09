@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
@@ -25,6 +26,13 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
         //addFooterView();
         mEmptyView = getLayoutInflater().inflate(R.layout.recycler_empty_view, null);
         mWrapperRecyclerView.setEmptyView(mEmptyView);
+
+        mEmptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(RefreshRecyclerActivity.this, "onClick EmptyView", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -42,6 +50,11 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
     @Override
     protected BaseWrapperRecyclerAdapter<String, ? extends RecyclerView.ViewHolder> getWrapperRecyclerAdapter() {
         return  mAdapter != null ? mAdapter : ( mAdapter = new SimpleAdapter(new ArrayList<String>()));
+    }
+
+    @Override
+    public boolean enablePullToLoadMore() {
+        return false;
     }
 
     @Override

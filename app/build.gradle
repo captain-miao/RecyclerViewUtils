@@ -32,8 +32,8 @@ android {
         compile 'com.wang.avi:library:1.0.3'
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.squareup.picasso:picasso:2.5.2'
-//        compile 'com.github.captain-miao:recyclerviewutils:1.2.4'
-        compile project(':library')
+        compile 'com.github.captain-miao:recyclerviewutils:1.2.5-SNAPSHOT'
+//        compile project(':library')
     }
 }
 
