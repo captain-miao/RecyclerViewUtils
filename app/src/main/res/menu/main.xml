@@ -5,6 +5,9 @@
     <item android:id="@+id/action_header_recycler_view"
         android:title="@string/label_action_label_header_view"
         app:showAsAction="never" />
+    <item android:id="@+id/action_header_grid_recycler_view"
+        android:title="@string/label_action_label_header_grid_view"
+        app:showAsAction="never" />
     <item android:id="@+id/action_refresh_recycler_view"
         android:title="@string/label_action_label_recycler_view"
         app:showAsAction="never" />

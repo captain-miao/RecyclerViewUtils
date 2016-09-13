@@ -3,7 +3,6 @@ package com.github.learn.refreshandload;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,9 @@ import android.widget.Toast;
 
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
+import com.github.learn.app.AppConstants;
 import com.github.learn.refreshandload.adapter.SimpleWrapperAdapter;
 
 import java.security.SecureRandom;
@@ -45,8 +46,11 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
         addFooterView();
 
         mWrapperRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mWrapperRecyclerView.setLayoutManager(linearLayoutManager);
+        if(getIntent() != null && getIntent().getBooleanExtra(AppConstants.KEY_BOOLEAN, false)) {
+            mWrapperRecyclerView.setLayoutManager(LayoutManagers.grid(3).create(this));
+        } else {
+            mWrapperRecyclerView.setLayoutManager(LayoutManagers.linear().create(this));
+        }
         mWrapperRecyclerView.setAdapter(mAdapter);
 
         mWrapperRecyclerView.setRecyclerViewListener(this);

@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
+import com.github.learn.app.AppConstants;
 import com.github.learn.databinding.DataBindingRecyclerActivity;
 import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
@@ -222,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             case R.id.action_header_recycler_view:
                 startActivity(new Intent(this, HeaderRecyclerActivity.class));
                 return true;
+            case R.id.action_header_grid_recycler_view:
+                startActivity(new Intent(this, HeaderRecyclerActivity.class).putExtra(AppConstants.KEY_BOOLEAN, true));
+                return true;
             case R.id.action_refresh_recycler_view:
                 startActivity(new Intent(this, RefreshRecyclerActivity.class));
                 return true;
@@ -238,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 startActivity(new Intent(this, ExpandableRecyclerActivity.class));
                 return true;
             case R.id.action_sticky_expandable_view:
-                startActivity(new Intent(this, StickyHeadersActivity.class).putExtra("StickyAndExpandable", true));
+                startActivity(new Intent(this, StickyHeadersActivity.class).putExtra(AppConstants.KEY_BOOLEAN, true));
                 return true;
             case R.id.action_index_view:
                 startActivity(new Intent(this, IndexRecyclerActivity.class));
