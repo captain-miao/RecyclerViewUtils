@@ -27,11 +27,10 @@ task clean(type: Delete) {
 }
 
 subprojects {
-    ext.compileSdkVersion = 23
-    ext.buildToolsVersion = '23.0.3'
-    ext.supportLibrariesVersion = '24.1.1'
+    ext.compileSdkVersion = 24
+    ext.buildToolsVersion = '24.0.2'
+    ext.supportLibrariesVersion = '24.2.0'
     ext.minSdkVersion = '14'
     ext.targetSdkVersion = '22'
-
     ext.ageraLibrariesVersion = '1.1.0'
 }

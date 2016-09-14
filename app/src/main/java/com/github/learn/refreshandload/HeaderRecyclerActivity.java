@@ -101,6 +101,7 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
             mAdapter.addHeaderView(mRecyclerViewHeader, true);
         }
     }
+
     private void removeHeaderView(){
         mAdapter.removeHeaderView(mRecyclerViewHeader, true);
     }

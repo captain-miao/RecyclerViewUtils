@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.common.GridItemSpacingDecoration;
+import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
@@ -20,40 +24,42 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
+import static com.github.learn.refreshandload.adapter.SimpleAdapter.getRandomColor;
 
-public class GridViewActivity extends AppCompatActivity {
 
+public class GridViewActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String span_count = "SPAN_COUNT";
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutWithRecyclerOnScrollListener mLoadMoreListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, getIntent().getExtras().getInt(span_count));
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
-                if(mAdapter.isContentView(position)){
+                if (mAdapter.isContentView(position)) {
                     return 1;
+                } else if (mAdapter.isHeaderView(position)) {
+                    return layoutManager.getSpanCount();
                 } else {
-                    //full line
-                    return layoutManager.getSpanCount();//number of columns of the grid
+                    return layoutManager.getSpanCount();
                 }
-
             }
         });
 
-
+        addHeaderView();
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new GridItemSpacingDecoration(this, R.dimen.grid_item_spacing));
         mAdapter = new SimpleAdapter(values);
@@ -110,7 +116,6 @@ public class GridViewActivity extends AppCompatActivity {
             }
         });
 
-
         mLoadMoreListener = new LinearLayoutWithRecyclerOnScrollListener(layoutManager) {
 
             @Override
@@ -122,11 +127,9 @@ public class GridViewActivity extends AppCompatActivity {
                     }
                 });
 
-
                 mRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         int position = mAdapter.getItemCount();
                         if (mAdapter.getItemCount() > 50) {
                             mAdapter.showNoMoreDataView();
@@ -151,6 +154,20 @@ public class GridViewActivity extends AppCompatActivity {
         mRecyclerView.addOnScrollListener(mLoadMoreListener);
     }
 
+    private View mRecyclerViewHeader;
+    private TextView mTvHeader;
+
+    private void addHeaderView() {
+        if (mAdapter.getHeaderSize() > 0) {
+            Toast.makeText(this, "already has a header view", Toast.LENGTH_LONG).show();
+        } else {
+            mRecyclerViewHeader = LayoutInflater.from(this).inflate(R.layout.recycler_view_header, null);
+            mRecyclerViewHeader.findViewById(R.id.btn_header_change_color).setOnClickListener(this);
+            mTvHeader = (TextView) mRecyclerViewHeader.findViewById(R.id.tv_header);
+            mAdapter.addHeaderView(mRecyclerViewHeader, true);
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -170,6 +187,17 @@ public class GridViewActivity extends AppCompatActivity {
         add("WindowsMobile");
         add("Blackberry");
     }};
+
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btn_header_change_color:
+                mTvHeader.setTextColor(getRandomColor());
+                break;
+        }
+    }
 
 
 }

@@ -13,6 +13,8 @@ import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
 import java.util.ArrayList;
 
+import static com.github.learn.refreshandload.gridview.GridViewActivity.span_count;
+
 
 public class RefreshGridViewActivity extends BaseActivity {
 
@@ -23,12 +25,11 @@ public class RefreshGridViewActivity extends BaseActivity {
     public void init(Bundle savedInstanceState) {
         setContentView(R.layout.ac_refresh_recycler_view);
 
-
         mRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
 
         //final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
 
-        mRecyclerView.setLayoutManager(LayoutManagers.grid(3).create(this));
+        mRecyclerView.setLayoutManager(LayoutManagers.grid(getIntent().getExtras().getInt(span_count)).create(this));
         mAdapter = new SimpleAdapter(values);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {

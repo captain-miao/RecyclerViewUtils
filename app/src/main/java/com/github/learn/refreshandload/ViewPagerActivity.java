@@ -36,13 +36,14 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PtrFrameLayout.HorizontalMoveArea {
+public class ViewPagerActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PtrFrameLayout.HorizontalMoveArea {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutWithRecyclerOnScrollListener mLoadMoreListener;
     private PtrFrameLayout mPtrFrameLayout;
     private final int MAX_ITEM_COUNT = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         mRecyclerView.addOnScrollListener(mLoadMoreListener);
     }
 
-
     //for ViewPage Header
     private ViewPageDotView mWelcomeDotView;
     private RelativeLayout mViewPageContainer;
@@ -205,8 +205,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
 
-
-
     @Override
     @Deprecated
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -215,51 +213,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_header_recycler_view:
-                startActivity(new Intent(this, HeaderRecyclerActivity.class));
-                return true;
-            case R.id.action_refresh_recycler_view:
-                startActivity(new Intent(this, RefreshRecyclerActivity.class));
-                return true;
-            case R.id.action_grid_view:
-                startActivity(new Intent(this, GridViewActivity.class));
-                return true;
-            case R.id.action_refresh_grid_view:
-                startActivity(new Intent(this, RefreshGridViewActivity.class));
-                return true;
-            case R.id.action_sticky_header_view:
-                startActivity(new Intent(this, StickyHeadersActivity.class));
-                return true;
-            case R.id.action_expandable_view:
-                startActivity(new Intent(this, ExpandableRecyclerActivity.class));
-                return true;
-            case R.id.action_sticky_expandable_view:
-                startActivity(new Intent(this, StickyHeadersActivity.class).putExtra("StickyAndExpandable", true));
-                return true;
-            case R.id.action_index_view:
-                startActivity(new Intent(this, IndexRecyclerActivity.class));
-                return true;
-            case R.id.action_staggered_grid_view:
-                startActivity(new Intent(this, StaggeredGridRecyclerActivity.class));
-                return true;
-            case R.id.action_data_binding_view:
-                startActivity(new Intent(this, DataBindingRecyclerActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-    private void initMockData(int count){
+    private void initMockData(int count) {
         for (int i = 0; i < count; i++) {
             mAdapter.appendToTop("1 page -> " + mAdapter.getItemCount() + "");
         }
     }
+
     private void initMockData() {
         initMockData(25);
     }
