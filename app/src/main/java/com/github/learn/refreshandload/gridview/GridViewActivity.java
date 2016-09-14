@@ -59,10 +59,11 @@ public class GridViewActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        addHeaderView();
+
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new GridItemSpacingDecoration(this, R.dimen.grid_item_spacing));
         mAdapter = new SimpleAdapter(values);
+        addHeaderView();
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {
             @Override
