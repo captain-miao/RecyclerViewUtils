@@ -11,7 +11,7 @@ import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.common.ClickableViewHolder;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 import com.github.learn.refreshandload.R;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class StaggeredGridAdapter extends BaseWrapperRecyclerAdapter<String, Rec
     public void onBindItemViewHolder(RecyclerView.ViewHolder vh, int position) {
         if (vh instanceof ItemViewHolder) {
             ItemViewHolder viewHolder = (ItemViewHolder) vh;
-            Picasso.with(viewHolder.itemView.getContext()).load(getItem(position)).into(viewHolder.mIvImage);
+            //Picasso.with(viewHolder.itemView.getContext()).load(getItem(position)).into(viewHolder.mIvImage);
         }
     }
 

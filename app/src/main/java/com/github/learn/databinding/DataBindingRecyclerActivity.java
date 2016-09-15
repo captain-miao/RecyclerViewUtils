@@ -10,8 +10,6 @@ import android.widget.ImageView;
 
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.databinding.ActivityDataBindingBinding;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.security.SecureRandom;
 
@@ -65,7 +63,7 @@ public class DataBindingRecyclerActivity extends AppCompatActivity implements Im
     @BindingAdapter({"imageUrl", "callback"})
     public static void loadImage(ImageView imageView, String imageUrl, final ImageLoaderCallback callback) {
         callback.onImageLoading();
-        Picasso.with(imageView.getContext())
+      /*  Picasso.with(imageView.getContext())
                 .load(imageUrl)
                 .into(imageView, new Callback() {
                     @Override
@@ -77,7 +75,7 @@ public class DataBindingRecyclerActivity extends AppCompatActivity implements Im
                     public void onError() {
                         callback.onImageLoadError();
                     }
-                });
+                });*/
     }
 
     public void ChangeColor(View view){

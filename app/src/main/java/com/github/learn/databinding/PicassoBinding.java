@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 
 /**
  * @author YanLu
@@ -28,7 +26,7 @@ public class PicassoBinding {
 //        builder.build().load(url).into(imageView);
 
 
-        Picasso.with(imageView.getContext()).load(url).into(imageView);
+        //Picasso.with(imageView.getContext()).load(url).into(imageView);
     }
     @BindingAdapter({"imageUrl", "error"})
     public static void imageLoader(ImageView imageView, String url, Drawable error) {
@@ -46,7 +44,7 @@ public class PicassoBinding {
 //                .into(imageView);
 
 
-        Picasso.with(imageView.getContext()).load(url).error(error).into(imageView);
+        //Picasso.with(imageView.getContext()).load(url).error(error).into(imageView);
     }
 
     @BindingAdapter({"compressImageUrl", "error"})
@@ -65,12 +63,12 @@ public class PicassoBinding {
 //                .config(Bitmap.Config.ARGB_8888)
 //                .into(imageView);
 
-        Picasso.with(imageView.getContext())
+       /* Picasso.with(imageView.getContext())
                 .load(url)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .error(error)
                 .config(Bitmap.Config.RGB_565)
-                .into(imageView);
+                .into(imageView);*/
     }
 
     @BindingAdapter({"android:src"})
