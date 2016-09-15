@@ -49,16 +49,33 @@ dependencies {
 <br/>
 
 ### Tips:
-1. work with ViewPager: disableWhenHorizontalMove()  
-//2. work with LongPressed: setInterceptEventWhileWorking()
+1. work with ViewPager: disableWhenHorizontalMove() and implements PtrFrameLayout.HorizontalMoveArea
+```
+    @Override
+    public boolean isHorizontalMoveArea(float x, float y) {
+        Rect rect = new Rect();
+        mViewPageContainer.getLocalVisibleRect(rect);
+        return rect.contains((int) x, (int) y);
+    }
+```
+2. work with LongPressed: setInterceptEventWhileWorking()
 3. StickyRecyclerHeaderView work with addItemDecoration:
 ```
-divider color is the same as header backgroud.
-first Add decoration for dividers between list items
-    mRecyclerView.addItemDecoration(new DividerItemDecoration(this));
-then:
-    final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
-    mRecyclerView.addItemDecoration(headersDecor);
+    // divider color is the same as header backgroud.
+    
+    // first: Add decoration for dividers between list items
+    recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+
+    // second: Add the sticky headers decoration
+    final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
+    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            headersDecor.invalidateHeaders();
+        }
+    });
+    recyclerView.addItemDecoration(headersDecor);    
+    
 ```
 
 QQ  Group:436275452(Q&A)
