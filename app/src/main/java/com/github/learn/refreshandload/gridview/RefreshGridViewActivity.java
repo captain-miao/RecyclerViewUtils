@@ -8,6 +8,7 @@ import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
 import com.github.learn.base.BaseActivity;
+import com.github.learn.model.TextModel;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
@@ -40,16 +41,16 @@ public class RefreshGridViewActivity extends BaseActivity {
         mRecyclerView.setRecyclerViewListener(new RefreshRecyclerViewListener() {
             @Override
             public void onRefresh() {
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
                 mAdapter.notifyItemRangeInserted(0, 10);
                 mRecyclerView.refreshComplete();
                 mRecyclerView.getRecyclerView().scrollToPosition(0);
@@ -73,11 +74,11 @@ public class RefreshGridViewActivity extends BaseActivity {
                         if (mAdapter.getItemCount() > 50) {
                             mAdapter.showNoMoreDataView();
                         } else {
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
                             mAdapter.notifyDataSetChanged();
                             mRecyclerView.loadMoreComplete();
                         }
@@ -104,11 +105,11 @@ public class RefreshGridViewActivity extends BaseActivity {
         }
     }
 
-    ArrayList<String> values = new ArrayList<String>() {{
-        add("Android");
-        add("iPhone");
-        add("WindowsMobile");
-        add("Blackberry");
+    ArrayList<TextModel> values = new ArrayList<TextModel>() {{
+        add(new TextModel("Android"));
+        add(new TextModel("iPhone"));
+        add(new TextModel("WindowsMobile"));
+        add(new TextModel("Blackberry"));
     }};
 
 

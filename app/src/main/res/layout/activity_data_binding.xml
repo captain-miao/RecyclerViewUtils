@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
-                android:onClick="@{ClickHandler.ChangeColor}"
+                android:onClick="@{ClickHandler::ChangeColor}"
                 android:text="Change Color"/>
 
 
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
-                android:onClick="@{ClickHandler.ChangeBackground}"
+                android:onClick="@{ClickHandler::ChangeBackground}"
                 android:text="Change Background"/>
 
 
@@ -94,7 +94,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{ClickHandler.ChangeImage}"
+            android:onClick="@{ClickHandler::ChangeImage}"
             android:text="Change Image"/>
 
         <TextView

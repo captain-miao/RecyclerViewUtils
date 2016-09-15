@@ -10,6 +10,7 @@ import android.view.View;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.common.GridItemSpacingDecoration;
 import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
+import com.github.learn.model.TextModel;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
@@ -91,16 +92,16 @@ public class GridViewActivity extends AppCompatActivity {
                 ptrFrameLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
-                        mAdapter.appendToTop(mAdapter.getItemCount() + "", false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
+                        mAdapter.appendToTop(new TextModel(mAdapter.getItemCount() + ""), false);
                         mAdapter.notifyItemRangeInserted(0, 10);
 //                        mAdapter.notifyDataSetChanged();
                         ptrFrameLayout.refreshComplete();
@@ -131,11 +132,11 @@ public class GridViewActivity extends AppCompatActivity {
                         if (mAdapter.getItemCount() > 50) {
                             mAdapter.showNoMoreDataView();
                         } else {
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
                         }
                         mAdapter.notifyDataSetChanged();
                         //java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder
@@ -164,11 +165,11 @@ public class GridViewActivity extends AppCompatActivity {
         }
     }
 
-    ArrayList<String> values = new ArrayList<String>() {{
-        add("Android");
-        add("iPhone");
-        add("WindowsMobile");
-        add("Blackberry");
+    ArrayList<TextModel> values = new ArrayList<TextModel>() {{
+        add(new TextModel("Android"));
+        add(new TextModel("iPhone"));
+        add(new TextModel("WindowsMobile"));
+        add(new TextModel("Blackberry"));
     }};
 
 

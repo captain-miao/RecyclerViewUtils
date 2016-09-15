@@ -14,8 +14,8 @@ import java.util.List;
  * @author YanLu
  * @since 16/7/30
  */
-public abstract class StickyAndExpandableRecyclerHeadersAdapter<T extends StickyHeaderItem, VH extends RecyclerView.ViewHolder,  HEADER extends RecyclerView.ViewHolder>
-        extends BaseWrapperRecyclerAdapter<T, VH> implements StickyRecyclerHeadersAdapter<HEADER> {
+public abstract class StickyAndExpandableRecyclerHeadersAdapter<T extends StickyHeaderItem, HEADER extends RecyclerView.ViewHolder>
+        extends BaseWrapperRecyclerAdapter<T> implements StickyRecyclerHeadersAdapter<HEADER> {
 
     private StickyAndExpandableRecyclerHeadersAdapter() {
     }

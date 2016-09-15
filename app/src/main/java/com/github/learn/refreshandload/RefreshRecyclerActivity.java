@@ -1,7 +1,6 @@
 package com.github.learn.refreshandload;
 
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -9,13 +8,14 @@ import android.widget.Toast;
 import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.learn.base.BaseRecyclerActivity;
+import com.github.learn.model.TextModel;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
+public class RefreshRecyclerActivity extends BaseRecyclerActivity<TextModel> {
     private static final String TAG = "RefreshRecyclerActivity";
 
     private View mEmptyView;
@@ -48,8 +48,8 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
     }
 
     @Override
-    protected BaseWrapperRecyclerAdapter<String, ? extends RecyclerView.ViewHolder> getWrapperRecyclerAdapter() {
-        return  mAdapter != null ? mAdapter : ( mAdapter = new SimpleAdapter(new ArrayList<String>()));
+    protected BaseWrapperRecyclerAdapter<TextModel> getWrapperRecyclerAdapter() {
+        return  mAdapter != null ? mAdapter : ( mAdapter = new SimpleAdapter(new ArrayList<TextModel>()));
     }
 
     @Override
@@ -59,9 +59,9 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
 
     @Override
     protected void loadData() {
-        new AsyncTask<Boolean, Boolean, List<String>>() {
+        new AsyncTask<Boolean, Boolean, List<TextModel>>() {
             @Override
-            protected List<String> doInBackground(Boolean... params) {
+            protected List<TextModel> doInBackground(Boolean... params) {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -71,16 +71,16 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
                 if (mCurrPage > 1 && mAdapter.getItemCount() > 50) {
                     return new ArrayList<>();
                 } else {
-                    return new ArrayList<String>() {{
+                    return new ArrayList<TextModel>() {{
                         for (int i = 0; i < 10; i++) {
-                            add(mCurrPage + " page -> " + i);
+                            add(new TextModel(mCurrPage + " page -> " + i));
                         }
                     }};
                 }
             }
 
             @Override
-            protected void onPostExecute(List<String> items) {
+            protected void onPostExecute(List<TextModel> items) {
                 if(items != null && items.size() > 0) {
                     // 加载完数据 页数+1
                     mCurrPage++;

@@ -16,6 +16,7 @@ import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterVie
 import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
 import com.github.learn.app.AppConstants;
+import com.github.learn.model.TextModel;
 import com.github.learn.refreshandload.adapter.SimpleWrapperAdapter;
 
 import java.security.SecureRandom;
@@ -40,7 +41,7 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-        mAdapter = new SimpleWrapperAdapter(new ArrayList<String>());
+        mAdapter = new SimpleWrapperAdapter(new ArrayList<TextModel>());
         mAdapter.setLoadMoreFooterView(new DefaultLoadMoreFooterView(this));
         addHeaderView();
         addFooterView();
@@ -125,7 +126,7 @@ public class HeaderRecyclerActivity extends AppCompatActivity implements View.On
 
     private void initMockData(int count){
         for (int i = 0; i < count; i++) {
-            mAdapter.appendToTop("1 page -> " + mAdapter.getItemCount() + "");
+            mAdapter.appendToTop(new TextModel("1 page -> " + mAdapter.getItemCount() + ""));
         }
     }
     private void initMockData() {

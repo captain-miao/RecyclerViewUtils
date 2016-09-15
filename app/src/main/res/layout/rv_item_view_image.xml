@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <import type="com.github.learn.model.ImageModel"/>
+
+        <import type="com.github.captain_miao.uniqueadapter.library.UniquePresenter"/>
+
+        <variable
+            name="viewModel"
+            type="ImageModel"/>
+
+        <variable
+            name="presenter"
+            type="UniquePresenter"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(v) -> presenter.onClick(v, viewModel)}"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:imageUrl="@{viewModel.url}"/>
+
+
+    </RelativeLayout>
+
+
+</layout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <import type="com.github.learn.model.TextModel"/>
+
+        <import type="com.github.captain_miao.uniqueadapter.library.UniquePresenter"/>
+
+        <variable
+            name="viewModel"
+            type="TextModel"/>
+
+        <variable
+            name="presenter"
+            type="UniquePresenter"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(v) -> presenter.onClick(v, viewModel)}"
+        android:orientation="horizontal">
+
+        <TextView
+            android:onClick="@{(v) -> presenter.onClick(v, viewModel)}"
+            android:id="@+id/tv_content"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:paddingBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.text}"/>
+
+
+    </LinearLayout>
+
+
+</layout>

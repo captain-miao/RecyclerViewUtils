@@ -45,10 +45,6 @@
             android:label="@string/label_action_label_sticky_header_view">
         </activity>
         <activity
-            android:name="com.github.learn.expandable.ExpandableRecyclerActivity"
-            android:label="@string/label_action_label_expandable_view">
-        </activity>
-        <activity
             android:name="com.github.learn.index.IndexRecyclerActivity"
             android:label="@string/label_action_label_index_view">
         </activity>

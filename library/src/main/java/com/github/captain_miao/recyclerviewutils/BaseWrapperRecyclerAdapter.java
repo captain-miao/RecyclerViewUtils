@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
-import com.github.captain_miao.recyclerviewutils.common.UnRecyclableViewHolder;
+import com.github.captain_miao.uniqueadapter.library.BaseUniqueAdapter;
+import com.github.captain_miao.uniqueadapter.library.ItemModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.Map;
  * @author YanLu
  * @since 16/3/30
  */
-public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter{
+public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends BaseUniqueAdapter {
     private static final String TAG = "BaseRvAdapter";
 
     public static final int NO_POSITION = -1;
@@ -49,64 +50,59 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
     protected List<T> mItemList = new ArrayList<>();
 
 
-    //Content itemViewHolder
-    public abstract VH onCreateItemViewHolder(ViewGroup parent, int viewType);
-    //Content itemViewHolder
-    public abstract void onBindItemViewHolder(final VH holder, int position);
-
     //Content itemViewViewType
     public int getContentViewType(int dataListIndex) {
         return 0;
     }
 
 
-    @Override
-    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(isContentViewType(viewType)){
-            return onCreateItemViewHolder(parent, viewType - CONTENT_VIEW_TYPE_OFFSET);
-        } else if (isHeaderViewType(viewType)) {
-            return mHeaderViews.get(viewType - HEADER_VIEW_TYPE_OFFSET);
-        } else if(isFooterViewType(viewType)){
-            return mFooterViews.get(viewType - FOOTER_VIEW_TYPE_OFFSET);
-        } else if (isFooterLoadMoreViewType(viewType)) {//the bottom load more view
-            return new UnRecyclableViewHolder(mLoadMoreFooterView);
-        }
+//    @Override
+//    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        if(isContentViewType(viewType)){
+//            return super.onCreateViewHolder(parent, viewType - CONTENT_VIEW_TYPE_OFFSET);
+//        } else if (isHeaderViewType(viewType)) {
+//            return mHeaderViews.get(viewType - HEADER_VIEW_TYPE_OFFSET);
+//        } else if(isFooterViewType(viewType)){
+//            return mFooterViews.get(viewType - FOOTER_VIEW_TYPE_OFFSET);
+//        } else if (isFooterLoadMoreViewType(viewType)) {//the bottom load more view
+//            return new UnRecyclableViewHolder(mLoadMoreFooterView);
+//        }
+//
+//        return null;
+//    }
+//
+//    @Override
+//    @SuppressWarnings("unchecked")
+//    public final void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+//        if (isContentView(position)) {
+//            super.onBindViewHolder(holder, position);
+//        }
+//    }
 
-        return null;
-    }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public final void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (isContentView(position)) {
-            onBindItemViewHolder((VH) holder, position);
-        }
-    }
-
-
-    @Override
-    public final int getItemViewType(int position) {
-        //header view type
-        if(mHeaderSize > 0 && position < mHeaderSize) {
-            return HEADER_VIEW_TYPE_OFFSET + position;//header view has different viewType
-        } else if(position >= mHeaderSize && position < getBasicItemCount() + mHeaderSize) {
-            //content view type
-            int contentViewType = getContentViewType(position - mHeaderSize);
-            if(contentViewType >= 0) {
-                return CONTENT_VIEW_TYPE_OFFSET + contentViewType;
-            } else {
-                throw new IllegalArgumentException("contentViewType must >= 0");
-            }
-        } else if(mFooterSize > 0 && position >= (getBasicItemCount() + mHeaderSize)
-                                    && position < (getBasicItemCount() + mHeaderSize + mFooterSize)){
-            //footer view type
-            return FOOTER_VIEW_TYPE_OFFSET + (position - mHeaderSize - getBasicItemCount());//footer view has different viewType
-        } else if (showLoadMoreView && position == (getBasicItemCount() + mHeaderSize + mFooterSize)) {
-            //load more  view type
-            return FOOTER_LOAD_MORE_VIEW_TYPE;
-        }
-        return INVALID_TYPE;
-    }
+//    @Override
+//    public final int getItemViewType(int position) {
+//        //header view type
+//        if(mHeaderSize > 0 && position < mHeaderSize) {
+//            return HEADER_VIEW_TYPE_OFFSET + position;//header view has different viewType
+//        } else if(position >= mHeaderSize && position < getBasicItemCount() + mHeaderSize) {
+//            //content view type
+//            int contentViewType = getItemViewType(position - mHeaderSize);
+//            if(contentViewType >= 0) {
+//                return super.getItemViewType(position - mHeaderSize);
+//            } else {
+//                throw new IllegalArgumentException("contentViewType must >= 0");
+//            }
+//        } else if(mFooterSize > 0 && position >= (getBasicItemCount() + mHeaderSize)
+//                                    && position < (getBasicItemCount() + mHeaderSize + mFooterSize)){
+//            //footer view type
+//            return FOOTER_VIEW_TYPE_OFFSET + (position - mHeaderSize - getBasicItemCount());//footer view has different viewType
+//        } else if (showLoadMoreView && position == (getBasicItemCount() + mHeaderSize + mFooterSize)) {
+//            //load more  view type
+//            return FOOTER_LOAD_MORE_VIEW_TYPE;
+//        }
+//        return INVALID_TYPE;
+//    }
 
 
     @Override

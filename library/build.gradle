@@ -13,9 +13,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    //compile 'com.github.captain-miao:uniqueadapter:1.0.3-SNAPSHOT'
+    compile("com.github.captain-miao:uniqueadapter:1.0.3-SNAPSHOT") {
+        exclude group: 'com.android.support'
+    }
+
     compile("com.android.support:recyclerview-v7:${this.supportLibrariesVersion}")
 }
 

@@ -11,6 +11,7 @@ import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterVie
 import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
 import com.github.learn.base.BaseActivity;
+import com.github.learn.model.TextModel;
 import com.github.learn.refreshandload.R;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class StaggeredGridRecyclerActivity extends BaseActivity implements Refre
         mWrapperRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view);
         //final StaggeredGridLayoutManager LayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mWrapperRecyclerView.setLayoutManager(LayoutManagers.staggeredGrid(2, LinearLayoutManager.VERTICAL).create(this));
-        mAdapter = new StaggeredGridAdapter(new ArrayList<String>());
+        mAdapter = new StaggeredGridAdapter(new ArrayList<TextModel>());
         mAdapter.setLoadMoreFooterView(new DefaultLoadMoreFooterView(this));
         mWrapperRecyclerView.setAdapter(mAdapter);
 
@@ -75,7 +76,7 @@ public class StaggeredGridRecyclerActivity extends BaseActivity implements Refre
         int max = images.length;
         int start = mAdapter.getItemCount();
         for (int i = start; i < max && i < (start + count); i++) {
-            mAdapter.add(images[i]);
+            mAdapter.add(new TextModel(images[i]));
         }
     }
     private void initMockData() {

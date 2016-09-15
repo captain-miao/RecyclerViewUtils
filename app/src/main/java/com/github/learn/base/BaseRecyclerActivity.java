@@ -9,14 +9,15 @@ import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.captain_miao.recyclerviewutils.common.DefaultLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.common.LayoutManagers;
 import com.github.captain_miao.recyclerviewutils.listener.RefreshRecyclerViewListener;
+import com.github.captain_miao.uniqueadapter.library.ItemModel;
 
 import java.util.List;
 
-public abstract class BaseRecyclerActivity<T> extends BaseActivity implements RefreshRecyclerViewListener {
+public abstract class BaseRecyclerActivity<T extends ItemModel> extends BaseActivity implements RefreshRecyclerViewListener {
     private static String TAG = BaseRecyclerActivity.class.getSimpleName();
 
     protected WrapperRecyclerView mWrapperRecyclerView;
-    protected BaseWrapperRecyclerAdapter<T, ? extends RecyclerView.ViewHolder> mAdapter;
+    protected BaseWrapperRecyclerAdapter<T> mAdapter;
 
     protected boolean mIsRefresh = false;
     protected int      mCurrPage = 1;
@@ -24,7 +25,7 @@ public abstract class BaseRecyclerActivity<T> extends BaseActivity implements Re
     //Recycler 绑定 Adapter
     protected abstract int getLayoutResID();
     protected abstract WrapperRecyclerView getRecyclerView();
-    protected abstract BaseWrapperRecyclerAdapter<T, ? extends RecyclerView.ViewHolder> getWrapperRecyclerAdapter();
+    protected abstract BaseWrapperRecyclerAdapter<T> getWrapperRecyclerAdapter();
 
     //加载数据 getCurrPage() 拿到当前页数
     protected abstract void loadData();

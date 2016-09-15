@@ -50,4 +50,9 @@ public class DetectionModel implements StickyHeaderItem {
     public List getChildItemList() {
         return childItems;
     }
+
+    @Override
+    public int getItemViewLayoutId() {
+        return 0;
+    }
 }

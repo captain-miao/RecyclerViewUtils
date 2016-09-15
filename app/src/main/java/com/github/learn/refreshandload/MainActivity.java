@@ -12,18 +12,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
+import com.github.captain_miao.uniqueadapter.library.ItemModel;
+import com.github.captain_miao.uniqueadapter.library.UniquePresenter;
 import com.github.learn.app.AppConstants;
 import com.github.learn.databinding.DataBindingRecyclerActivity;
-import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
+import com.github.learn.model.TextModel;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
 import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
 import com.github.learn.staggeredgrid.StaggeredGridRecyclerActivity;
 import com.github.learn.stickyheaders.StickyHeadersActivity;
+import com.github.learn.utils.RandomDataUtil;
 import com.github.learn.viewpage.GirlViewModel;
 import com.github.learn.viewpage.HeaderViewPageAdapter;
 import com.github.learn.viewpage.ViewPageDotView;
@@ -37,7 +41,7 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PtrFrameLayout.HorizontalMoveArea {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PtrFrameLayout.HorizontalMoveArea, UniquePresenter<ItemModel> {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -51,9 +55,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         initRecycleView();
 
-        initViewPage();
+        //initViewPage();
+
+        mAdapter.setPresenter(this);
+
         //add header
-        mAdapter.addHeaderView(mViewPageContainer);
+        //mAdapter.addHeaderView(mViewPageContainer);
         mPtrFrameLayout.setHorizontalMoveArea(this);
     }
 
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new SimpleAdapter(new ArrayList<String>());
+        mAdapter = new SimpleAdapter(new ArrayList<TextModel>());
         mAdapter.setLoadMoreFooterView(new BaseLoadMoreFooterView(this) {
             @Override
             public int getLoadMoreLayoutResource() {
@@ -97,11 +104,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         if (mAdapter.getItemCount() >= MAX_ITEM_COUNT) {
                             mAdapter.showNoMoreDataView();
                         } else {
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
-                            mAdapter.append(pagination + " page -> " + mAdapter.getItemCount());
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
+                            mAdapter.append(new TextModel(pagination + " page -> " + mAdapter.getItemCount()));
                             mAdapter.notifyDataSetChanged();
                             mAdapter.hideFooterView();
                         }
@@ -238,9 +245,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             case R.id.action_sticky_header_view:
                 startActivity(new Intent(this, StickyHeadersActivity.class));
                 return true;
-            case R.id.action_expandable_view:
-                startActivity(new Intent(this, ExpandableRecyclerActivity.class));
-                return true;
             case R.id.action_sticky_expandable_view:
                 startActivity(new Intent(this, StickyHeadersActivity.class).putExtra(AppConstants.KEY_BOOLEAN, true));
                 return true;
@@ -261,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     private void initMockData(int count){
         for (int i = 0; i < count; i++) {
-            mAdapter.appendToTop("1 page -> " + mAdapter.getItemCount() + "");
+            mAdapter.appendToTop(new TextModel("1 page -> " + mAdapter.getItemCount() + ""));
         }
     }
     private void initMockData() {
@@ -280,5 +284,19 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             add(new GirlViewModel(getResources().getColor(R.color.guide_bg_color_3), getString(R.string.guide_title_3),
                     getString(R.string.guide_description_3), "http://ww4.sinaimg.cn/bmiddle/610dc034jw1f3litmfts1j20qo0hsac7.jpg"));
         }};
+    }
+
+    @Override
+    public void onClick(View view, ItemModel itemModel) {
+        switch (view.getId()){
+            case R.id.tv_content:
+                List<TextModel> modelList = mAdapter.getList();
+                mAdapter.notifyItemChanged(modelList.indexOf((TextModel)itemModel), RandomDataUtil.getRandomColor());
+                break;
+            default:
+                Toast.makeText(this, "on click " + ((TextModel)itemModel).text, Toast.LENGTH_SHORT).show();
+                //mock click
+                mAdapter.remove((TextModel) itemModel);
+        }
     }
 }
