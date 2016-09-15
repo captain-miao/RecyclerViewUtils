@@ -26,34 +26,30 @@ public class GridViewActivity extends AppCompatActivity {
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutWithRecyclerOnScrollListener mLoadMoreListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-
-        mRecyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
-
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
-                if(mAdapter.isContentView(position)){
+                if (mAdapter.isContentView(position)) {
                     return 1;
                 } else {
                     //full line
-                    return layoutManager.getSpanCount();//number of columns of the grid
+                    return layoutManager.getSpanCount();
+                    //number of columns of the grid
                 }
-
             }
         });
-
-
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new GridItemSpacingDecoration(this, R.dimen.grid_item_spacing));
         mAdapter = new SimpleAdapter(values);
@@ -73,8 +69,6 @@ public class GridViewActivity extends AppCompatActivity {
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
         header.setPadding(0, PtrLocalDisplay.dp2px(15), 0, PtrLocalDisplay.dp2px(10));
         header.setPtrFrameLayout(ptrFrameLayout);
-
-
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
@@ -110,9 +104,7 @@ public class GridViewActivity extends AppCompatActivity {
             }
         });
 
-
         mLoadMoreListener = new LinearLayoutWithRecyclerOnScrollListener(layoutManager) {
-
             @Override
             public void onLoadMore(final int pagination, int pageSize) {
                 mRecyclerView.post(new Runnable() {
@@ -121,8 +113,6 @@ public class GridViewActivity extends AppCompatActivity {
                         mAdapter.showLoadMoreView();
                     }
                 });
-
-
                 mRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {

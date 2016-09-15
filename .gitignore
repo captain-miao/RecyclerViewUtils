@@ -3,3 +3,6 @@
 /.idea/workspace.xml
 .DS_Store
 /build
+local.properties
+.idea
+*/*.iml

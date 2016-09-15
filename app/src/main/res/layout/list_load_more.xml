@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,17 +13,17 @@
             android:id="@+id/progress_view"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
             android:visibility="visible"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/colorAccent"
-            android:layout_gravity="center_vertical"/>
+            app:indicator_color="@color/colorAccent" />
 
         <TextView
             android:id="@+id/tv_content"
-            android:paddingLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="center_vertical"
+            android:paddingLeft="8dp"
             android:text="@string/app_loading_more" />
     </LinearLayout>
 </RelativeLayout>

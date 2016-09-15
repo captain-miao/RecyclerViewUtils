@@ -16,14 +16,12 @@
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_resistance="1.7">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/light_grey"
             android:clickable="true"
             android:orientation="vertical">
-
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

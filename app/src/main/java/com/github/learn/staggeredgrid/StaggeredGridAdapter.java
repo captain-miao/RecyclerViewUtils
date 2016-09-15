@@ -51,8 +51,8 @@ public class StaggeredGridAdapter extends BaseWrapperRecyclerAdapter<String, Rec
             default:
                 Toast.makeText(v.getContext(), "on click " + position, Toast.LENGTH_SHORT).show();
                 //mock click todo  last item
-                //int index = (int) getItemId(position);
-                //remove(index);
+                //int CIndex = (int) getItemId(position);
+                //remove(CIndex);
                 //notifyItemRemoved(position);
         }
     }
