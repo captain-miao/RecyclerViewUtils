@@ -3,6 +3,7 @@
 
     <string name="app_name">RALMDemo</string>
     <string name="hello_world">Hello world!</string>
+    <string name="label_action_label_view_page_banner">RecyclerViewWithViewPage</string>
     <string name="label_action_label_header_view">HeaderRecyclerView</string>
     <string name="label_action_label_header_grid_view">HeaderGridRecyclerView</string>
     <string name="label_action_label_recycler_view">RefreshRecyclerView</string>

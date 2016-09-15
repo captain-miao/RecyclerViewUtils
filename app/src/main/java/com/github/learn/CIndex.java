@@ -8,10 +8,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.github.learn.app.AppConstants;
 import com.github.learn.databinding.DataBindingRecyclerActivity;
 import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
 import com.github.learn.refreshandload.HeaderRecyclerActivity;
+import com.github.learn.refreshandload.MainActivity;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.RefreshRecyclerActivity;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
@@ -50,7 +52,9 @@ public class CIndex extends AppCompatActivity implements AdapterView.OnItemClick
     }
 
     public void initList() {
+        data.put(getString(R.string.label_action_label_view_page_banner), MainActivity.class);
         data.put(getString(R.string.label_action_label_header_view), HeaderRecyclerActivity.class);
+        data.put(getString(R.string.label_action_label_header_grid_view), HeaderRecyclerActivity.class);
         data.put(getString(R.string.label_action_label_recycler_view), RefreshRecyclerActivity.class);
         data.put(getString(R.string.label_action_label_grid_view), GridViewActivity.class);
         data.put(getString(R.string.label_action_label_refresh_grid_view), RefreshGridViewActivity.class);
@@ -68,8 +72,8 @@ public class CIndex extends AppCompatActivity implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, o.get(position));
-        if (position == 6) {
-            intent.putExtra("StickyAndExpandable", true);
+        if (position == 2 || position == 8) {
+            intent.putExtra(AppConstants.KEY_BOOLEAN, true);
         }
 
         /*

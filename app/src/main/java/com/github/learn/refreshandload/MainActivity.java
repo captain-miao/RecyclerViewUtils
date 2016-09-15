@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -16,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.learn.app.AppConstants;
+import com.github.learn.base.BaseActivity;
 import com.github.learn.databinding.DataBindingRecyclerActivity;
 import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
@@ -37,7 +37,7 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PtrFrameLayout.HorizontalMoveArea {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, PtrFrameLayout.HorizontalMoveArea {
 
     private SimpleAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private PtrFrameLayout mPtrFrameLayout;
     private final int MAX_ITEM_COUNT = 100;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void init(Bundle savedInstanceState) {
         setContentView(R.layout.ac_main);
 
         initRecycleView();
