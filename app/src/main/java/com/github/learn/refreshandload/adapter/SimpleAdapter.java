@@ -32,10 +32,10 @@ public class SimpleAdapter extends BaseWrapperRecyclerAdapter<TextModel> {
 //
 //    @Override
 //    public void onBindViewHolder(RecyclerView.ViewHolder vh, int position, List payloads) {
-//        if(payloads != null && payloads.size() > 0 && vh instanceof SimpleAdapter.ItemViewHolder){
+//        if(payloads != null && payloads.size() > 0 && vh instanceof UniqueViewHolder){
 //            for(Object o : payloads){
 //                if(o != null && o instanceof Integer) {
-//                    ((SimpleAdapter.ItemViewHolder) vh).mTvContent.setTextColor((Integer) o);
+//                    ((UniqueViewHolder) vh).dataBinding.setVariable(BR.txtColor, (Integer) o);
 //                }
 //            }
 //        } else {

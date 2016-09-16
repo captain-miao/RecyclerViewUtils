@@ -1,10 +1,8 @@
 package com.github.captain_miao.recyclerviewutils;
 
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
 import com.github.captain_miao.uniqueadapter.library.BaseUniqueAdapter;
@@ -51,9 +49,9 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
 
 
     //Content itemViewViewType
-    public int getContentViewType(int dataListIndex) {
-        return 0;
-    }
+//    public int getContentViewType(int dataListIndex) {
+//        return 0;
+//    }
 
 
 //    @Override
@@ -105,19 +103,19 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
 //    }
 
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        int position = holder.getLayoutPosition();
-        if (!isContentView(position)) {
-            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
-                StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
-                lp.setFullSpan(true);
-            }
-        }
-    }
+//    @Override
+//    @SuppressWarnings("unchecked")
+//    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+//        super.onViewAttachedToWindow(holder);
+//        int position = holder.getLayoutPosition();
+//        if (!isContentView(position)) {
+//            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+//            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
+//                StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+//                lp.setFullSpan(true);
+//            }
+//        }
+//    }
 
     public void addHeaderView(View view, boolean notifyDataChange) {
         RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) { };
@@ -399,8 +397,9 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     }
 
     public T getItem(int position) {
-        if(isContentView(position)){
-            return mItemList.get(position - mHeaderSize);
+        int dataOfIndex = position - mHeaderSize;
+        if(dataOfIndex >= 0 && dataOfIndex < getBasicItemCount()){
+            return mItemList.get(dataOfIndex);
         } else {
             return null;
         }

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         //add header
         //mAdapter.addHeaderView(mViewPageContainer);
-        mPtrFrameLayout.setHorizontalMoveArea(this);
+        //mPtrFrameLayout.setHorizontalMoveArea(this);
     }
 
     private void initRecycleView() {
@@ -290,8 +290,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void onClick(View view, ItemModel itemModel) {
         switch (view.getId()){
             case R.id.tv_content:
-                List<TextModel> modelList = mAdapter.getList();
-                mAdapter.notifyItemChanged(modelList.indexOf((TextModel)itemModel), RandomDataUtil.getRandomColor());
+                if(itemModel instanceof TextModel) {
+                    List<TextModel> modelList = mAdapter.getList();
+                    ((TextModel) itemModel).color = RandomDataUtil.getRandomColor();
+                    mAdapter.notifyItemChanged(modelList.indexOf(itemModel));
+                    //mAdapter.notifyItemChanged(modelList.indexOf((TextModel)itemModel), RandomDataUtil.getRandomColor());
+                }
                 break;
             default:
                 Toast.makeText(this, "on click " + ((TextModel)itemModel).text, Toast.LENGTH_SHORT).show();

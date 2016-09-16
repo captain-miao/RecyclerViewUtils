@@ -11,6 +11,7 @@ import com.github.learn.refreshandload.R;
 public class TextModel extends BaseViewModel implements ItemModel {
 
     public String text;
+    public int    color;
 
     public TextModel(String text) {
         this.text = text;
