@@ -1,10 +1,13 @@
 package com.github.captain_miao.recyclerviewutils;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
+import com.github.captain_miao.recyclerviewutils.common.UnRecyclableViewHolder;
 import com.github.captain_miao.uniqueadapter.library.BaseUniqueAdapter;
 import com.github.captain_miao.uniqueadapter.library.ItemModel;
 
@@ -20,14 +23,15 @@ import java.util.Map;
 public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends BaseUniqueAdapter {
     private static final String TAG = "BaseRvAdapter";
 
-    public static final int NO_POSITION = -1;
-    public static final long NO_ID = -1;
-    public static final int INVALID_TYPE = -1;
-    private static final int VIEW_TYPE_MAX_COUNT = 1000;//header or footer max view type :1000
+    public static final int NO_POSITION = Integer.MIN_VALUE;
+    public static final long NO_ID = Integer.MIN_VALUE;
+    public static final int INVALID_TYPE = Integer.MIN_VALUE;
+    private static final int HEADER_VIEW_TYPE_MAX_COUNT = 10000;//header or footer max view type :10000
+    private static final int FOOTER_VIEW_TYPE_MAX_COUNT = 10000;//header or footer max view type :10000
     private static final int HEADER_VIEW_TYPE_OFFSET = 0;
-    private static final int FOOTER_VIEW_TYPE_OFFSET = HEADER_VIEW_TYPE_OFFSET + VIEW_TYPE_MAX_COUNT;
-    private static final int FOOTER_LOAD_MORE_VIEW_TYPE = FOOTER_VIEW_TYPE_OFFSET + 1;//the bottom view
-    private static final int CONTENT_VIEW_TYPE_OFFSET = FOOTER_LOAD_MORE_VIEW_TYPE + VIEW_TYPE_MAX_COUNT;
+    private static final int FOOTER_VIEW_TYPE_OFFSET = HEADER_VIEW_TYPE_OFFSET - HEADER_VIEW_TYPE_MAX_COUNT;
+    private static final int FOOTER_LOAD_MORE_VIEW_TYPE = FOOTER_VIEW_TYPE_OFFSET - 1;//the bottom view
+    private static final int CONTENT_VIEW_TYPE_OFFSET = FOOTER_LOAD_MORE_VIEW_TYPE + FOOTER_VIEW_TYPE_MAX_COUNT;
 
     //header view and footer view can't be recycled
     private List<RecyclerView.ViewHolder> mHeaderViews = new ArrayList<>();
@@ -48,83 +52,82 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     protected List<T> mItemList = new ArrayList<>();
 
 
-    //Content itemViewViewType
-//    public int getContentViewType(int dataListIndex) {
-//        return 0;
-//    }
+    @Override
+    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(isContentViewType(viewType)){
+            return super.onCreateViewHolder(parent, viewType);
+        } else if (isHeaderViewType(viewType)) {
+            return mHeaderViews.get(HEADER_VIEW_TYPE_OFFSET - viewType );
+        } else if(isFooterViewType(viewType)){
+            return mFooterViews.get(FOOTER_VIEW_TYPE_OFFSET - viewType);
+        } else if (isFooterLoadMoreViewType(viewType)) {//the bottom load more view
+            return new UnRecyclableViewHolder(mLoadMoreFooterView);
+        }
+
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public final void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (isContentView(position)) {
+            super.onBindViewHolder(holder, position);
+        }
+    }
 
 
-//    @Override
-//    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        if(isContentViewType(viewType)){
-//            return super.onCreateViewHolder(parent, viewType - CONTENT_VIEW_TYPE_OFFSET);
-//        } else if (isHeaderViewType(viewType)) {
-//            return mHeaderViews.get(viewType - HEADER_VIEW_TYPE_OFFSET);
-//        } else if(isFooterViewType(viewType)){
-//            return mFooterViews.get(viewType - FOOTER_VIEW_TYPE_OFFSET);
-//        } else if (isFooterLoadMoreViewType(viewType)) {//the bottom load more view
-//            return new UnRecyclableViewHolder(mLoadMoreFooterView);
-//        }
-//
-//        return null;
-//    }
-//
-//    @Override
-//    @SuppressWarnings("unchecked")
-//    public final void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-//        if (isContentView(position)) {
-//            super.onBindViewHolder(holder, position);
-//        }
-//    }
+    @Override
+    public final int getItemViewType(int position) {
+        //header view type
+        if(mHeaderSize > 0 && position < mHeaderSize) {
+            return HEADER_VIEW_TYPE_OFFSET - position;//header view has different viewType
+        } else if(position >= mHeaderSize && position < getBasicItemCount() + mHeaderSize) {
+            //content view type
+            return super.getItemViewType(position);
+            //int contentViewType = getItemViewType(position - mHeaderSize);
+            //if(contentViewType >= 0) {
+            //} else {
+            //    throw new IllegalArgumentException("contentViewType must >= 0");
+            //}
+        } else if(mFooterSize > 0 && position >= (getBasicItemCount() + mHeaderSize)
+                                    && position < (getBasicItemCount() + mHeaderSize + mFooterSize)){
+            //footer view type
+            return FOOTER_VIEW_TYPE_OFFSET - (position - mHeaderSize - getBasicItemCount());//footer view has different viewType
+        } else if (showLoadMoreView && position == (getBasicItemCount() + mHeaderSize + mFooterSize)) {
+            //load more  view type
+            return FOOTER_LOAD_MORE_VIEW_TYPE;
+        }
+        return INVALID_TYPE;
+    }
 
 
-//    @Override
-//    public final int getItemViewType(int position) {
-//        //header view type
-//        if(mHeaderSize > 0 && position < mHeaderSize) {
-//            return HEADER_VIEW_TYPE_OFFSET + position;//header view has different viewType
-//        } else if(position >= mHeaderSize && position < getBasicItemCount() + mHeaderSize) {
-//            //content view type
-//            int contentViewType = getItemViewType(position - mHeaderSize);
-//            if(contentViewType >= 0) {
-//                return super.getItemViewType(position - mHeaderSize);
-//            } else {
-//                throw new IllegalArgumentException("contentViewType must >= 0");
-//            }
-//        } else if(mFooterSize > 0 && position >= (getBasicItemCount() + mHeaderSize)
-//                                    && position < (getBasicItemCount() + mHeaderSize + mFooterSize)){
-//            //footer view type
-//            return FOOTER_VIEW_TYPE_OFFSET + (position - mHeaderSize - getBasicItemCount());//footer view has different viewType
-//        } else if (showLoadMoreView && position == (getBasicItemCount() + mHeaderSize + mFooterSize)) {
-//            //load more  view type
-//            return FOOTER_LOAD_MORE_VIEW_TYPE;
-//        }
-//        return INVALID_TYPE;
-//    }
-
-
-//    @Override
-//    @SuppressWarnings("unchecked")
-//    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-//        super.onViewAttachedToWindow(holder);
-//        int position = holder.getLayoutPosition();
-//        if (!isContentView(position)) {
-//            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-//            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
-//                StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
-//                lp.setFullSpan(true);
-//            }
-//        }
-//    }
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        int position = holder.getLayoutPosition();
+        if (!isContentView(position)) {
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
+                StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+                lp.setFullSpan(true);
+            }
+        }
+    }
 
     public void addHeaderView(View view, boolean notifyDataChange) {
-        RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) { };
-        viewHolder.setIsRecyclable(false);
-        mHeaderViewHolderMap.put(view, viewHolder);
-        mHeaderViews.add(viewHolder);
-        mHeaderSize = mHeaderViews.size();
-        if(notifyDataChange) {
-            notifyItemInserted(mHeaderSize - 1);
+        if(getHeaderSize() < HEADER_VIEW_TYPE_MAX_COUNT) {
+            RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) {
+            };
+            viewHolder.setIsRecyclable(false);
+            mHeaderViewHolderMap.put(view, viewHolder);
+            mHeaderViews.add(viewHolder);
+            mHeaderSize = mHeaderViews.size();
+            if (notifyDataChange) {
+                notifyItemInserted(mHeaderSize - 1);
+            }
+        } else {
+            throw new IllegalArgumentException("header view max count: " + HEADER_VIEW_TYPE_MAX_COUNT);
         }
     }
     public void addHeaderView(View view) {
@@ -146,13 +149,18 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     }
 
     public void addFooterView(View view, boolean notifyDataChange) {
-        RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) { };
-        viewHolder.setIsRecyclable(false);
-        mFooterViewHolderMap.put(view, viewHolder);
-        mFooterViews.add(viewHolder);
-        mFooterSize = mFooterViews.size();
-        if(notifyDataChange) {
-            notifyItemInserted(mFooterSize - 1);
+        if (getFooterSize() < FOOTER_LOAD_MORE_VIEW_TYPE) {
+            RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) {
+            };
+            viewHolder.setIsRecyclable(false);
+            mFooterViewHolderMap.put(view, viewHolder);
+            mFooterViews.add(viewHolder);
+            mFooterSize = mFooterViews.size();
+            if (notifyDataChange) {
+                notifyItemInserted(mFooterSize - 1);
+            }
+        } else {
+            throw new IllegalArgumentException("footer view max count: " + FOOTER_LOAD_MORE_VIEW_TYPE);
         }
     }
 
@@ -191,19 +199,19 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     }
 
     public boolean isHeaderViewType(int viewType) {
-        return viewType >= 0 && viewType < FOOTER_VIEW_TYPE_OFFSET;
+        return viewType < 0 && viewType > FOOTER_VIEW_TYPE_OFFSET;
     }
 
     public boolean isFooterViewType(int viewType) {
-        return viewType >= 0 && viewType >= FOOTER_VIEW_TYPE_OFFSET && viewType < FOOTER_LOAD_MORE_VIEW_TYPE;
+        return viewType < 0 && viewType <= FOOTER_VIEW_TYPE_OFFSET && viewType > FOOTER_LOAD_MORE_VIEW_TYPE;
     }
 
     public boolean isFooterLoadMoreViewType(int viewType) {
-        return  viewType >= 0 && viewType == FOOTER_LOAD_MORE_VIEW_TYPE;
+        return  viewType < 0 && viewType == FOOTER_LOAD_MORE_VIEW_TYPE;
     }
 
     public boolean isContentViewType(int viewType) {
-        return  viewType >= 0 && viewType >= CONTENT_VIEW_TYPE_OFFSET;
+        return  viewType >= 0;
     }
 
 
