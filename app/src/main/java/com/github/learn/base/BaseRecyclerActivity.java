@@ -33,7 +33,9 @@ public abstract class BaseRecyclerActivity<T> extends BaseActivity implements Re
     public void init(Bundle savedInstanceState) {
         setContentView(getLayoutResID());
         initRecyclerView();
-        autoRefresh();
+        if(enablePullToRefresh()) {
+            autoRefresh();
+        }
     }
 
     protected void initRecyclerView() {

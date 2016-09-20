@@ -1,14 +1,13 @@
 package com.github.learn;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
+import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
+import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.learn.app.AppConstants;
+import com.github.learn.base.BaseRecyclerActivity;
 import com.github.learn.databinding.DataBindingRecyclerActivity;
 import com.github.learn.expandable.ExpandableRecyclerActivity;
 import com.github.learn.index.IndexRecyclerActivity;
@@ -16,6 +15,7 @@ import com.github.learn.refreshandload.HeaderRecyclerActivity;
 import com.github.learn.refreshandload.MainActivity;
 import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.RefreshRecyclerActivity;
+import com.github.learn.refreshandload.adapter.SimpleAdapter;
 import com.github.learn.refreshandload.gridview.GridViewActivity;
 import com.github.learn.refreshandload.gridview.RefreshGridViewActivity;
 import com.github.learn.staggeredgrid.StaggeredGridRecyclerActivity;
@@ -29,17 +29,18 @@ import java.util.Map;
  * Created by hesk on 2016/9/15.
  */
 
-public class CIndex extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class CIndex extends BaseRecyclerActivity<String> {
 
-    private ListView mList;
     private LinkedHashMap<String, Class> data = new LinkedHashMap<>();
     private ArrayList<Class> o = new ArrayList<>();
 
+    public boolean isShowHomeAsUp() {
+        return false;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_list);
-        mList = (ListView) findViewById(android.R.id.list);
+    protected void initRecyclerView() {
+        super.initRecyclerView();
         ArrayList<String> items = new ArrayList<>();
         initList();
         for (Map.Entry<String, Class> entry : data.entrySet()) {
@@ -47,9 +48,54 @@ public class CIndex extends AppCompatActivity implements AdapterView.OnItemClick
             items.add(key);
             o.add(entry.getValue());
         }
-        mList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
-        mList.setOnItemClickListener(this);
+        mAdapter.addAll(items);
     }
+
+
+
+    @Override
+    protected int getLayoutResID() {
+        return R.layout.ac_refresh_recycler_view;
+    }
+
+
+    @Override
+    protected WrapperRecyclerView getRecyclerView() {
+        return mWrapperRecyclerView != null ? mWrapperRecyclerView
+                : (mWrapperRecyclerView = (WrapperRecyclerView) findViewById(R.id.recycler_view));
+    }
+
+
+    @Override
+    protected BaseWrapperRecyclerAdapter<String, ? extends RecyclerView.ViewHolder> getWrapperRecyclerAdapter() {
+        return mAdapter != null ? mAdapter : (mAdapter = new SimpleAdapter(new ArrayList<String>()) {
+            @Override
+            public void onClick(View v, int position) {
+                Intent intent = new Intent(CIndex.this, o.get(position));
+                if (position == 2 || position == 8) {
+                    intent.putExtra(AppConstants.KEY_BOOLEAN, true);
+                }
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public boolean enablePullToLoadMore() {
+        return false;
+    }
+
+
+    @Override
+    public boolean enablePullToRefresh() {
+        return false;
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
 
     public void initList() {
         data.put(getString(R.string.label_action_label_view_page_banner), MainActivity.class);
@@ -67,25 +113,5 @@ public class CIndex extends AppCompatActivity implements AdapterView.OnItemClick
         // data.put("Demo Index Recycler Activity", IndexRecyclerActivity.class);
         // data.put("Viewpager Activity", ViewPagerActivity.class);
         // data.put("Header Grid Footer", ViewPagerActivity.class);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, o.get(position));
-        if (position == 2 || position == 8) {
-            intent.putExtra(AppConstants.KEY_BOOLEAN, true);
-        }
-
-        /*
-
-        if (position == 2) {
-            intent.putExtra(GridViewActivity.span_count, 2);
-        }
-        if (position == 3) {
-            intent.putExtra(GridViewActivity.span_count, 3);
-        }
-
-        */
-        startActivity(intent);
     }
 }

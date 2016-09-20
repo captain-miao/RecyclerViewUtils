@@ -16,7 +16,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         init(savedInstanceState);
 
 
-        if(getSupportActionBar() != null) {
+        if(isShowHomeAsUp() && getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -25,6 +25,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+
+    public boolean isShowHomeAsUp() {
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
