@@ -149,7 +149,7 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     }
 
     public void addFooterView(View view, boolean notifyDataChange) {
-        if (getFooterSize() < FOOTER_LOAD_MORE_VIEW_TYPE) {
+        if (getFooterSize() < FOOTER_VIEW_TYPE_MAX_COUNT) {
             RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view) {
             };
             viewHolder.setIsRecyclable(false);
@@ -160,7 +160,7 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
                 notifyItemInserted(mFooterSize - 1);
             }
         } else {
-            throw new IllegalArgumentException("footer view max count: " + FOOTER_LOAD_MORE_VIEW_TYPE);
+            throw new IllegalArgumentException("footer view max count: " + FOOTER_VIEW_TYPE_MAX_COUNT);
         }
     }
 
@@ -199,7 +199,7 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     }
 
     public boolean isHeaderViewType(int viewType) {
-        return viewType < 0 && viewType > FOOTER_VIEW_TYPE_OFFSET;
+        return viewType <= 0 && viewType > FOOTER_VIEW_TYPE_OFFSET;
     }
 
     public boolean isFooterViewType(int viewType) {
@@ -211,7 +211,7 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
     }
 
     public boolean isContentViewType(int viewType) {
-        return  viewType >= 0;
+        return  viewType > 0;
     }
 
 

@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         initRecycleView();
 
-        //initViewPage();
+        initViewPage();
 
         mAdapter.setPresenter(this);
 
         //add header
-        //mAdapter.addHeaderView(mViewPageContainer);
-        //mPtrFrameLayout.setHorizontalMoveArea(this);
+        mAdapter.addHeaderView(mViewPageContainer);
+        mPtrFrameLayout.setHorizontalMoveArea(this);
     }
 
     private void initRecycleView() {
