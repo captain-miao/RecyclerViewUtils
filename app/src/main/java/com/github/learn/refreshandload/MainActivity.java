@@ -293,8 +293,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 if(itemModel instanceof TextModel) {
                     List<TextModel> modelList = mAdapter.getList();
                     ((TextModel) itemModel).color = RandomDataUtil.getRandomColor();
-                    mAdapter.notifyItemChanged(modelList.indexOf(itemModel));
-                    //mAdapter.notifyItemChanged(modelList.indexOf((TextModel)itemModel), RandomDataUtil.getRandomColor());
+                    //mAdapter.notifyItemChanged(modelList.indexOf(itemModel));
+                    mAdapter.notifyItemChanged(modelList.indexOf((TextModel)itemModel), itemModel);
                 }
                 break;
             default:
