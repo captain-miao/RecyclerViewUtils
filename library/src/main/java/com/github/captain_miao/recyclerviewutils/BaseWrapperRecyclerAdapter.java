@@ -430,7 +430,13 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
-            notifyItemInserted(getItemCount());
+            try {
+                notifyItemInserted(getItemCount());
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemChanged failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
         }
     }
 
@@ -443,7 +449,13 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
-            notifyItemInserted(getItemCount());
+            try {
+                notifyItemInserted(getItemCount());
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemChanged failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
         }
     }
 
@@ -455,7 +467,13 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
             this.showLoadMoreView = false;
             //for java.lang.IllegalStateException: Added View has RecyclerView as parent but view is not a real child.
             //https://github.com/captain-miao/RecyclerViewUtils/issues/3
-            notifyDataSetChanged();
+            try {
+                notifyItemRemoved(mHeaderSize + mFooterSize + getBasicItemCount() + 1);
+            } catch (Exception e) {
+                notifyDataSetChanged();
+                Log.w(TAG, "notifyItemChanged failure");
+                e.printStackTrace();
+            }
         }
     }
 
