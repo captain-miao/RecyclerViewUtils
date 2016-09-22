@@ -23,15 +23,14 @@ import java.util.Map;
 public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends BaseUniqueAdapter {
     private static final String TAG = "BaseRvAdapter";
 
-    public static final int NO_POSITION = Integer.MIN_VALUE;
+    public static final int  NO_POSITION = Integer.MIN_VALUE;
     public static final long NO_ID = Integer.MIN_VALUE;
-    public static final int INVALID_TYPE = Integer.MIN_VALUE;
+    public static final int  INVALID_TYPE = Integer.MIN_VALUE;
     private static final int HEADER_VIEW_TYPE_MAX_COUNT = 10000;//header or footer max view type :10000
     private static final int FOOTER_VIEW_TYPE_MAX_COUNT = 10000;//header or footer max view type :10000
     private static final int HEADER_VIEW_TYPE_OFFSET = 0;
     private static final int FOOTER_VIEW_TYPE_OFFSET = HEADER_VIEW_TYPE_OFFSET - HEADER_VIEW_TYPE_MAX_COUNT;
     private static final int FOOTER_LOAD_MORE_VIEW_TYPE = FOOTER_VIEW_TYPE_OFFSET - 1;//the bottom view
-    private static final int CONTENT_VIEW_TYPE_OFFSET = FOOTER_LOAD_MORE_VIEW_TYPE + FOOTER_VIEW_TYPE_MAX_COUNT;
 
     //header view and footer view can't be recycled
     private List<RecyclerView.ViewHolder> mHeaderViews = new ArrayList<>();
@@ -82,13 +81,8 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
         if(mHeaderSize > 0 && position < mHeaderSize) {
             return HEADER_VIEW_TYPE_OFFSET - position;//header view has different viewType
         } else if(position >= mHeaderSize && position < getBasicItemCount() + mHeaderSize) {
-            //content view type
+            // content view type
             return super.getItemViewType(position);
-            //int contentViewType = getItemViewType(position - mHeaderSize);
-            //if(contentViewType >= 0) {
-            //} else {
-            //    throw new IllegalArgumentException("contentViewType must >= 0");
-            //}
         } else if(mFooterSize > 0 && position >= (getBasicItemCount() + mHeaderSize)
                                     && position < (getBasicItemCount() + mHeaderSize + mFooterSize)){
             //footer view type
@@ -433,7 +427,13 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
             //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
-            notifyItemInserted(getItemCount());
+            try {
+                notifyItemInserted(getItemCount());
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemChanged failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
         }
     }
 
@@ -446,7 +446,13 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
             //notifyItemChanged(getItemCount());
         } else {
             this.showLoadMoreView = true;
-            notifyItemInserted(getItemCount());
+            try {
+                notifyItemInserted(getItemCount());
+            } catch (Exception e) {
+                Log.w(TAG, "notifyItemChanged failure");
+                e.printStackTrace();
+                notifyDataSetChanged();
+            }
         }
     }
 
@@ -458,7 +464,13 @@ public abstract class BaseWrapperRecyclerAdapter<T extends ItemModel> extends Ba
             this.showLoadMoreView = false;
             //for java.lang.IllegalStateException: Added View has RecyclerView as parent but view is not a real child.
             //https://github.com/captain-miao/RecyclerViewUtils/issues/3
-            notifyDataSetChanged();
+            try {
+                notifyItemRemoved(mHeaderSize + mFooterSize + getBasicItemCount() + 1);
+            } catch (Exception e) {
+                notifyDataSetChanged();
+                Log.w(TAG, "notifyItemChanged failure");
+                e.printStackTrace();
+            }
         }
     }
 
