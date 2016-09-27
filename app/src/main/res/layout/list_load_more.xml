@@ -15,8 +15,8 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:visibility="visible"
-            app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/colorAccent" />
+            app:indicatorName="BallSpinFadeLoader"
+            app:indicatorColor="@color/colorAccent" />
 
         <TextView
             android:id="@+id/tv_content"
