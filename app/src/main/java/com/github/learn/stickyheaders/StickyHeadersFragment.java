@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.github.captain_miao.recyclerviewutils.common.DividerItemDecoration;
 import com.github.learn.refreshandload.R;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
@@ -52,7 +51,7 @@ public class StickyHeadersFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Add decoration for dividers between list items
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        // recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
 
         // Add the sticky headers decoration
         final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
