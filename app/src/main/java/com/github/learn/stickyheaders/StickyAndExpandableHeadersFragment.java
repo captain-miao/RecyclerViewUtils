@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.captain_miao.recyclerviewutils.common.BaseLoadMoreFooterView;
-import com.github.captain_miao.recyclerviewutils.common.DividerItemDecoration;
 import com.github.captain_miao.recyclerviewutils.listener.LinearLayoutWithRecyclerOnScrollListener;
 import com.github.learn.refreshandload.R;
 
@@ -56,7 +55,7 @@ public class StickyAndExpandableHeadersFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
 
         // Add decoration for dividers between list items
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        // mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
 
         initLoadMore(layoutManager);
 
