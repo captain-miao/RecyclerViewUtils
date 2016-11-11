@@ -1,36 +1,34 @@
-package com.github.learn.refreshandload;
+package com.github.learn.advertisement;
 
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.WrapperRecyclerView;
 import com.github.learn.base.BaseRecyclerActivity;
+import com.github.learn.refreshandload.R;
 import com.github.learn.refreshandload.adapter.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
+public class AdRecyclerActivity extends BaseRecyclerActivity<String> {
     private static final String TAG = "AdRecyclerActivity";
 
     private View mEmptyView;
     @Override
     protected void initRecyclerView() {
         super.initRecyclerView();
-        //addHeaderView();
-        //addFooterView();
         mEmptyView = getLayoutInflater().inflate(R.layout.recycler_empty_view, null);
         mWrapperRecyclerView.setEmptyView(mEmptyView);
 
         mEmptyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(RefreshRecyclerActivity.this, "onClick EmptyView", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdRecyclerActivity.this, "onClick EmptyView", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -102,19 +100,6 @@ public class RefreshRecyclerActivity extends BaseRecyclerActivity<String> {
                 }
             }
         }.execute();
-    }
-
-
-    private void addHeaderView() {
-        View mRecyclerViewHeader = LayoutInflater.from(this).inflate(R.layout.recycler_view_header, null);
-        mRecyclerViewHeader.findViewById(R.id.btn_header_change_color).setVisibility(View.GONE);
-        mAdapter.addHeaderView(mRecyclerViewHeader, true);
-    }
-
-    private void addFooterView() {
-        View mRecyclerViewHeader = LayoutInflater.from(this).inflate(R.layout.recycler_view_footer, null);
-        mRecyclerViewHeader.findViewById(R.id.btn_footer_change_color).setVisibility(View.GONE);
-        mAdapter.addFooterView(mRecyclerViewHeader, true);
     }
 
 }
