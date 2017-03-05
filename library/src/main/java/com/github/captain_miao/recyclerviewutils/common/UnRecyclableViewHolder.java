@@ -10,6 +10,7 @@ import android.view.View;
 public class UnRecyclableViewHolder extends RecyclerView.ViewHolder{
     public UnRecyclableViewHolder(View itemView) {
         super(itemView);
-        setIsRecyclable(false);
+        // todo it's bug
+        //setIsRecyclable(false);
     }
 }

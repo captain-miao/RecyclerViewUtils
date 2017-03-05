@@ -7,7 +7,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -27,11 +27,11 @@ task clean(type: Delete) {
 }
 
 subprojects {
-    ext.compileSdkVersion = 24
-    ext.buildToolsVersion = '24.0.2'
-    ext.supportLibrariesVersion = '24.2.1'
+    ext.compileSdkVersion = 25
+    ext.buildToolsVersion = '25.0.2'
+    ext.supportLibrariesVersion = '25.2.0'
     ext.minSdkVersion = '14'
-    ext.targetSdkVersion = '22'
+    ext.targetSdkVersion = '25'
 
     ext.ageraLibrariesVersion = '1.1.0'
 }
