@@ -22,7 +22,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
     private static final String TAG = "BaseRvAdapter";
 
     public static final int NO_POSITION = -1;
-    public static final long NO_ID = -1;
+    public static final String NO_HEADER_ID = "";
     public static final int INVALID_TYPE = -1;
     private static final int VIEW_TYPE_MAX_COUNT = 1000;//header or footer max view type :1000
     private static final int HEADER_VIEW_TYPE_OFFSET = 0;

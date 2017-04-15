@@ -1,6 +1,7 @@
 package com.timehop.stickyheadersrecyclerview;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +31,7 @@ public class StickyAndExpandableHeadersTouchListener implements RecyclerView.OnI
     private OnHeaderClickListener mOnHeaderClickListener;
 
     public interface OnHeaderClickListener {
-        void onHeaderClick(View header, int position, long headerId);
+        void onHeaderClick(View header, int position, String headerId);
     }
 
     public StickyAndExpandableHeadersTouchListener(final RecyclerView recyclerView,
@@ -77,8 +78,8 @@ public class StickyAndExpandableHeadersTouchListener implements RecyclerView.OnI
             int position = mDecor.findHeaderPositionUnder((int) e.getX(), (int) e.getY());
             if (position != -1) {
                 View headerView = mDecor.getHeaderView(mRecyclerView, position);
-                long headerId = getAdapter().getHeaderId(position);
-                if(headerId >= 0) {
+                String headerId = getAdapter().getHeaderId(position);
+                if(!TextUtils.isEmpty(headerId)) {
                     mOnHeaderClickListener.onHeaderClick(headerView, position, headerId);
 
                     headerView.onTouchEvent(e);

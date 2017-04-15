@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class DetectionModel implements StickyHeaderItem {
 
-    public long headerId;
+    public String headerId;
     public boolean expanded;
     public boolean parentItem;
     public List<DetectionModel> childItems = new ArrayList<>();
@@ -22,13 +22,13 @@ public class DetectionModel implements StickyHeaderItem {
     public String value;
     public boolean isQualified;
 
-    public DetectionModel(long headerId, boolean expanded) {
+    public DetectionModel(String headerId, boolean expanded) {
         this.headerId = headerId;
         this.expanded = expanded;
     }
 
     @Override
-    public long getHeaderId() {
+    public String getHeaderId() {
         return headerId;
     }
 

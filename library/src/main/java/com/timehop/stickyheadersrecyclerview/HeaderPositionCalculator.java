@@ -3,6 +3,7 @@ package com.timehop.stickyheadersrecyclerview;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -76,7 +77,7 @@ public class HeaderPositionCalculator {
       margin = mTempRect1.left;
     }
 
-    return offset <= margin && mAdapter.getHeaderId(position) >= 0;
+    return offset <= margin && !TextUtils.isEmpty(mAdapter.getHeaderId(position));
   }
 
   /**
@@ -92,20 +93,20 @@ public class HeaderPositionCalculator {
       return false;
     }
 
-    long headerId = mAdapter.getHeaderId(position);
+    String headerId = mAdapter.getHeaderId(position);
 
-    if (headerId < 0) {
+    if (TextUtils.isEmpty(headerId)) {
       return false;
     }
 
-    long nextItemHeaderId = -1;
+    String nextItemHeaderId = "";
     int nextItemPosition = position + (isReverseLayout? 1: -1);
     if (!indexOutOfBounds(nextItemPosition)){
       nextItemHeaderId = mAdapter.getHeaderId(nextItemPosition);
     }
     int firstItemPosition = isReverseLayout? mAdapter.getItemCount()-1 : 0;
 
-    return position == firstItemPosition || headerId != nextItemHeaderId;
+    return position == firstItemPosition || headerId.equals(nextItemHeaderId);
   }
 
   private boolean indexOutOfBounds(int position) {

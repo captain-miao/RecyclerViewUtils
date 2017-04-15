@@ -1,6 +1,7 @@
 package com.github.learn.stickyheaders;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,10 +65,11 @@ public class StickyAndExpandableAdapter
 
 
     //Sticky Headers
+    @NonNull
     @Override
-    public long getHeaderId(int position) {
+    public String getHeaderId(int position) {
         DetectionModel vo = getItem(position);
-        return vo != null ? vo.getHeaderId() : NO_ID;
+        return vo != null ? vo.getHeaderId() : NO_HEADER_ID;
     }
 
     @Override

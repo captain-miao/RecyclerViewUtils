@@ -1,6 +1,7 @@
 package com.github.learn.stickyheaders;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,10 +85,11 @@ public class VehicleDetectionAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     //Sticky Headers
+    @NonNull
     @Override
-    public long getHeaderId(int position) {
+    public String getHeaderId(int position) {
         DetectionVo vo = getItem(position);
-        return vo.categoryId;
+        return vo.categoryId + "";
     }
 
     @Override

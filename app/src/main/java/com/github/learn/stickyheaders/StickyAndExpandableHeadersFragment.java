@@ -113,7 +113,7 @@ public class StickyAndExpandableHeadersFragment extends Fragment {
         for(int i = 0; i < 20; i++){
             List<DetectionModel> detectionVoList = new ArrayList<>();
             for(int j= 0; j < 20; j++) {
-                DetectionModel model = new DetectionModel(i, false);
+                DetectionModel model = new DetectionModel(i + "", false);
                 model.categoryId = i + id;
                 model.category = (i + id) +" Header ";
                 model.title =  (i + id) +" Title " + j;
@@ -123,7 +123,7 @@ public class StickyAndExpandableHeadersFragment extends Fragment {
                 detectionVoList.add(model);
             }
 
-            DetectionModel model = new DetectionModel((i + id), false);
+            DetectionModel model = new DetectionModel((i + id) + "", false);
             model.categoryId = (i + id);
             model.category = (i + id) +" Header ";
             model.parentItem = true;

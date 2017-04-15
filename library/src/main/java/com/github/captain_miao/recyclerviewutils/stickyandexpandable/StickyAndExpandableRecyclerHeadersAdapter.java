@@ -38,7 +38,7 @@ public abstract class StickyAndExpandableRecyclerHeadersAdapter<T extends Sticky
         headersTouchListener.setOnHeaderClickListener(
                 new StickyAndExpandableHeadersTouchListener.OnHeaderClickListener() {
                     @Override
-                    public void onHeaderClick(View header, int position, long headerId) {
+                    public void onHeaderClick(View header, int position, String headerId) {
                         T item = getItem(position);
                         if(item != null && item.isParentItem()){
                             List<T>  childItemList = item.getChildItemList();

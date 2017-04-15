@@ -1,6 +1,5 @@
 package com.timehop.stickyheadersrecyclerview.caching;
 
-import android.support.v4.util.LongSparseArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +7,9 @@ import android.view.ViewGroup;
 
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.util.OrientationProvider;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  *  Copyright 2016 https://github.com/jacobtabak
@@ -33,7 +35,7 @@ import com.timehop.stickyheadersrecyclerview.util.OrientationProvider;
 public class HeaderViewCache implements HeaderProvider {
 
   private final StickyRecyclerHeadersAdapter mAdapter;
-  private final LongSparseArray<View> mHeaderViews = new LongSparseArray<>();
+  private final Map<String, View> mHeaderViews = new HashMap<>();
   private final OrientationProvider mOrientationProvider;
 
   public HeaderViewCache(StickyRecyclerHeadersAdapter adapter,
@@ -44,7 +46,7 @@ public class HeaderViewCache implements HeaderProvider {
 
   @Override
   public View getHeader(RecyclerView parent, int position) {
-    long headerId = mAdapter.getHeaderId(position);
+    String headerId = mAdapter.getHeaderId(position);
 
     View header = mHeaderViews.get(headerId);
     if (header == null) {

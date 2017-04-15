@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface StickyHeaderItem<T extends StickyHeaderItem> {
 
-    long getHeaderId();
+    String getHeaderId();
 
     boolean isParentItem();
 

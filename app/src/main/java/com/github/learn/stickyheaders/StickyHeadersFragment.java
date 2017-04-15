@@ -71,7 +71,7 @@ public class StickyHeadersFragment extends Fragment {
             touchListener.setOnHeaderClickListener(
                     new StickyRecyclerHeadersTouchListener.OnHeaderClickListener() {
                         @Override
-                        public void onHeaderClick(View header, int position, long headerId) {
+                        public void onHeaderClick(View header, int position, String headerId) {
                             Toast.makeText(getActivity(), "Header position: " + position + ", id: " + headerId,
                                     Toast.LENGTH_SHORT).show();
                         }
