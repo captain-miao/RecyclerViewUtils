@@ -76,7 +76,7 @@ dependencies {
     
 ```
 
-QQ  Group:436275452(Q&A)
+
 # Thanks
 ## import Pull to Refresh
 Ultra Pull to Refresh for Android:https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh.
