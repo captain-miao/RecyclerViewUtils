@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -71,9 +72,17 @@ public class StickyHeadersFragment extends Fragment {
             touchListener.setOnHeaderClickListener(
                     new StickyRecyclerHeadersTouchListener.OnHeaderClickListener() {
                         @Override
-                        public void onHeaderClick(View header, int position, long headerId) {
-                            Toast.makeText(getActivity(), "Header position: " + position + ", id: " + headerId,
-                                    Toast.LENGTH_SHORT).show();
+                        public void onHeaderClick(View header, int position, long headerId, MotionEvent e) {
+                            View view = header.findViewById(R.id.tv_for_click);
+                            int left = view.getLeft();
+                            int right = view.getRight();
+                            float x = e.getX();
+                            float y = e.getX();
+                            // just a demo, (x, y) in view
+                            if(x >= left && y <= right) {
+                                Toast.makeText(getActivity(), "Header position: " + position + ", id: " + headerId,
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
             recyclerView.addOnItemTouchListener(touchListener);

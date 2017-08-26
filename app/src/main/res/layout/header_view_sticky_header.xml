@@ -3,13 +3,20 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="#999999"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:padding="8dp">
 
     <TextView
         android:id="@+id/detail_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text=""/>
+    <TextView
+        android:id="@+id/tv_for_click"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="for click"/>
 
 </LinearLayout>
