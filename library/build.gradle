@@ -19,5 +19,4 @@ dependencies {
     compile("com.android.support:recyclerview-v7:${this.supportLibrariesVersion}")
 }
 
-//apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
-apply from: './gradle-mvn-push.gradle'
+apply from: 'https://raw.github.com/Vorlonsoft/GradleMavenPush/master/maven-push.gradle'
