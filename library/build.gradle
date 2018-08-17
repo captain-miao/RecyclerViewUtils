@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion this.compileSdkVersion
-    buildToolsVersion this.buildToolsVersion
+    compileSdkVersion project.COMPILE_SDK_VERSION as int
+    buildToolsVersion project.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion this.minSdkVersion
+        minSdkVersion project.MIN_SDK_VERSION
     }
     buildTypes {
         release {
@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-    compile("com.android.support:recyclerview-v7:${this.supportLibrariesVersion}")
+    compile("com.android.support:recyclerview-v7:${project.SUPPORT_LIBRARIES_VERSION}")
 }
 
 apply from: 'https://raw.github.com/Vorlonsoft/GradleMavenPush/master/maven-push.gradle'

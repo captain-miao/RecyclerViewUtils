@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://dl.google.com/dl/android/maven2/' }
         maven { url 'https://oss.sonatype.org/content/repositories/releases' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
@@ -17,6 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://dl.google.com/dl/android/maven2/' }
         maven { url 'https://oss.sonatype.org/content/repositories/releases' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
@@ -24,14 +26,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-subprojects {
-    ext.compileSdkVersion = 25
-    ext.buildToolsVersion = '25.0.2'
-    ext.supportLibrariesVersion = '25.2.0'
-    ext.minSdkVersion = '14'
-    ext.targetSdkVersion = '25'
-
-    ext.ageraLibrariesVersion = '1.1.0'
 }

@@ -242,7 +242,7 @@ public abstract class BaseWrapperRecyclerAdapter<T, VH extends RecyclerView.View
                 e.printStackTrace();
                 notifyDataSetChanged();
             }
-            notifyDataSetChanged();
+            // notifyDataSetChanged(); // fix #34
         }
     }
     public void addAll(List<T> list){
