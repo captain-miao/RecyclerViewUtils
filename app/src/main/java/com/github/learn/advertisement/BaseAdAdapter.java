@@ -1,11 +1,11 @@
 package com.github.learn.advertisement;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.annotations.Nullable;
 import com.github.captain_miao.recyclerviewutils.BaseWrapperRecyclerAdapter;
 import com.github.captain_miao.recyclerviewutils.listener.OnRecyclerItemClickListener;
 
